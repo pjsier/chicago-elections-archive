@@ -8,8 +8,8 @@ black = "==19.10b0"
 flake8 = "*"
 
 [packages]
-requests-html = "*"
-esridump = "*"
+beautifulsoup4 = "*"
+requests = "*"
 
 [requires]
 python_version = "3.9"

@@ -1,7 +1,8 @@
 import json
 import sys
 
-from requests_html import HTMLSession
+import requests
+from bs4 import BeautifulSoup
 
 # TODO: Identify all
 ELECTIONS = {
@@ -24,19 +25,20 @@ ELECTIONS = {
 }
 
 
-def get_races(html):
+def get_races(soup):
     return {
-        o.attrs["value"].strip() or "0": o.text.split("\n")[0].strip()
-        for o in html.find("#race option")
+        o.get("value").strip() or "0": o.get_text().split("\n")[0].strip()
+        for o in soup.select("#race option")
     }
 
 
 if __name__ == "__main__":
-    session = HTMLSession()
     election_metadata = {k: {"label": v, "races": {}} for k, v in ELECTIONS.items()}
     for election in ELECTIONS.keys():
-        res = session.get(
+        res = requests.get(
             f"https://chicagoelections.gov/en/election-results.asp?election={election}"
         )
-        election_metadata[election]["races"] = get_races(res.html)
+        election_metadata[election]["races"] = get_races(
+            BeautifulSoup(res.text, features="lxml")
+        )
     json.dump(election_metadata, sys.stdout)

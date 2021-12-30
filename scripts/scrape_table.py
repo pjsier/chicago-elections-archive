@@ -1,18 +1,18 @@
 import csv
 import sys
 
-from requests_html import HTML
+from bs4 import BeautifulSoup
 
 
-def get_candidates(html):
-    headers = [v.text for v in html.find("table", first=True).find("b")][1:]
+def get_candidates(soup):
+    headers = [v.get_text().strip() for v in soup.find("table").find_all("b")]
     return [h for h in headers if "%" not in h]
 
 
 def process_table(table, candidates):
-    ward = int(table.find("thead th b, tr td b", first=True).text.split()[-1])
+    ward = int(table.select("thead th b, tr td b")[0].get_text().split()[-1])
     rows = []
-    for row in table.find("tr"):
+    for row in table.find_all("tr"):
         row_values = get_row_values(row, ward, candidates)
         if row_values:
             rows.append(row_values)
@@ -20,7 +20,7 @@ def process_table(table, candidates):
 
 
 def get_row_values(row, ward, candidates):
-    values = [v.text.strip() for v in row.find("td")]
+    values = [v.get_text().strip() for v in row.find_all("td")]
     if len(values) == 0 or any(
         w in values[0].lower() for w in ["total", "precinct", "ward"]
     ):
@@ -41,14 +41,14 @@ def get_row_values(row, ward, candidates):
 
 if __name__ == "__main__":
     with open(sys.argv[1], "rb") as f:
-        html = HTML(html=f.read())
-    candidates = get_candidates(html)
+        soup = BeautifulSoup(f.read(), features="lxml")
+    candidates = get_candidates(soup)
     columns = (
-        ["id", "township", "ward", "precinct", "registered", "ballots", "total"]
+        ["id", "ward", "precinct", "registered", "ballots", "total"]
         + candidates
         + [f"{c} Percent" for c in candidates]
     )
     writer = csv.DictWriter(sys.stdout, fieldnames=columns)
     writer.writeheader()
-    for table in html.find("table")[1:]:
+    for table in soup.find_all("table")[1:]:
         writer.writerows(process_table(table, candidates))
