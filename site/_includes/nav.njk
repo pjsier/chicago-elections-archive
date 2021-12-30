@@ -1,0 +1,22 @@
+<header class="flex flex-row items-center justify-center py-3 mb-5 bg-blue-800">
+  <div class="max-w-screen-md px-3 text-white flex flex-row items-start justify-between flex-grow">
+    <div class="flex flex-row items-center">
+      <a class="text-white" href="/">
+        {{ site.title }}
+      </a>
+    </div>
+    <nav id="nav" class="flex-column justify-end">
+      <button id="nav-toggle" class="flex-row items-center justify-end p-0 m-0 border-0 text-right appearance-none bg-transparent" aria-expanded="false" aria-controls="nav-menu">
+        <span>Menu</span>
+        <span class="ml-1" aria-hidden="true">☰</span>
+      </button>
+      <ul id="nav-menu" class="m-0 flex flex-row justify-end">
+        {% for link in site.nav %}
+        <li>
+          <a class="text-white" href="{{ link.url }}" {% if link.url[0] != "/" %}target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,94 @@
+{
+  "name": "chicago-elections-archive",
+  "version": "0.1.0",
+  "author": "Pat Sier",
+  "license": "MIT",
+  "description": "Site for chicago-elections-archive",
+  "scripts": {
+    "format": "prettier --write **/*.{js,css} !dist",
+    "start": "NODE_ENV=development run-p -l start:*",
+    "start:eleventy": "eleventy --serve",
+    "start:rollup": "rollup --config rollup.config.js -w",
+    "start:postcss": "postcss ./src/css -d ./site/_includes -w",
+    "build": "NODE_ENV=production run-s -l build:*",
+    "build:clean": "rm -rf dist",
+    "build:rollup": "rollup --config rollup.config.js",
+    "build:postcss": "postcss ./src/css -d ./site/_includes",
+    "build:webpack": "webpack --config webpack.config.js",
+    "build:eleventy": "eleventy",
+    "deploy": "echo 'NOT IMPLEMENTED'",
+    "lint": "eslint ./src/js/**/*.js",
+    "style": "prettier --check src/**/**.{js,css}",
+    "analyze": "source-map-explorer dist/**/*.js dist/**/*.js.map"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^0.11.0",
+    "@11ty/eleventy-img": "^0.8.0",
+    "@babel/core": "^7.13.10",
+    "@babel/preset-env": "^7.13.10",
+    "@quasibit/eleventy-plugin-sitemap": "^2.0.4",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "autoprefixer": "^10.2.5",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "core-js": "^3.9.1",
+    "cssnano": "^4.1.10",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.21.0",
+    "eslint-plugin-import": "^2.22.0",
+    "esm": "^3.2.25",
+    "file-loader": "^6.0.0",
+    "html-minifier": "^4.0.0",
+    "html-webpack-plugin": "^5.3.1",
+    "markdown-it": "^12.0.4",
+    "markdown-it-link-attributes": "^3.0.0",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.2.7",
+    "postcss-cli": "^8.3.1",
+    "postcss-import": "^14.0.0",
+    "prettier": "^2.0.5",
+    "prettier-eslint": "^12.0.0",
+    "rollup": "^2.41.0",
+    "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-terser": "^7.0.0",
+    "source-map-explorer": "^2.5.2",
+    "tailwindcss": "^1.9.6",
+    "terser-webpack-plugin": "^5.1.1",
+    "webpack": "^5.24.4",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "classlist-polyfill": "^1.2.0",
+    "formdata-polyfill": "^3.0.20",
+    "mapbox-gl": "^1.13.2",
+    "url-search-params-polyfill": "^8.1.0",
+    "whatwg-fetch": "^3.6.2"
+  },
+  "eslintConfig": {
+    "extends": [
+      "eslint:recommended"
+    ],
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "plugins": [
+      "import"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    }
+  },
+  "prettier": {
+    "endOfLine": "lf",
+    "semi": false,
+    "singleQuote": false,
+    "tabWidth": 2,
+    "trailingComma": "es5"
+  }
+}

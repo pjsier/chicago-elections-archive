@@ -1,4 +1,3 @@
-.env
 .venv
 .vscode
 input/*
@@ -8,3 +7,15 @@ output/*
 dist/*
 !dist/.keep
 !input/metadata.json
+.DS_Store
+.env*
+!/.env.sample
+node_modules
+dist/
+site/_includes/*.js
+site/_includes/*.css
+site/_includes/webpack.njk
+site/img/*
+!site/img/.keep
+site/data/*
+!site/data/.keep

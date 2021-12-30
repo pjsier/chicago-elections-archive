@@ -1,0 +1,19 @@
+#nav-toggle[aria-expanded="true"] {
+  @apply mb-2;
+}
+
+#nav-toggle[aria-expanded="false"] + #nav-menu {
+  @apply hidden;
+}
+
+@screen lg {
+  #nav-toggle {
+    @apply hidden;
+  }
+  #nav-toggle[aria-expanded="true"] {
+    @apply mb-0;
+  }
+  #nav-toggle[aria-expanded="false"] + #nav-menu {
+    @apply flex;
+  }
+}
