@@ -10,6 +10,7 @@ flake8 = "*"
 [packages]
 beautifulsoup4 = "*"
 requests = "*"
+csvkit = "*"
 
 [requires]
 python_version = "3.9"

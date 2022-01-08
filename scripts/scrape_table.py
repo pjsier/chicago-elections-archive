@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 def get_candidates(soup):
     headers = [v.get_text().strip() for v in soup.find("table").find_all("b")]
-    return [h for h in headers if "%" not in h]
+    return [h for h in headers if "%" not in h and h != "Votes"]
 
 
 def process_table(table, candidates):
@@ -21,16 +21,18 @@ def process_table(table, candidates):
 
 def get_row_values(row, ward, candidates):
     values = [v.get_text().strip() for v in row.find_all("td")]
-    if len(values) == 0 or any(
+    if len(values) <= 1 or any(
         w in values[0].lower() for w in ["total", "precinct", "ward"]
     ):
         return
     vote_values = [int(v.replace(",", "")) for v in values[2:] if "%" not in v]
-    pct_values = [float(v.replace("%", "")) for v in values[2:] if "%" in v]
+    pct_values = [
+        float(v.replace(",", "").replace("%", "")) for v in values[2:] if "%" in v
+    ]
     return {
         "id": f"{str(ward).zfill(2)}{values[0].zfill(3)}",
         "ward": ward,
-        "precinct": int(values[0]),
+        "precinct": int(values[0] or "0"),
         "registered": "",
         "ballots": "",
         "total": int(values[1].replace(",", "")),
