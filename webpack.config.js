@@ -7,7 +7,7 @@ const config = {
   devtool: "source-map",
   mode: "production",
   entry: {
-    app: [path.resolve("./src/js/entry.js")],
+    app: [path.resolve("./src/js/legacy.js")],
   },
   output: {
     path: path.resolve("./dist/static"),
@@ -43,6 +43,7 @@ const config = {
                     modules: false,
                   },
                 ],
+                "solid",
               ],
             },
           },

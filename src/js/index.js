@@ -1,12 +1,8 @@
-function setupNavToggle() {
-  const navToggle = document.getElementById("nav-toggle")
+import { setupNavToggle } from "./utils"
+import { renderMap } from "./map"
 
-  navToggle.addEventListener("click", () => {
-    const expanded = navToggle.getAttribute("aria-expanded")
-    navToggle.setAttribute("aria-expanded", !(expanded === "true"))
-  })
+setupNavToggle()
+const mapContainer = document.getElementById("map")
+if (mapContainer) {
+  renderMap(mapContainer)
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  setupNavToggle()
-})

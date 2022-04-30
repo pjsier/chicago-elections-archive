@@ -1,5 +1,6 @@
-<header class="flex flex-row items-center justify-center py-3 mb-5 bg-blue-800">
-  <div class="max-w-screen-md px-3 text-white flex flex-row items-start justify-between flex-grow">
+<header class="flex flex-row items-center justify-center py-3 bg-blue-800">
+  <a id="skip-navigation" class="visually-hidden-focusable" href="{{ page.url }}#main">Skip navigation</a>
+  <div class="max-w-6xl px-3 text-white flex flex-row items-start justify-between flex-grow">
     <div class="flex flex-row items-center">
       <a class="text-white" href="/">
         {{ site.title }}
@@ -13,7 +14,7 @@
       <ul id="nav-menu" class="m-0 flex flex-row justify-end">
         {% for link in site.nav %}
         <li>
-          <a class="text-white" href="{{ link.url }}" {% if link.url[0] != "/" %}target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>
+          <a class="text-white" href="{{ link.url }}" {% if link.url == page.url %}aria-current="page"{% endif %} {% if link.url[0] != "/" %}target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>
         </li>
         {% endfor %}
       </ul>

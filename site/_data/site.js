@@ -13,8 +13,10 @@ module.exports = {
   baseurl,
   url: `${host}${baseurl}`,
   production,
-  robots: production,
+  // robots: production,
+  robots: false,
   googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
   locale: "en-us",
+  precinctYears: [2019, 2020],
   nav: [{ url: "/about/", label: "About" }],
 }

@@ -1,3 +1,7 @@
+#nav-menu {
+  @apply flex flex-col text-right;
+}
+
 #nav-toggle[aria-expanded="true"] {
   @apply mb-2;
 }
@@ -6,7 +10,21 @@
   @apply hidden;
 }
 
+#skip-navigation {
+  @apply absolute top-0 left-0 mt-12 z-10 pl-3;
+}
+
+#nav-menu a[aria-current="page"] {
+  @apply font-bold;
+}
+
 @screen lg {
+  #nav-menu {
+    @apply flex-row;
+  }
+  #nav-menu li {
+    @apply ml-3;
+  }
   #nav-toggle {
     @apply hidden;
   }

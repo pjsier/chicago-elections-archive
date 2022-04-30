@@ -1,0 +1,18 @@
+main.map {
+  @apply w-full relative;
+
+  min-height: calc(100vh - 48px);
+}
+
+#map {
+  @apply absolute top-0 left-0 bottom-0 right-0;
+}
+
+#map-controls {
+  @apply absolute px-2 py-4 bg-gray-200;
+
+  width: 300px;
+  height: 240px;
+  right: 1.5rem;
+  bottom: 2.5rem;
+}

@@ -1,3 +1,12 @@
+export function setupNavToggle() {
+  const navToggle = document.getElementById("nav-toggle")
+
+  navToggle.addEventListener("click", () => {
+    const expanded = navToggle.getAttribute("aria-expanded")
+    navToggle.setAttribute("aria-expanded", !(expanded === "true"))
+  })
+}
+
 export function formToObj(form) {
   const formObj = {}
   const formNames = [

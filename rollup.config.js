@@ -6,13 +6,10 @@ import { terser } from "rollup-plugin-terser"
 export default [
   {
     input: "src/js/index.js",
-    external: ["mapbox-gl"],
+    external: ["maplibre-gl"],
     output: {
       file: "site/_includes/index.js",
       format: "esm",
-      globals: {
-        "mapbox-gl": "mapboxgl",
-      },
     },
     plugins: [
       resolve(),
@@ -20,11 +17,11 @@ export default [
       copy({
         targets: [
           {
-            src: "node_modules/mapbox-gl/dist/mapbox-gl.js",
+            src: "node_modules/maplibre-gl/dist/maplibre-gl.js",
             dest: "dist/static",
           },
           {
-            src: "node_modules/mapbox-gl/dist/mapbox-gl.css",
+            src: "node_modules/maplibre-gl/dist/maplibre-gl.css",
             dest: "dist/static",
           },
         ],

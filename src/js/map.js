@@ -1,60 +1,96 @@
-import { searchParamsToForm, formToObj, formToSearchParams } from "./utils"
-const isMobile = () => window.innerWidth <= 600
-
-function onMapLoad(map) {}
-
-function setupMap() {
-  const mapContainer = document.getElementById("map")
-
-  const mapParams = isMobile()
-    ? { center: [-89.3, 39.52], zoom: 5.6 }
-    : { center: [-89.3, 40], zoom: 6.1 }
-
-  const map = new window.mapboxgl.Map({
+export function renderMap(mapContainer) {
+  const map = new window.maplibregl.Map({
     container: mapContainer,
-    minZoom: 5.6,
-    maxZoom: isMobile() ? 11.75 : 12,
+    style: "style.json",
+    center: [-87.6651, 41.8514],
+    minZoom: 8,
+    maxZoom: 15,
+    zoom: 9.25,
     hash: true,
     dragRotate: false,
-    style: `style.json`,
-    attributionControl: false,
-    ...mapParams,
+    attributionControl: true,
   })
 
   map.touchZoomRotate.disableRotation()
+  map.addControl(
+    new window.maplibregl.NavigationControl({ showCompass: false })
+  )
 
-  map.once("styledata", () => {
-    map.addControl(
-      new window.mapboxgl.AttributionControl({
-        compact: window.innerWidth < 800,
-      })
-    )
-    map.addControl(
-      new window.mapboxgl.NavigationControl({ showCompass: false })
-    )
-    map.addControl(
-      new window.mapboxgl.FullscreenControl({ container: mapContainer })
-    )
-    onMapLoad(map)
+  const isMobile = () => window.innerWidth <= 600
+
+  const hoverPopup = new window.maplibregl.Popup({
+    closeButton: false,
+    closeOnClick: false,
   })
+
+  const clickPopup = new window.maplibregl.Popup({
+    closeButton: true,
+    closeOnClick: true,
+  })
+
+  const removePopup = (popup) => {
+    map.getCanvas().style.cursor = ""
+    popup.remove()
+  }
+
+  const popupContent = ({
+    properties: { date, victimName, officerNames, slug },
+  }) => {
+    return `
+    <p><strong>Date</strong> <span>${date}</span></p>
+    <p><strong>Victim</strong> <span>${victimName}</span></p>
+    <p><strong>Officers</strong> <span>${JSON.parse(officerNames).join(
+      ", "
+    )}</span></p>
+    <p>
+      <a href="/archive/${slug}">See more details</a>
+    </p>
+  `
+  }
+
+  const onMouseMove = (e) => {
+    const features = map.queryRenderedFeatures(e.point, {
+      layers: ["cases"],
+    })
+    if (features.length > 0 && !clickPopup.isOpen()) {
+      map.getCanvas().style.cursor = "pointer"
+      if (!isMobile()) {
+        hoverPopup
+          .setLngLat(e.lngLat)
+          .setHTML(
+            `<div class="popup hover">${popupContent(features[0])}</div>`
+          )
+          .addTo(map)
+      }
+    } else {
+      removePopup(hoverPopup)
+    }
+  }
+
+  const onMouseOut = () => {
+    removePopup(hoverPopup)
+  }
+
+  const onMapClick = (e) => {
+    const features = map.queryRenderedFeatures(e.point, {
+      layers: ["cases"],
+    })
+    if (features.length > 0) {
+      map.getCanvas().style.cursor = "pointer"
+      removePopup(hoverPopup)
+      clickPopup
+        .setLngLat(e.lngLat)
+        .setHTML(`<div class="popup click">${popupContent(features[0])}</div>`)
+        .addTo(map)
+    }
+  }
+
+  map.on("mousemove", "cases", onMouseMove)
+  map.on("mouseout", "cases", onMouseOut)
+  map.on("click", "cases", onMapClick)
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  // Check if page is embedded, toggle some conditional styles
-  const searchParams = new URLSearchParams(window.location.search)
-  if (searchParams.get("embed")) {
-    document.documentElement.classList.toggle("embedded", true)
-  }
-
-  const form = document.getElementById("legend-form")
-  searchParamsToForm(form)
-
-  // Hide controls if showing Biden/Tax Amendment difference
-  if (getMapRace() === "tax-diff") {
-    form.querySelectorAll("fieldset").forEach((fieldset) => {
-      fieldset.classList.toggle("hidden", true)
-    })
-  }
-
-  setupMap()
-})
+const mapContainer = document.getElementById("map")
+if (mapContainer) {
+  renderMap(mapContainer)
+}
