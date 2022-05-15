@@ -37,12 +37,12 @@ output/precincts-%.geojson: input/wards.geojson
 
 output/results/%.csv: input/%.html
 	mkdir -p $(dir $@)
-	pipenv run python scripts/scrape_table.py $< > $@
+	poetry run python scripts/scrape_table.py $< > $@
 
 output/results/%/0.csv: input/%/0.html
 	mkdir -p $(dir $@)
 	echo "id,ward,precinct,registered,ballots,turnout" > $@
-	pipenv run python scripts/scrape_table.py $< | \
+	poetry run python scripts/scrape_table.py $< | \
 	xsv select --no-headers 1-3,6,7,9 -| \
 	xsv slice --no-headers -s 1 - >> $@
 
@@ -76,17 +76,17 @@ output/precincts-1983.geojson: input/wards.geojson
 
 output/results/19831/0.csv: input/1983/19831.csv
 	mkdir -p $(dir $@)
-	cat $< | pipenv run python scripts/process_1983.py > $@
+	cat $< | poetry run python scripts/process_1983.py > $@
 
 output/results/19830/0.csv: input/1983/19830.csv
 	mkdir -p $(dir $@)
-	cat $< | pipenv run python scripts/process_1983.py > $@
+	cat $< | poetry run python scripts/process_1983.py > $@
 
 input/1983/19831.csv: input/1983/
-	pipenv run in2csv input/1983/Mayoral_General/ElectionResults_Spreadsheet/1983_MayoralGeneral_ElectionResultsSpreadsheet.xlsx > $@
+	poetry run in2csv input/1983/Mayoral_General/ElectionResults_Spreadsheet/1983_MayoralGeneral_ElectionResultsSpreadsheet.xlsx > $@
 
 input/1983/19830.csv: input/1983/
-	pipenv run in2csv input/1983/Mayoral_Primary/ElectionResults_Spreadsheet/1983_MayoralPrimary_ElectionResultsSpreadsheet.xlsx > $@
+	poetry run in2csv input/1983/Mayoral_Primary/ElectionResults_Spreadsheet/1983_MayoralPrimary_ElectionResultsSpreadsheet.xlsx > $@
 
 input/1983/: input/1983.zip
 	unzip -DD -d input $<
@@ -102,7 +102,7 @@ input/%.html:
 	-d "election=$(word 1,$(subst /, ,$*))&race=$(filter-out 0,$(word 2,$(subst /, ,$*)))&ward=&precinct=" -o $@
 
 input/results-metadata.json:
-	pipenv run python scripts/scrape_results_metadata.py > $@
+	poetry run python scripts/scrape_results_metadata.py > $@
 
 input/wards.geojson:
 	wget -O $@ 'https://data.cityofchicago.org/api/geospatial/sp34-6z76?method=export&format=GeoJSON'
