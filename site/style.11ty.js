@@ -14,7 +14,8 @@ exports.render = ({ site }) => {
         attribution:
           '<a href="https://chicagoelections.com/" target="_blank">Chicago Board of Election Commissioners</a>',
         generateId: true,
-        tolerance: 0.8, // pre-simplify in processing, removes slivers between polygons
+        tolerance: 0, // TODO:
+        // tolerance: 0.8, // pre-simplify in processing, removes slivers between polygons
       },
     }),
     {}
@@ -910,7 +911,7 @@ exports.render = ({ site }) => {
       {
         id: "precincts",
         type: "fill",
-        source: "precincts-2020",
+        source: `precincts-${site.precinctYears.slice(-1)[0]}`,
         paint: {
           "fill-outline-color": "rgba(0,0,0,0)",
           "fill-color": "rgba(0,0,0,0)",

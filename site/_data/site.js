@@ -17,6 +17,8 @@ module.exports = {
   robots: false,
   googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
   locale: "en-us",
-  precinctYears: [2019, 2020],
+  precinctYears: [
+    1983, 2000, 2003, 2004, 2007, 2008, 2010, 2011, 2012, 2015, 2019,
+  ],
   nav: [{ url: "/about/", label: "About" }],
 }
