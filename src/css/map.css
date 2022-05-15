@@ -4,6 +4,7 @@ main.map {
   min-height: calc(100vh - 48px);
 }
 
+#map-container,
 #map {
   @apply absolute top-0 left-0 bottom-0 right-0;
 }

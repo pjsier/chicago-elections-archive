@@ -1,8 +1,9 @@
+import { render } from "solid-js/web"
 import { setupNavToggle } from "./utils"
-import { renderMap } from "./map"
+import MapPage from "./pages/map-page"
 
 setupNavToggle()
-const mapContainer = document.getElementById("map")
+const mapContainer = document.getElementById("map-container")
 if (mapContainer) {
-  renderMap(mapContainer)
+  render(() => <MapPage />, mapContainer)
 }

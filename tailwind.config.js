@@ -17,7 +17,7 @@ const baseFonts = [
 module.exports = {
   important: false,
   purge: {
-    enabled: process.env.NODE_ENV === "production",
+    enabled: true,
     layers: ["base", "components", "utilities"],
     content: ["./src/**/*.js", "./site/**/*.njk", "./site/**/*.11ty.js"],
   },

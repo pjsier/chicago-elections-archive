@@ -10,7 +10,7 @@ exports.render = ({ site }) => {
       ...acc,
       [`precincts-${year}`]: {
         type: "geojson",
-        data: `https://chicago-elections-archive-demo.s3.us-east-2.amazonaws.com/precincts-${year}.geojson`,
+        data: `https://chicago-elections-archive.us-east-1.linodeobjects.com/precincts-${year}.geojson`,
         attribution:
           '<a href="https://chicagoelections.com/" target="_blank">Chicago Board of Election Commissioners</a>',
         generateId: true,

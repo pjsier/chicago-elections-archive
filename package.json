@@ -31,14 +31,14 @@
     "@quasibit/eleventy-plugin-sitemap": "^2.1.5",
     "@rollup/plugin-babel": "^5.3.1",
     "@rollup/plugin-commonjs": "^21.0.3",
-    "@rollup/plugin-node-resolve": "^13.1.3",
-    "autoprefixer": "^10.4.4",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.4",
-    "babel-preset-solid": "^1.3.13",
-    "core-js": "^3.21.1",
+    "babel-preset-solid": "^1.4.0",
+    "core-js": "^3.22.5",
     "cssnano": "^5.1.7",
-    "dotenv": "^16.0.0",
-    "eslint": "^8.12.0",
+    "dotenv": "^16.0.1",
+    "eslint": "^8.15.0",
     "eslint-plugin-import": "^2.25.4",
     "esm": "^3.2.25",
     "file-loader": "^6.0.0",
@@ -52,27 +52,34 @@
     "postcss-import": "^14.1.0",
     "prettier": "^2.6.1",
     "prettier-eslint": "^13.0.0",
-    "rollup": "^2.70.0",
+    "rollup": "^2.73.0",
     "rollup-plugin-copy": "^3.4.0",
+    "rollup-plugin-external-globals": "^0.6.1",
     "rollup-plugin-terser": "^7.0.0",
     "source-map-explorer": "^2.5.2",
     "tailwindcss": "^1.9.6",
     "terser-webpack-plugin": "^5.3.1",
-    "webpack": "^5.71.0",
+    "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
   },
   "dependencies": {
     "classlist-polyfill": "^1.2.0",
+    "d3-array": "^3.1.6",
     "d3-dsv": "^2.0.0",
+    "d3-interpolate": "^3.0.1",
+    "d3-scale": "^4.0.2",
     "date-input-polyfill": "^2.14.0",
+    "eslint-plugin-solid": "^0.4.7",
     "formdata-polyfill": "^4.0.10",
     "maplibre-gl": "^2.1.7",
+    "solid-js": "^1.4.1",
     "url-search-params-polyfill": "^8.1.0",
     "whatwg-fetch": "^3.6.2"
   },
   "eslintConfig": {
     "extends": [
-      "eslint:recommended"
+      "eslint:recommended",
+      "plugin:solid/recommended"
     ],
     "env": {
       "browser": true,
@@ -81,7 +88,8 @@
       "node": true
     },
     "plugins": [
-      "import"
+      "import",
+      "solid"
     ],
     "parser": "@babel/eslint-parser",
     "parserOptions": {
@@ -90,7 +98,8 @@
       "requireConfigFile": false,
       "babelOptions": {
         "presets": [
-          "@babel/preset-env"
+          "@babel/preset-env",
+          "babel-preset-solid"
         ]
       }
     }

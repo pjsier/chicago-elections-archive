@@ -1,3 +1,6 @@
+S3_BUCKET = chicago-elections-archive
+S3_REGION = us-east-1
+
 PRECINCT_YEARS := 1983 2000 2003 2004 2007 2008 2010 2011 2012 2015 2019
 ELECTION_IDS := $(shell cat input/results-metadata.json | jq -r 'keys[]')
 IGNORE_RESULTS := output/results/7/334.csv output/results/7/335.csv output/results/80/250.csv output/results/80/255.csv output/results/80/253.csv output/results/80/261.csv output/results/80/266.csv 
@@ -7,6 +10,19 @@ RESULTS := $(filter-out $(IGNORE_RESULTS),$(foreach id,$(ELECTION_IDS),$(foreach
 all: input/results-metadata.json $(RESULTS) $(foreach year,$(PRECINCT_YEARS),output/precincts-$(year).geojson)
 
 .PRECIOUS: input/%.html output/results/%.csv
+
+.PHONY: deploy
+deploy:
+	s3cmd sync ./output/ s3://$(S3_BUCKET)/ \
+		--region=$(S3_REGION) \
+		--host=$(S3_REGION).linodeobjects.com \
+		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
+		--progress \
+		--no-preserve \
+		--acl-public \
+		--no-mime-magic \
+		--guess-mime-type \
+		--add-header 'Cache-Control: "public, max-age=0, must-revalidate"'
 
 output/precincts-%.geojson: input/wards.geojson
 	wget -qO - https://raw.githubusercontent.com/datamade/chicago-municipal-elections/master/precincts/$*_precincts.geojson | \
