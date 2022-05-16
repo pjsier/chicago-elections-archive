@@ -3,8 +3,9 @@ import { csvParse } from "d3-dsv"
 import { maxIndex, minIndex } from "d3-array"
 import { interpolateRgb } from "d3-interpolate"
 import { scaleSequential } from "d3-scale"
+import maplibregl from "maplibre-gl"
 import { useMapStore } from "../providers/map"
-import { usePopup } from "../providers/popup"
+import { getPrecinctYear } from "../utils/map"
 
 const COLOR_SCHEME = [
   "#1f77b4",
@@ -18,15 +19,6 @@ const COLOR_SCHEME = [
   "#bcbd22",
   "#17becf",
 ]
-
-const getPrecinctYear = (year) => {
-  if (year > 1983 && year < 2003) return 2003
-  if ([2014, 2015, 2016].includes(year)) return 2015
-  if (year === 2006) return 2007
-  return [2019, 2015, 2011, 2010, 2008, 2007, 2004, 2003, 1983].find(
-    (y) => year >= y
-  )
-}
 
 function fetchCsvData(election, race) {
   return fetch(
@@ -82,12 +74,12 @@ const dataJoinExpression = (
 ) => {
   let expr = ["match", ["get", "id"]]
   const dataMatch = data.map((row) => {
-    const rowValues = Object.entries(row).filter(([key, value]) =>
-      dataCols.includes(key)
+    const rowValues = Object.entries(row).filter((entry) =>
+      dataCols.includes(entry[0])
     )
 
-    const maxIdx = maxIndex(rowValues, ([key, value]) => value)
-    const minIdx = minIndex(rowValues, ([key, value]) => value)
+    const maxIdx = maxIndex(rowValues, (entry) => entry[1])
+    const minIdx = minIndex(rowValues, (entry) => entry[1])
     const index =
       +election >= 103 &&
       +election <= 164 &&
@@ -117,6 +109,13 @@ const createPrecinctLayerDefinition = (data, election, year) => {
       100
     ),
   ]
+  const dataMap = data.reduce(
+    (acc, val) => ({
+      ...acc,
+      [val.id]: val,
+    }),
+    {}
+  )
   const colorScales = COLOR_SCHEME.map((c) =>
     scaleSequential(interpolateRgb("#ffffff", c)).domain(dataDomain)
   )
@@ -153,6 +152,7 @@ const createPrecinctLayerDefinition = (data, election, year) => {
     legendData: {
       candidates,
       dataCols,
+      dataMap,
       maxDomain: dataDomain[1],
     },
   }
@@ -175,21 +175,26 @@ const Map = (props) => {
     setMapStore({ ...mapStore, map })
   })
 
-  createEffect(async () => {
-    const data = await fetchCsvData(props.election, props.race)
-    const def = createPrecinctLayerDefinition(data, props.election, props.year)
+  createEffect(() => {
+    fetchCsvData(props.election, props.race).then((data) => {
+      const def = createPrecinctLayerDefinition(
+        data,
+        props.election,
+        props.year
+      )
 
-    setMapStore({ ...mapStore, legendData: def.legendData })
+      setMapStore({ ...mapStore, legendData: def.legendData })
 
-    if (map.isStyleLoaded()) {
-      map.removeLayer("precincts")
-      map.addLayer(def.layerDefinition, "poi_label")
-    } else {
-      map.once("styledata", () => {
+      if (map.isStyleLoaded()) {
         map.removeLayer("precincts")
-        map.addLayer(def.layerDefinition, "poi_label")
-      })
-    }
+        map.addLayer(def.layerDefinition, "place_other")
+      } else {
+        map.once("styledata", () => {
+          map.removeLayer("precincts")
+          map.addLayer(def.layerDefinition, "place_other")
+        })
+      }
+    })
   })
 
   onCleanup(() => {

@@ -7,6 +7,18 @@ export function setupNavToggle() {
   })
 }
 
+export function descending(a, b) {
+  return a == null || b == null
+    ? NaN
+    : b < a
+    ? -1
+    : b > a
+    ? 1
+    : b >= a
+    ? 0
+    : NaN
+}
+
 export function formToObj(form) {
   const formObj = {}
   const formNames = [
@@ -65,4 +77,40 @@ export function searchParamsToForm(form) {
       input.value = value
     }
   }
+}
+export const fromEntries = (entries) =>
+  entries.reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {})
+
+export const objectFromSearchParams = (params) => {
+  const obj = {}
+  params.forEach((val, key) => {
+    obj[key] = val
+  })
+  return obj
+}
+
+export function updateQueryParams(params) {
+  // Retain query params not included in the params we're updating
+  const initParams = fromEntries(
+    Object.entries(
+      objectFromSearchParams(new URLSearchParams(window.location.search))
+    ).filter((vals) => !Object.keys(params).includes(vals[0]))
+  )
+  // TODO: If boolean filters may need to be more careful here
+  const cleanParams = fromEntries(
+    Object.entries(params).filter(([key, value]) =>
+      key === `page` ? value > 1 : !!value
+    )
+  )
+  // Merge the existing, unwatched params with the filter params
+  const updatedParams = new URLSearchParams({
+    ...initParams,
+    ...cleanParams,
+  })
+  const suffix = updatedParams.toString() === `` ? `` : `?${updatedParams}`
+  window.history.replaceState(
+    {},
+    window.document.title,
+    `${window.location.protocol}//${window.location.host}${window.location.pathname}${suffix}`
+  )
 }

@@ -1,9 +1,8 @@
 import { onMount, onCleanup, createEffect } from "solid-js"
-import { useMapStore } from "../providers/map"
+import maplibregl from "maplibre-gl"
 import { usePopup } from "../providers/popup"
 
 const Popup = (props) => {
-  const [map, setMap] = useMapStore()
   const [popup, setPopup] = usePopup()
   let popupObj = null
 
@@ -29,7 +28,7 @@ const Popup = (props) => {
       })
     }
 
-    const onMouseOut = (e) => {
+    const onMouseOut = () => {
       if (popup.click) return
       props.map.getCanvas().style.cursor = ""
       popupObj.remove()

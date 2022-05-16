@@ -2,7 +2,7 @@ import { For } from "solid-js"
 import { useMapStore } from "../providers/map"
 
 const Legend = (props) => {
-  const [mapStore, setMapStore] = useMapStore()
+  const [mapStore] = useMapStore()
 
   // TODO: handle display overrides here
   return (
@@ -10,7 +10,7 @@ const Legend = (props) => {
       <h2>{props.raceLabel}</h2>
       <div
         class="color-ramp"
-        style="background-image: linear-gradient(to right, #fff, #333)"
+        style={{ "background-image": "linear-gradient(to right, #fff, #333)" }}
       >
         <span class="ramp-label">0%</span>
         <span class="ramp-label">
@@ -20,8 +20,8 @@ const Legend = (props) => {
       <For each={mapStore.legendData?.candidates || []}>
         {({ name, color }) => (
           <div class="legend-item">
-            <div class="color" style={`background-color: ${color}`}></div>{" "}
-            <span>{name}</span>
+            <div class="color" style={{ "background-color": color }}></div>{" "}
+            <span>{props.displayOverrides[name] || name}</span>
           </div>
         )}
       </For>

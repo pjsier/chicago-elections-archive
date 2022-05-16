@@ -1,10 +1,12 @@
-import { For, Show, createMemo } from "solid-js"
+import { For, Show, createEffect, createMemo } from "solid-js"
 import { createStore } from "solid-js/store"
 import Map from "../components/map"
 import Legend from "../components/legend"
 import Popup from "../components/popup"
+import PopupContent from "../components/popup-content"
 import { useMapStore } from "../providers/map"
 import { usePopup } from "../providers/popup"
+import { updateQueryParams } from "../utils"
 
 const MapPage = (props) => {
   const [state, setState] = createStore({
@@ -12,8 +14,16 @@ const MapPage = (props) => {
     race: props.initialRace || `0`,
     year: props.initialYear || 2022,
   })
-  const [mapStore, setMapStore] = useMapStore()
-  const [popup, setPopup] = usePopup()
+  const [mapStore] = useMapStore()
+  const [popup] = usePopup()
+
+  createEffect(() => {
+    updateQueryParams({
+      election: state.election,
+      race: state.race,
+      year: state.year,
+    })
+  })
 
   const raceOptions = createMemo(() =>
     Object.entries(props.elections[state.election].races).map(
@@ -23,7 +33,22 @@ const MapPage = (props) => {
 
   return (
     <>
-      <section style="position: absolute; z-index: 1000">
+      <Map
+        year={state.year}
+        election={state.election}
+        race={state.race}
+        mapOptions={{
+          style: "style.json",
+          center: [-87.6651, 41.8514],
+          minZoom: 8,
+          maxZoom: 15,
+          zoom: 9.25,
+          hash: true,
+          dragRotate: false,
+          attributionControl: true,
+        }}
+      />
+      <div id="legend">
         <form method="GET" action="">
           <select
             onChange={(e) =>
@@ -42,23 +67,11 @@ const MapPage = (props) => {
             </For>
           </select>
         </form>
-      </section>
-      <Map
-        year={state.year}
-        election={state.election}
-        race={state.race}
-        mapOptions={{
-          style: "style.json",
-          center: [-87.6651, 41.8514],
-          minZoom: 8,
-          maxZoom: 15,
-          zoom: 9.25,
-          hash: true,
-          dragRotate: false,
-          attributionControl: true,
-        }}
-      />
-      <Legend raceLabel={props.elections[state.election].races[state.race]} />
+        <Legend
+          raceLabel={props.elections[state.election].races[state.race]}
+          displayOverrides={props.displayOverrides}
+        />
+      </div>
       <Show when={mapStore.map}>
         <Popup
           map={mapStore.map}
@@ -66,9 +79,17 @@ const MapPage = (props) => {
           active={popup.click || popup.hover}
           lngLat={popup.lngLat}
         >
-          <h2>Testing</h2>
-          <Show when={popup.features.length > 0}>
-            {popup.features[0].PRECINCT}
+          <Show
+            when={
+              popup.features.length > 0 &&
+              mapStore.legendData.dataMap[popup.features[0].id]
+            }
+          >
+            <PopupContent
+              displayOverrides={props.displayOverrides}
+              dataCols={mapStore.legendData.dataCols}
+              featData={mapStore.legendData.dataMap[popup.features[0].id]}
+            />
           </Show>
         </Popup>
       </Show>

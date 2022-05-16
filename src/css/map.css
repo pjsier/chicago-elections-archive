@@ -18,7 +18,7 @@ main.map {
   bottom: 2.5rem;
 }
 
-.legend {
+#legend {
   position: absolute;
   bottom: 24px;
   right: 8px;
@@ -28,6 +28,10 @@ main.map {
   max-height: 300px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+}
+
+#legend select {
+  max-width: 100%;
 }
 
 .legend h4 {
