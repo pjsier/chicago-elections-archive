@@ -1,4 +1,4 @@
-import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
+import { createMemo, createResource, onCleanup, onMount } from "solid-js"
 import { csvParse } from "d3-dsv"
 import { useMapStore } from "../providers/map"
 import { descending, fromEntries } from "../utils"
@@ -125,9 +125,12 @@ const Map = (props) => {
     setMapStore({ ...mapStore, map })
   })
 
-  createEffect(() => {
-    // TODO: There's a race condition in here somewhere
-    fetchCsvData(props.election, props.race).then((data) => {
+  // Based on solidjs/solid/issues/670#issuecomment-930345275
+  createResource(
+    () => [props.election, props.race],
+    // eslint-disable-next-line solid/reactivity
+    async ([election, race]) => {
+      const data = await fetchCsvData(election, race)
       const def = createPrecinctLayerDefinition(data, props.year)
 
       const dataCols = getDataCols(data[0] || [])
@@ -135,6 +138,8 @@ const Map = (props) => {
       setMapStore({ ...mapStore, ...def.legendData })
 
       const updateLayer = () => {
+        if (!map) return
+
         map.removeLayer("precincts")
         map.removeFeatureState({
           source: mapSource(),
@@ -150,8 +155,8 @@ const Map = (props) => {
       } else {
         map.once("styledata", updateLayer)
       }
-    })
-  })
+    }
+  )
 
   onCleanup(() => {
     map.remove()

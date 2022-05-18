@@ -50,6 +50,7 @@ const MapPage = (props) => {
       <div id="legend">
         <form method="GET" action="">
           <select
+            value={state.election}
             onChange={(e) =>
               setState({ ...state, election: e.target.value, race: "0" })
             }
@@ -59,6 +60,7 @@ const MapPage = (props) => {
             </For>
           </select>
           <select
+            value={state.race}
             onChange={(e) => setState({ ...state, race: e.target.value })}
           >
             <For each={raceOptions()}>
