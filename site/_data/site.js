@@ -14,10 +14,11 @@ module.exports = {
   type: "website",
   baseurl,
   url: `${host}${baseurl}`,
+  domain: host.replace("https://", ""),
   production,
   // robots: production,
   robots: false,
-  googleAnalyticsId: process.env.GOOGLE_ANALYTICS_ID,
+  plausibleAnalytics: !!process.env.PLAUSIBLE,
   locale: "en-us",
   precinctYears: [
     1983, 2000, 2003, 2004, 2007, 2008, 2010, 2011, 2012, 2015, 2019,

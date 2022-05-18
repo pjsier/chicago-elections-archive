@@ -2,6 +2,14 @@
 
 Loading data from the [Chicago Board of Election Commissioners](https://chicagoelections.gov) for all Chicago elections with results posted. Used for an Observable notebook to view results.
 
+## TODO
+
+- Download links
+- Style generally
+  - Chicago colors
+- Geocoder
+- About page
+
 ## Data Notes
 
 - Reformat 1983 data
@@ -15,11 +23,3 @@ Loading data from the [Chicago Board of Election Commissioners](https://chicagoe
   - a few missing for 2004, 2003, 2002
   - 2000 missing a good amount
   - 1983 missing a few
-
-## Next Steps/Manual Data Updates
-
-- Easy download links
-- Permalinks/deep linking
-- Consolidate mayoral races in 2019 general
-- Update party colors for general elections
-- Update color generally
