@@ -7,7 +7,7 @@ const Legend = (props) => (
       class="color-ramp"
       style={{ "background-image": "linear-gradient(to right, #fff, #333)" }}
     >
-      <span class="ramp-label">{/* */}</span>
+      <span class="ramp-label">0%</span>
       <span class="ramp-label">100%</span>
     </div>
     <For each={props.candidates}>

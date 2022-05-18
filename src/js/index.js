@@ -1,2 +1,2 @@
-import "./index.js"
+import "./main.js"
 import "./map.js"

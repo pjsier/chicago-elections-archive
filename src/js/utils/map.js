@@ -1,3 +1,16 @@
+export const COLOR_SCHEME = [
+  "#1f77b4",
+  "#d62728",
+  "#2ca02c",
+  "#ff7f0e",
+  "#9467bd",
+  "#8c564b",
+  "#e377c2",
+  "#7f7f7f",
+  "#bcbd22",
+  "#17becf",
+]
+
 export const getPrecinctYear = (year) => {
   if (year > 1983 && year < 2003) return 2003
   if ([2014, 2015, 2016].includes(year)) return 2015

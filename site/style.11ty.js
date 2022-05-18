@@ -12,7 +12,9 @@ exports.render = ({ site }) => {
         type: "geojson",
         data: `https://chicago-elections-archive.us-east-1.linodeobjects.com/precincts-${year}.geojson`,
         attribution:
-          '<a href="https://chicagoelections.com/" target="_blank">Chicago Board of Election Commissioners</a>',
+          year == 1983
+            ? '<a href="https://www.chicagoelectionsproject.com/" target="_blank">Chicago Elections Project</a>'
+            : '<a href="https://chicagoelections.com/" target="_blank">Chicago Board of Election Commissioners</a>',
         promoteId: "id",
         tolerance: 0, // TODO:
         // tolerance: 0.8, // pre-simplify in processing, removes slivers between polygons

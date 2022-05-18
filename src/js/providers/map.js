@@ -5,6 +5,7 @@ const MapContext = createContext()
 const useMapStore = () => useContext(MapContext)
 
 function MapProvider(props) {
+  // eslint-disable-next-line solid/reactivity
   const store = createStore({
     map: null,
     candidates: [],

@@ -1,21 +1,8 @@
-import { createEffect, onCleanup, onMount } from "solid-js"
+import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
 import { csvParse } from "d3-dsv"
 import { useMapStore } from "../providers/map"
 import { fromEntries } from "../utils"
-import { getDataCols, getPrecinctYear } from "../utils/map"
-
-const COLOR_SCHEME = [
-  "#1f77b4",
-  "#d62728",
-  "#2ca02c",
-  "#ff7f0e",
-  "#9467bd",
-  "#8c564b",
-  "#e377c2",
-  "#7f7f7f",
-  "#bcbd22",
-  "#17becf",
-]
+import { COLOR_SCHEME, getDataCols, getPrecinctYear } from "../utils/map"
 
 function fetchCsvData(election, race) {
   return fetch(
@@ -113,6 +100,8 @@ const Map = (props) => {
 
   const [mapStore, setMapStore] = useMapStore()
 
+  const mapSource = createMemo(() => `precincts-${getPrecinctYear(props.year)}`)
+
   onMount(() => {
     map = new window.maplibregl.Map({
       container: mapRef,
@@ -135,15 +124,10 @@ const Map = (props) => {
       const updateLayer = () => {
         map.removeLayer("precincts")
         map.removeFeatureState({
-          source: `precincts-${getPrecinctYear(+props.year)}`,
+          source: mapSource(),
         })
         data.forEach((feature) => {
-          setFeatureData(
-            map,
-            dataCols,
-            `precincts-${getPrecinctYear(+props.year)}`,
-            feature
-          )
+          setFeatureData(map, dataCols, mapSource(), feature)
         })
         map.addLayer(def.layerDefinition, "place_other")
       }

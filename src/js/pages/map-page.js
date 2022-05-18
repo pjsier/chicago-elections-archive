@@ -12,8 +12,6 @@ const MapPage = (props) => {
   const [state, setState] = createStore({
     election: props.initialElection || `251`,
     race: props.initialRace || `0`,
-    // TODO: Year is not right, need some kind of mapping to elections
-    year: props.initialYear || 2022,
   })
   const [mapStore] = useMapStore()
   const [popup] = usePopup()
@@ -22,10 +20,10 @@ const MapPage = (props) => {
     updateQueryParams({
       election: state.election,
       race: state.race,
-      year: state.year,
     })
   })
 
+  const year = createMemo(() => props.elections[state.election].year)
   const raceOptions = createMemo(() =>
     Object.entries(props.elections[state.election].races).map(
       ([value, label]) => ({ label, value })
@@ -35,7 +33,7 @@ const MapPage = (props) => {
   return (
     <>
       <Map
-        year={state.year}
+        year={year()}
         election={state.election}
         race={state.race}
         mapOptions={{
@@ -78,7 +76,7 @@ const MapPage = (props) => {
         <Popup
           map={mapStore.map}
           layer={"precincts"}
-          year={state.year}
+          year={year()}
           active={popup.click || popup.hover}
           lngLat={popup.lngLat}
         >
