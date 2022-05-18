@@ -1,11 +1,8 @@
 import { createEffect, onCleanup, onMount } from "solid-js"
 import { csvParse } from "d3-dsv"
-import { maxIndex, minIndex } from "d3-array"
-import { interpolateRgb } from "d3-interpolate"
-import { scaleSequential } from "d3-scale"
-import maplibregl from "maplibre-gl"
 import { useMapStore } from "../providers/map"
-import { getPrecinctYear } from "../utils/map"
+import { fromEntries } from "../utils"
+import { getDataCols, getPrecinctYear } from "../utils/map"
 
 const COLOR_SCHEME = [
   "#1f77b4",
@@ -47,84 +44,13 @@ const filterExpression = (data) => [
   ["literal", data.map(({ id }) => id)],
 ]
 
-const colorScale = (colorScales, dataDomain, column, index) => {
-  if (["Yes", "Yes Percent"].includes(column)) {
-    return scaleSequential(interpolateRgb("#ffffff", "#e88729")).domain(
-      dataDomain.map((d) => d + 10)
-    )
-  } else if (["No", "No Percent"].includes(column)) {
-    return scaleSequential(interpolateRgb("#ffffff", "#8c67b9")).domain(
-      dataDomain
-    )
-  }
-  return colorScales[index % 10]
-}
-
-const getDataCols = (row) =>
-  Object.keys(row || {}).filter(
-    (row) => row.includes("Percent") || row === "turnout"
-  )
-
-const dataJoinExpression = (
-  data,
-  dataDomain,
-  dataCols,
-  colorScales,
-  election
-) => {
-  let expr = ["match", ["get", "id"]]
-  const dataMatch = data.map((row) => {
-    const rowValues = Object.entries(row).filter((entry) =>
-      dataCols.includes(entry[0])
-    )
-
-    const maxIdx = maxIndex(rowValues, (entry) => entry[1])
-    const minIdx = minIndex(rowValues, (entry) => entry[1])
-    const index =
-      +election >= 103 &&
-      +election <= 164 &&
-      rowValues[maxIdx][1] < 60.0 &&
-      rowValues[maxIdx][0].includes("Yes ")
-        ? minIdx
-        : maxIdx
-    return [
-      row.id,
-      colorScale(
-        colorScales,
-        dataDomain,
-        rowValues[index][0],
-        index
-      )(rowValues[index][1]),
-    ]
-  })
-  return [...expr, ...dataMatch.flat(), "rgba(100,100,100,1)"]
-}
-
-const createPrecinctLayerDefinition = (data, election, year) => {
+const createPrecinctLayerDefinition = (data, year) => {
   const dataCols = getDataCols(data[0] || [])
-  const dataDomain = [
-    0,
-    Math.min(
-      Math.max(...data.map((d) => Math.max(...dataCols.map((c) => d[c])))),
-      100
-    ),
-  ]
-  const dataMap = data.reduce(
-    (acc, val) => ({
-      ...acc,
-      [val.id]: val,
-    }),
-    {}
-  )
-  const colorScales = COLOR_SCHEME.map((c) =>
-    scaleSequential(interpolateRgb("#ffffff", c)).domain(dataDomain)
-  )
-  // TODO:
   const candidates = dataCols
     .map((c) => c.replace(" Percent", ""))
     .map((name, idx) => ({
       name,
-      color: colorScale(colorScales, dataDomain, name, idx)(dataDomain[1]),
+      color: COLOR_SCHEME[idx % COLOR_SCHEME.length],
     }))
 
   return {
@@ -132,30 +58,52 @@ const createPrecinctLayerDefinition = (data, election, year) => {
       id: "precincts",
       source: `precincts-${getPrecinctYear(+year)}`,
       type: "fill",
+      // TODO: By default fill-color should exclude, see if that's enough
       filter: filterExpression(data),
       paint: {
         "fill-outline-color": [
           "case",
           ["boolean", ["feature-state", "hover"], false],
           "rgba(0,0,0,0.7)",
-          "rgba(150,150,150,0.2)",
+          "rgba(0,0,0,0)",
         ],
-        "fill-color": dataJoinExpression(
-          data,
-          dataDomain,
-          dataCols,
-          colorScales,
-          election
-        ),
+        "fill-color": [
+          "interpolate",
+          ["linear"],
+          ["feature-state", "colorValue"],
+          0,
+          "#ffffff",
+          100,
+          ["feature-state", "color"],
+        ],
       },
     },
     legendData: {
       candidates,
-      dataCols,
-      dataMap,
-      maxDomain: dataDomain[1],
     },
   }
+}
+
+function setFeatureData(map, dataCols, source, feature) {
+  const featureData = fromEntries(
+    Object.entries(feature).filter(([col]) => dataCols.includes(col))
+  )
+  const featureDataValues = Object.entries(featureData).map(
+    ([, value]) => value
+  )
+  const colorValue = Math.max(...featureDataValues)
+  const colorIndex = featureDataValues.indexOf(colorValue)
+  map.setFeatureState(
+    {
+      source,
+      id: feature.id,
+    },
+    {
+      color: COLOR_SCHEME[colorIndex % COLOR_SCHEME.length],
+      colorValue: colorValue, // TODO: top value
+      ...feature,
+    }
+  )
 }
 
 // TODO: A lot of refactoring here
@@ -166,7 +114,7 @@ const Map = (props) => {
   const [mapStore, setMapStore] = useMapStore()
 
   onMount(() => {
-    map = new maplibregl.Map({
+    map = new window.maplibregl.Map({
       container: mapRef,
       ...props.mapOptions,
     })
@@ -176,23 +124,34 @@ const Map = (props) => {
   })
 
   createEffect(() => {
+    // TODO: There's a race condition in here somewhere
     fetchCsvData(props.election, props.race).then((data) => {
-      const def = createPrecinctLayerDefinition(
-        data,
-        props.election,
-        props.year
-      )
+      const def = createPrecinctLayerDefinition(data, props.year)
 
-      setMapStore({ ...mapStore, legendData: def.legendData })
+      const dataCols = getDataCols(data[0] || [])
+
+      setMapStore({ ...mapStore, ...def.legendData })
+
+      const updateLayer = () => {
+        map.removeLayer("precincts")
+        map.removeFeatureState({
+          source: `precincts-${getPrecinctYear(+props.year)}`,
+        })
+        data.forEach((feature) => {
+          setFeatureData(
+            map,
+            dataCols,
+            `precincts-${getPrecinctYear(+props.year)}`,
+            feature
+          )
+        })
+        map.addLayer(def.layerDefinition, "place_other")
+      }
 
       if (map.isStyleLoaded()) {
-        map.removeLayer("precincts")
-        map.addLayer(def.layerDefinition, "place_other")
+        updateLayer()
       } else {
-        map.once("styledata", () => {
-          map.removeLayer("precincts")
-          map.addLayer(def.layerDefinition, "place_other")
-        })
+        map.once("styledata", updateLayer)
       }
     })
   })

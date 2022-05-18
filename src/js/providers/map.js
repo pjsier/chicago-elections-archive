@@ -7,7 +7,7 @@ const useMapStore = () => useContext(MapContext)
 function MapProvider(props) {
   const store = createStore({
     map: null,
-    legendData: {},
+    candidates: [],
   })
 
   return (

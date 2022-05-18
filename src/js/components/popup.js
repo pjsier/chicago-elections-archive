@@ -1,13 +1,35 @@
 import { onMount, onCleanup, createEffect } from "solid-js"
-import maplibregl from "maplibre-gl"
 import { usePopup } from "../providers/popup"
+import { getPrecinctYear } from "../utils/map"
 
 const Popup = (props) => {
   const [popup, setPopup] = usePopup()
+  let hoverId = null
   let popupObj = null
 
+  const updateHoverState = (features) => {
+    const source = `precincts-${getPrecinctYear(+props.year)}`
+    if (hoverId) props.map.removeFeatureState({ source, id: hoverId }, "hover")
+
+    hoverId = features.length > 0 ? features[0].id : null
+    if (hoverId) {
+      props.map.setFeatureState({ source, id: hoverId }, { hover: true })
+    }
+  }
+
+  const getFeatureData = (features) =>
+    features.length > 0
+      ? props.map.getFeatureState({
+          source: `precincts-${getPrecinctYear(+props.year)}`,
+          id: features[0].id,
+        })
+      : null
+
   onMount(() => {
-    popupObj = new maplibregl.Popup({ closeButton: true, closeOnClick: false })
+    popupObj = new window.maplibregl.Popup({
+      closeButton: true,
+      closeOnClick: false,
+    })
       .setDOMContent(<div>{props.children}</div>)
       .addTo(props.map)
 
@@ -20,11 +42,13 @@ const Popup = (props) => {
 
       props.map.getCanvas().style.cursor = features.length > 0 ? "pointer" : ""
       popupObj.setLngLat(e.lngLat)
+      updateHoverState(features)
+
       setPopup({
         ...popup,
         click: false,
         hover: true,
-        features: features.map(({ properties }) => properties),
+        feature: getFeatureData(features),
       })
     }
 
@@ -32,26 +56,28 @@ const Popup = (props) => {
       if (popup.click) return
       props.map.getCanvas().style.cursor = ""
       popupObj.remove()
-      setPopup({ ...popup, click: false, hover: false })
+      updateHoverState([])
+      setPopup({ ...popup, click: false, hover: false, feature: null })
     }
 
     const onMapClick = (e) => {
       if (popup.click) {
         // TODO: better handling of click outside
-        setPopup({ ...popup, click: false, hover: false, features: [] })
+        setPopup({ ...popup, click: false, hover: false, feature: null })
         return
       }
 
       const features = props.map.queryRenderedFeatures(e.point, {
         layers: [props.layer],
       })
+      updateHoverState(features)
       if (features.length > 0) {
         props.map.getCanvas().style.cursor = "pointer"
         setPopup({
           ...popup,
           click: true,
           hover: false,
-          features: features.map(({ properties }) => properties),
+          feature: getFeatureData(features),
         })
       }
     }
@@ -61,7 +87,7 @@ const Popup = (props) => {
     props.map.on("click", props.layer, onMapClick)
 
     popupObj.on("close", () => {
-      setPopup({ ...popup, click: false, hover: false })
+      setPopup({ ...popup, click: false, hover: false, feature: null })
     })
   })
 

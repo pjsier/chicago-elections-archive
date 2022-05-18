@@ -6,3 +6,8 @@ export const getPrecinctYear = (year) => {
     (y) => year >= y
   )
 }
+
+export const getDataCols = (row) =>
+  Object.keys(row || {}).filter(
+    (row) => row.includes("Percent") || row === "turnout"
+  )

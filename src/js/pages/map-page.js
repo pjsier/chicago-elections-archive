@@ -12,6 +12,7 @@ const MapPage = (props) => {
   const [state, setState] = createStore({
     election: props.initialElection || `251`,
     race: props.initialRace || `0`,
+    // TODO: Year is not right, need some kind of mapping to elections
     year: props.initialYear || 2022,
   })
   const [mapStore] = useMapStore()
@@ -68,6 +69,7 @@ const MapPage = (props) => {
           </select>
         </form>
         <Legend
+          candidates={mapStore.candidates || []}
           raceLabel={props.elections[state.election].races[state.race]}
           displayOverrides={props.displayOverrides}
         />
@@ -76,19 +78,14 @@ const MapPage = (props) => {
         <Popup
           map={mapStore.map}
           layer={"precincts"}
+          year={state.year}
           active={popup.click || popup.hover}
           lngLat={popup.lngLat}
         >
-          <Show
-            when={
-              popup.features.length > 0 &&
-              mapStore.legendData.dataMap[popup.features[0].id]
-            }
-          >
+          <Show when={popup.feature}>
             <PopupContent
               displayOverrides={props.displayOverrides}
-              dataCols={mapStore.legendData.dataCols}
-              featData={mapStore.legendData.dataMap[popup.features[0].id]}
+              featData={popup.feature}
             />
           </Show>
         </Popup>

@@ -13,7 +13,7 @@ exports.render = ({ site }) => {
         data: `https://chicago-elections-archive.us-east-1.linodeobjects.com/precincts-${year}.geojson`,
         attribution:
           '<a href="https://chicagoelections.com/" target="_blank">Chicago Board of Election Commissioners</a>',
-        generateId: true,
+        promoteId: "id",
         tolerance: 0, // TODO:
         // tolerance: 0.8, // pre-simplify in processing, removes slivers between polygons
       },
@@ -914,7 +914,12 @@ exports.render = ({ site }) => {
         type: "fill",
         source: `precincts-${site.precinctYears.slice(-1)[0]}`,
         paint: {
-          "fill-outline-color": "rgba(0,0,0,0)",
+          "fill-outline-color": [
+            "case",
+            ["boolean", ["feature-state", "hover"], false],
+            "rgba(0,0,0,0.7)",
+            "rgba(0,0,0,0)",
+          ],
           "fill-color": "rgba(0,0,0,0)",
         },
       },

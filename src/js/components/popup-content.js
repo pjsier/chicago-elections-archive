@@ -1,9 +1,10 @@
 import { For, createMemo } from "solid-js"
 import { descending } from "../utils"
+import { getDataCols } from "../utils/map"
 
 const PopupContent = (props) => {
   const candidateData = createMemo(() =>
-    props.dataCols.map((c) => ({
+    getDataCols(props.featData).map((c) => ({
       label: c.replace(" Percent", ""),
       value: props.featData[c],
     }))
