@@ -5,11 +5,12 @@ const PopupContext = createContext()
 const usePopup = () => useContext(PopupContext)
 
 function PopupProvider(props) {
+  // eslint-disable-next-line solid/reactivity
   const store = createStore({
     hover: false,
     click: false,
     lngLat: null,
-    features: [],
+    feature: null,
   })
 
   return (

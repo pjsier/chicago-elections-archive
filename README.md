@@ -10,6 +10,8 @@ Loading data from the [Chicago Board of Election Commissioners](https://chicagoe
   - Chicago colors (blue #b3ddf2, red #ff0000)
 - Geocoder
 - About page
+- Bugs
+  - Hover popup only works after initial mouseout
 
 ## Data Notes
 

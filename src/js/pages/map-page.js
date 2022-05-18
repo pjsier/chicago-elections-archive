@@ -7,6 +7,7 @@ import PopupContent from "../components/popup-content"
 import { useMapStore } from "../providers/map"
 import { usePopup } from "../providers/popup"
 import { updateQueryParams } from "../utils"
+import { getPrecinctYear } from "../utils/map"
 
 const MapPage = (props) => {
   const [state, setState] = createStore({
@@ -79,16 +80,14 @@ const MapPage = (props) => {
         <Popup
           map={mapStore.map}
           layer={"precincts"}
-          year={year()}
+          source={`precincts-${getPrecinctYear(+year())}`}
           active={popup.click || popup.hover}
           lngLat={popup.lngLat}
         >
-          <Show when={popup.feature}>
-            <PopupContent
-              displayOverrides={props.displayOverrides}
-              featData={popup.feature}
-            />
-          </Show>
+          <PopupContent
+            displayOverrides={props.displayOverrides}
+            feature={popup.feature}
+          />
         </Popup>
       </Show>
     </>

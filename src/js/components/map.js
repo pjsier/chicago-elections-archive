@@ -14,10 +14,14 @@ function fetchCsvData(election, race) {
         Object.entries(row)
           .map(([key, value]) => {
             const keyName = key.split(" &")[0]
-            const cleanKey =
+            let cleanKey =
               key.includes("Percent") && key.includes("&")
                 ? `${keyName} Percent`
                 : keyName
+            // Handling discrepancy where turnout doesn't have "total" column
+            if (row.turnout && cleanKey === "ballots") {
+              cleanKey = "total"
+            }
             return { [cleanKey]: key === `id` ? value : +value }
           })
           .reduce((acc, cur) => ({ ...acc, ...cur }), {})
@@ -32,7 +36,11 @@ const filterExpression = (data) => [
 ]
 
 const aggregateElection = (data) => {
-  const dataCols = getDataCols(data[0] || [])
+  const dataCols = Object.keys(data[0] || {}).filter(
+    (row) =>
+      row.includes("Percent") ||
+      ["turnout", "registered", "ballots"].includes(row)
+  )
   const candidateNames = dataCols.map((c) => c.replace(" Percent", ""))
 
   const aggBase = {
@@ -46,13 +54,18 @@ const aggregateElection = (data) => {
   )
 
   const candidates = candidateNames
+    .filter((name) => !["ballots", "registered"].includes(name))
     .map((name, idx) => ({
       name,
       color: COLOR_SCHEME[idx % COLOR_SCHEME.length],
-      votes: electionResults[name],
+      votes: electionResults[name === "turnout" ? "total" : name],
     }))
     .sort((a, b) => descending(a.votes, b.votes))
 
+  // Workaround for turnout display
+  if (electionResults.turnout) {
+    electionResults.total = electionResults.registered
+  }
   return { candidates, electionResults }
 }
 

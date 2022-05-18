@@ -1,6 +1,5 @@
 import { onMount, onCleanup, createEffect } from "solid-js"
 import { usePopup } from "../providers/popup"
-import { getPrecinctYear } from "../utils/map"
 
 const Popup = (props) => {
   const [popup, setPopup] = usePopup()
@@ -8,19 +7,25 @@ const Popup = (props) => {
   let popupObj = null
 
   const updateHoverState = (features) => {
-    const source = `precincts-${getPrecinctYear(+props.year)}`
-    if (hoverId) props.map.removeFeatureState({ source, id: hoverId }, "hover")
+    if (hoverId)
+      props.map.removeFeatureState(
+        { source: props.source, id: hoverId },
+        "hover"
+      )
 
     hoverId = features.length > 0 ? features[0].id : null
     if (hoverId) {
-      props.map.setFeatureState({ source, id: hoverId }, { hover: true })
+      props.map.setFeatureState(
+        { source: props.source, id: hoverId },
+        { hover: true }
+      )
     }
   }
 
   const getFeatureData = (features) =>
     features.length > 0
       ? props.map.getFeatureState({
-          source: `precincts-${getPrecinctYear(+props.year)}`,
+          source: props.source,
           id: features[0].id,
         })
       : null
@@ -48,7 +53,7 @@ const Popup = (props) => {
         ...popup,
         click: false,
         hover: true,
-        feature: getFeatureData(features),
+        feature: getFeatureData(features) || {},
       })
     }
 
