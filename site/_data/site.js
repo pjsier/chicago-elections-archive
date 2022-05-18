@@ -1,4 +1,4 @@
-const electionMetadata = require("../../input/results-metadata.json")
+const electionMetadata = require("../../output/results-metadata.json")
 
 const production = process.env.NODE_ENV === "production"
 

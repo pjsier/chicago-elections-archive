@@ -4,6 +4,7 @@ input/*
 !input/.keep
 output/*
 !output/.keep
+!output/results-metadata.json
 dist/*
 !dist/.keep
 !input/metadata.json

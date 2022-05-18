@@ -7,7 +7,7 @@ IGNORE_RESULTS := output/results/7/334.csv output/results/7/335.csv output/resul
 RESULTS := $(filter-out $(IGNORE_RESULTS),$(foreach id,$(ELECTION_IDS),$(foreach result,$(shell cat input/results-metadata.json | jq -r '."$(id)".races|keys[]'),output/results/$(id)/$(result).csv)))
 
 .PHONY: all
-all: input/results-metadata.json $(RESULTS) $(foreach year,$(PRECINCT_YEARS),output/precincts-$(year).geojson)
+all: input/results-metadata.json output/results-metadata.json $(RESULTS) $(foreach year,$(PRECINCT_YEARS),output/precincts-$(year).geojson)
 
 .PRECIOUS: input/%.html output/results/%.csv
 
@@ -38,6 +38,18 @@ output/precincts-%.geojson: input/wards.geojson
 output/results/%.csv: input/%.html
 	mkdir -p $(dir $@)
 	poetry run python scripts/scrape_table.py $< > $@
+
+output/results/210/9.csv: output/results/210/9-int.csv output/results/210/10-int.csv
+	xsv join id $< id $(filter-out $<,$^) > $@
+
+.INTERMEDIATE:
+output/results/210/9-int.csv: input/210/9.html
+	mkdir -p $(dir $@)
+	poetry run python scripts/scrape_table.py $< > $@
+
+.INTERMEDIATE:
+output/results/210/10-int.csv: output/results/210/10.csv
+	xsv select 1,7- $< > $@
 
 output/results/%/0.csv: input/%/0.html
 	mkdir -p $(dir $@)
@@ -100,6 +112,9 @@ input/%.html:
 	-X POST \
 	-H "Content-Type: application/x-www-form-urlencoded" \
 	-d "election=$(word 1,$(subst /, ,$*))&race=$(filter-out 0,$(word 2,$(subst /, ,$*)))&ward=&precinct=" -o $@
+
+output/results-metadata.json: input/results-metadata.json
+	cat $< | poetry run python scripts/process_results_metadata.py > $@
 
 input/results-metadata.json:
 	poetry run python scripts/scrape_results_metadata.py > $@
