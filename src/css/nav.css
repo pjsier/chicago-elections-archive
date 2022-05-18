@@ -1,3 +1,11 @@
+.nav-title-link {
+  @apply flex flex-row items-center;
+}
+
+.nav-title-link svg {
+  @apply h-5 mr-2;
+}
+
 #nav-menu {
   @apply flex flex-col text-right;
 }

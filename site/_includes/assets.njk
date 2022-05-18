@@ -2,6 +2,8 @@
 <script src="static/maplibre-gl.js" defer></script>
 <link href="static/maplibre-gl.css" rel="stylesheet" />
 
+<meta name="azure-maps-key" content="{{ site.azureMapsKey }}" />
+
 <script id="map-metadata" type="application/json">
 {{ site.electionMetadata | dump | safe }}
 </script>

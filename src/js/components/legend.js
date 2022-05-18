@@ -11,10 +11,11 @@ const Legend = (props) => (
       <span class="ramp-label">100%</span>
     </div>
     <For each={props.candidates}>
-      {({ name, color }) => (
+      {({ name, color, votes }) => (
         <div class="legend-item">
           <div class="color" style={{ "background-color": color }}></div>{" "}
           <span>{props.displayOverrides[name] || name}</span>
+          <span>{((votes / props.totalVotes) * 100).toFixed(2)}%</span>
         </div>
       )}
     </For>

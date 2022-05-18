@@ -1,7 +1,7 @@
 import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
 import { csvParse } from "d3-dsv"
 import { useMapStore } from "../providers/map"
-import { fromEntries } from "../utils"
+import { descending, fromEntries } from "../utils"
 import { COLOR_SCHEME, getDataCols, getPrecinctYear } from "../utils/map"
 
 function fetchCsvData(election, race) {
@@ -31,45 +31,58 @@ const filterExpression = (data) => [
   ["literal", data.map(({ id }) => id)],
 ]
 
-const createPrecinctLayerDefinition = (data, year) => {
+const aggregateElection = (data) => {
   const dataCols = getDataCols(data[0] || [])
-  const candidates = dataCols
-    .map((c) => c.replace(" Percent", ""))
+  const candidateNames = dataCols.map((c) => c.replace(" Percent", ""))
+
+  const aggBase = {
+    total: 0,
+    ...candidateNames.reduce((a, v) => ({ ...a, [v]: 0 }), {}),
+  }
+  const electionResults = data.reduce(
+    (agg, val) =>
+      Object.keys(agg).reduce((a, v) => ({ ...a, [v]: agg[v] + val[v] }), {}),
+    aggBase
+  )
+
+  const candidates = candidateNames
     .map((name, idx) => ({
       name,
       color: COLOR_SCHEME[idx % COLOR_SCHEME.length],
+      votes: electionResults[name],
     }))
+    .sort((a, b) => descending(a.votes, b.votes))
 
-  return {
-    layerDefinition: {
-      id: "precincts",
-      source: `precincts-${getPrecinctYear(+year)}`,
-      type: "fill",
-      // TODO: By default fill-color should exclude, see if that's enough
-      filter: filterExpression(data),
-      paint: {
-        "fill-outline-color": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          "rgba(0,0,0,0.7)",
-          "rgba(0,0,0,0)",
-        ],
-        "fill-color": [
-          "interpolate",
-          ["linear"],
-          ["feature-state", "colorValue"],
-          0,
-          "#ffffff",
-          100,
-          ["feature-state", "color"],
-        ],
-      },
-    },
-    legendData: {
-      candidates,
-    },
-  }
+  return { candidates, electionResults }
 }
+
+const createPrecinctLayerDefinition = (data, year) => ({
+  layerDefinition: {
+    id: "precincts",
+    source: `precincts-${getPrecinctYear(+year)}`,
+    type: "fill",
+    // TODO: By default fill-color should exclude, see if that's enough
+    filter: filterExpression(data),
+    paint: {
+      "fill-outline-color": [
+        "case",
+        ["boolean", ["feature-state", "hover"], false],
+        "rgba(0,0,0,0.7)",
+        "rgba(0,0,0,0)",
+      ],
+      "fill-color": [
+        "interpolate",
+        ["linear"],
+        ["feature-state", "colorValue"],
+        0,
+        "#ffffff",
+        100,
+        ["feature-state", "color"],
+      ],
+    },
+  },
+  legendData: aggregateElection(data),
+})
 
 function setFeatureData(map, dataCols, source, feature) {
   const featureData = fromEntries(
@@ -87,7 +100,7 @@ function setFeatureData(map, dataCols, source, feature) {
     },
     {
       color: COLOR_SCHEME[colorIndex % COLOR_SCHEME.length],
-      colorValue: colorValue, // TODO: top value
+      colorValue: colorValue,
       ...feature,
     }
   )

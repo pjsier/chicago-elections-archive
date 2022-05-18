@@ -68,6 +68,7 @@ const MapPage = (props) => {
         </form>
         <Legend
           candidates={mapStore.candidates || []}
+          totalVotes={mapStore.electionResults.total}
           raceLabel={props.elections[state.election].races[state.race]}
           displayOverrides={props.displayOverrides}
         />

@@ -4,10 +4,12 @@ import { getDataCols } from "../utils/map"
 
 const PopupContent = (props) => {
   const candidateData = createMemo(() =>
-    getDataCols(props.featData).map((c) => ({
-      label: c.replace(" Percent", ""),
-      value: props.featData[c],
-    }))
+    getDataCols(props.featData)
+      .map((c) => ({
+        label: c.replace(" Percent", ""),
+        value: props.featData[c],
+      }))
+      .sort((a, b) => descending(a.value, b.value))
   )
   return (
     <>
@@ -16,7 +18,7 @@ const PopupContent = (props) => {
           Ward {+props.featData.ward}, Precinct {+props.featData.precinct}
         </strong>
       </p>
-      <For each={candidateData().sort((a, b) => descending(a.value, b.value))}>
+      <For each={candidateData()}>
         {({ label, value }) => (
           <p>
             {props.displayOverrides[label] || label}: {value}%,{" "}

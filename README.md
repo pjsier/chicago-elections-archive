@@ -5,8 +5,9 @@ Loading data from the [Chicago Board of Election Commissioners](https://chicagoe
 ## TODO
 
 - Download links
+  - Just link to sources
 - Style generally
-  - Chicago colors
+  - Chicago colors (blue #b3ddf2, red #ff0000)
 - Geocoder
 - About page
 

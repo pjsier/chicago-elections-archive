@@ -20,6 +20,7 @@ module.exports = {
   robots: false,
   plausibleAnalytics: !!process.env.PLAUSIBLE,
   locale: "en-us",
+  azureMapsKey: process.env.AZURE_MAPS_KEY,
   precinctYears: [
     1983, 2000, 2003, 2004, 2007, 2008, 2010, 2011, 2012, 2015, 2019,
   ],
