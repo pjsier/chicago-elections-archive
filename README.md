@@ -6,8 +6,6 @@ Loading data from the [Chicago Board of Election Commissioners](https://chicagoe
 
 - Geocoder
 - About page
-- Bugs
-  - Hover popup only works after initial mouseout
 - Download links
   - Just link to sources
 - Style generally

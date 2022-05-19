@@ -49,7 +49,6 @@ const Popup = (props) => {
       props.map.getCanvas().style.cursor = features.length > 0 ? "pointer" : ""
       popupObj.setLngLat(e.lngLat)
       updateHoverState(features)
-
       setPopup({
         ...popup,
         click: false,
@@ -87,6 +86,9 @@ const Popup = (props) => {
         })
       }
     }
+
+    // Not fully sure why this is needed, but otherwise popup will be empty
+    onMouseOut()
 
     props.map.on("mousemove", props.layer, onMouseMove)
     props.map.on("mouseout", props.layer, onMouseOut)
