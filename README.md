@@ -4,14 +4,14 @@ Loading data from the [Chicago Board of Election Commissioners](https://chicagoe
 
 ## TODO
 
-- Download links
-  - Just link to sources
-- Style generally
-  - Chicago colors (blue #b3ddf2, red #ff0000)
 - Geocoder
 - About page
 - Bugs
   - Hover popup only works after initial mouseout
+- Download links
+  - Just link to sources
+- Style generally
+  - Chicago colors (blue #b3ddf2, red #ff0000)
 
 ## Data Notes
 

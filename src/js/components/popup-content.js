@@ -13,19 +13,27 @@ const PopupContent = (props) => {
   )
   return (
     <>
-      <p>
-        <strong>
-          Ward {props?.feature?.ward}, Precinct {props?.feature?.precinct}
-        </strong>
-      </p>
+      <h2>Ward {props?.feature?.ward}</h2>
+      <h3>Precinct {props?.feature?.precinct}</h3>
       <For each={candidateData()}>
         {({ label, value }) => (
-          <p>
-            {props.displayOverrides[label] || label}: {value}%,{" "}
-            {props.feature[
-              label === "turnout" ? "total" : label
-            ].toLocaleString()}
-          </p>
+          <div class="legend-row">
+            <div>
+              <span
+                class="color"
+                style={{ "background-color": props.candidateColors[label] }}
+              ></span>
+              <span>{props.displayOverrides[label] || label}</span>
+            </div>
+            <div class="numbers">
+              <div>
+                {props.feature[
+                  label === "turnout" ? "total" : label
+                ].toLocaleString()}
+              </div>
+              <div class="percent">{value.toFixed(1)}%</div>
+            </div>
+          </div>
         )}
       </For>
     </>

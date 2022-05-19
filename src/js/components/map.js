@@ -62,13 +62,21 @@ const aggregateElection = (data) => {
     }))
     .sort((a, b) => descending(a.votes, b.votes))
 
+  // TODO: simplify here, maybe pull out of candidates?
+  const candidateColors = candidateNames
+    .filter((name) => !["ballots", "registered"].includes(name))
+    .reduce(
+      (a, v, idx) => ({ ...a, [v]: COLOR_SCHEME[idx % COLOR_SCHEME.length] }),
+      {}
+    )
+
   // Workaround for turnout display
   if (electionResults.turnout) {
     electionResults.total = electionResults.registered
   } else if (isNaN(electionResults.total)) {
     electionResults.total = electionResults.ballots
   }
-  return { candidates, electionResults }
+  return { candidates, candidateColors, electionResults }
 }
 
 const createPrecinctLayerDefinition = (data, year) => ({
@@ -86,6 +94,7 @@ const createPrecinctLayerDefinition = (data, year) => ({
         "rgba(0,0,0,0.7)",
         "rgba(0,0,0,0)",
       ],
+      // TODO: update to handle missing state better
       "fill-color": [
         "interpolate",
         ["linear"],
@@ -138,6 +147,15 @@ const Map = (props) => {
       ...props.mapOptions,
     })
     map.touchZoomRotate.disableRotation()
+
+    map.once("styledata", () => {
+      map.addControl(
+        new window.maplibregl.NavigationControl({ showCompass: false })
+      )
+      map.addControl(
+        new window.maplibregl.FullscreenControl({ container: mapRef })
+      )
+    })
 
     setMapStore({ ...mapStore, map })
   })

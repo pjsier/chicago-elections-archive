@@ -45,36 +45,37 @@ const MapPage = (props) => {
           zoom: 9.25,
           hash: true,
           dragRotate: false,
-          attributionControl: true,
         }}
       />
       <div id="legend">
-        <form method="GET" action="">
-          <select
-            value={state.election}
-            onChange={(e) =>
-              setState({ ...state, election: e.target.value, race: "0" })
-            }
-          >
-            <For each={props.electionOptions}>
-              {({ label, value }) => <option value={value}>{label}</option>}
-            </For>
-          </select>
-          <select
-            value={state.race}
-            onChange={(e) => setState({ ...state, race: e.target.value })}
-          >
-            <For each={raceOptions()}>
-              {({ label, value }) => <option value={value}>{label}</option>}
-            </For>
-          </select>
-        </form>
-        <Legend
-          candidates={mapStore.candidates || []}
-          totalVotes={mapStore.electionResults.total}
-          raceLabel={props.elections[state.election].races[state.race]}
-          displayOverrides={props.displayOverrides}
-        />
+        <div class="content">
+          <h2>{props.elections[state.election].races[state.race]}</h2>
+          <form method="GET" action="">
+            <select
+              value={state.election}
+              onChange={(e) =>
+                setState({ ...state, election: e.target.value, race: "0" })
+              }
+            >
+              <For each={props.electionOptions}>
+                {({ label, value }) => <option value={value}>{label}</option>}
+              </For>
+            </select>
+            <select
+              value={state.race}
+              onChange={(e) => setState({ ...state, race: e.target.value })}
+            >
+              <For each={raceOptions()}>
+                {({ label, value }) => <option value={value}>{label}</option>}
+              </For>
+            </select>
+          </form>
+          <Legend
+            candidates={mapStore.candidates || []}
+            totalVotes={mapStore.electionResults.total}
+            displayOverrides={props.displayOverrides}
+          />
+        </div>
       </div>
       <Show when={mapStore.map}>
         <Popup
@@ -86,6 +87,7 @@ const MapPage = (props) => {
         >
           <PopupContent
             displayOverrides={props.displayOverrides}
+            candidateColors={mapStore.candidateColors}
             feature={popup.feature}
           />
         </Popup>

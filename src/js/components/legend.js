@@ -1,8 +1,7 @@
 import { For } from "solid-js"
 
 const Legend = (props) => (
-  <div class="legend">
-    <h2>{props.raceLabel}</h2>
+  <>
     <div
       class="color-ramp"
       style={{ "background-image": "linear-gradient(to right, #fff, #333)" }}
@@ -12,14 +11,21 @@ const Legend = (props) => (
     </div>
     <For each={props.candidates}>
       {({ name, color, votes }) => (
-        <div class="legend-item">
-          <div class="color" style={{ "background-color": color }}></div>{" "}
-          <span>{props.displayOverrides[name] || name}</span>
-          <span>{((votes / props.totalVotes) * 100).toFixed(2)}%</span>
+        <div class="legend-row">
+          <div>
+            <span class="color" style={{ "background-color": color }}></span>{" "}
+            <span>{props.displayOverrides[name] || name}</span>
+          </div>
+          <div class="numbers">
+            <div>{votes.toLocaleString()}</div>
+            <div class="percent">
+              {((votes / props.totalVotes) * 100).toFixed(1)}%
+            </div>
+          </div>
         </div>
       )}
     </For>
-  </div>
+  </>
 )
 
 export default Legend

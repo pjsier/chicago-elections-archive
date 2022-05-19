@@ -107,7 +107,11 @@ const Popup = (props) => {
     if (props.lngLat) popupObj.setLngLat(props.lngLat)
   })
 
-  createEffect(() => popupObj.setDOMContent(<div>{props.children}</div>))
+  createEffect(() =>
+    popupObj.setDOMContent(
+      <div class={`popup ${popup.click ? `click` : ""}`}>{props.children}</div>
+    )
+  )
 
   return <></>
 }

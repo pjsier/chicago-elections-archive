@@ -18,34 +18,40 @@ main.map {
   bottom: 2.5rem;
 }
 
-.maplibregl-popup-close-button {
-  padding: 0 4px;
-}
-
 #legend {
   position: absolute;
-  bottom: 24px;
-  right: 8px;
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 8px;
-  max-width: 225px;
-  max-height: 300px;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 #legend select {
-  max-width: 100%;
+  @apply w-full max-w-full;
 }
 
-.legend h4 {
-  margin-top: 4px;
+#legend .content {
+  max-height: 140px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 12px;
+  background: radial-gradient(
+      farthest-side at 50% 100%,
+      rgba(34, 34, 34, 0.3),
+      rgba(0, 0, 0, 0)
+    )
+    0 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: 100% 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
+  border: solid 1px #d5d5d5;
 }
 
-.legend hr {
-  margin: 8px 0;
-  padding: 0;
-  background-color: #666;
+#legend h1 {
+  font-size: 18px;
+  margin-bottom: 0;
+  display: none;
 }
 
 .legend-item {
@@ -83,4 +89,131 @@ main.map {
 
 .ramp-label:last-child {
   color: #fff;
+}
+
+@media screen and (min-width: 800px) {
+  /* #geocoder-container {
+    width: 360px;
+    margin-bottom: 8px;
+  } */
+
+  #legend {
+    bottom: 24px;
+    right: 8px;
+    left: auto;
+  }
+
+  #legend .content {
+    width: 360px;
+    max-height: inherit;
+    overflow-y: visible;
+    background: none;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  #legend h1 {
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  /* .scale {
+    margin-top: 8px;
+  } */
+}
+
+.maplibregl-map {
+  @apply font-body;
+}
+
+.maplibregl-popup-close-button {
+  padding: 0 4px;
+}
+/* TODO: */
+.maplibregl-popup {
+  max-width: 220px;
+  width: 220px;
+}
+
+.maplibregl-popup {
+  z-index: 1;
+}
+
+.maplibregl-popup .maplibregl-popup-tip {
+  border-top-color: rgba(255, 255, 255, 0.8);
+}
+
+.maplibregl-popup .maplibregl-popup-content {
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.maplibregl-popup .maplibregl-popup-content {
+  padding: 0;
+  pointer-events: none;
+}
+
+.maplibregl-popup .tooltip-results-label {
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.maplibregl-popup-content .tooltip-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.maplibregl-popup-content .popup {
+  padding: 10px 10px 15px;
+  pointer-events: none;
+}
+
+.maplibregl-popup-close-button,
+.maplibregl-popup-content .popup.click {
+  pointer-events: all;
+}
+
+/* .maplibregl-popup-content .tooltip-row .label,
+.maplibregl-popup-content .tooltip-row .value {
+  flex: 1;
+}
+
+.maplibregl-popup-content .tooltip-row .value {
+  padding-left: 6px;
+  max-width: 50%;
+}*/
+
+.legend-row {
+  @apply flex flex-row items-center justify-between;
+}
+
+.legend-row .numbers {
+  @apply flex items-center justify-end flex-grow pl-2;
+}
+
+.legend-row .percent {
+  @apply inline-block pl-2;
+
+  width: 2.75rem;
+}
+
+#legend .legend-row .percent {
+  @apply pl-3;
+
+  width: 3.5rem;
+}
+
+.legend-row .color {
+  @apply h-3 w-3 inline-block mr-2;
+}
+
+.maplibregl-popup-content h2 {
+  font-size: 16px;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.maplibregl-popup-content h3 {
+  font-size: 14px;
+  line-height: 1;
+  margin-bottom: 8px;
 }
