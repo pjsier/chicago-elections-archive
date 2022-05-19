@@ -9,15 +9,17 @@ exports.render = ({ site }) => {
     (acc, year) => ({
       ...acc,
       [`precincts-${year}`]: {
-        type: "geojson",
-        data: `https://chicago-elections-archive.us-east-1.linodeobjects.com/precincts-${year}.geojson`,
+        type: "vector",
+        maxzoom: 12,
+        bounds: [-87.940101, 41.643919, -87.523984, 42.023022],
+        tiles: [
+          `https://chicago-elections-archive.us-east-1.linodeobjects.com/tiles/precincts-${year}/{z}/{x}/{y}.pbf`,
+        ],
         attribution:
           year == 1983
             ? '<a href="https://www.chicagoelectionsproject.com/" target="_blank">Chicago Elections Project</a>'
             : '<a href="https://chicagoelections.com/" target="_blank">Chicago Board of Election Commissioners</a>',
         promoteId: "id",
-        tolerance: 0, // TODO:
-        // tolerance: 0.8, // pre-simplify in processing, removes slivers between polygons
       },
     }),
     {}
@@ -915,6 +917,7 @@ exports.render = ({ site }) => {
         id: "precincts",
         type: "fill",
         source: `precincts-${site.precinctYears.slice(-1)[0]}`,
+        "source-layer": "precincts",
         paint: {
           "fill-outline-color": [
             "case",

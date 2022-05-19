@@ -9,14 +9,14 @@ const Popup = (props) => {
   const updateHoverState = (features) => {
     if (hoverId)
       props.map.removeFeatureState(
-        { source: props.source, id: hoverId },
+        { source: props.source, sourceLayer: "precincts", id: hoverId },
         "hover"
       )
 
     hoverId = features.length > 0 ? features[0].id : null
     if (hoverId) {
       props.map.setFeatureState(
-        { source: props.source, id: hoverId },
+        { source: props.source, sourceLayer: "precincts", id: hoverId },
         { hover: true }
       )
     }
@@ -26,6 +26,7 @@ const Popup = (props) => {
     features.length > 0
       ? props.map.getFeatureState({
           source: props.source,
+          sourceLayer: "precincts",
           id: features[0].id,
         })
       : null

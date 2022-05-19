@@ -65,6 +65,8 @@ const aggregateElection = (data) => {
   // Workaround for turnout display
   if (electionResults.turnout) {
     electionResults.total = electionResults.registered
+  } else if (isNaN(electionResults.total)) {
+    electionResults.total = electionResults.ballots
   }
   return { candidates, electionResults }
 }
@@ -73,6 +75,7 @@ const createPrecinctLayerDefinition = (data, year) => ({
   layerDefinition: {
     id: "precincts",
     source: `precincts-${getPrecinctYear(+year)}`,
+    "source-layer": "precincts",
     type: "fill",
     // TODO: By default fill-color should exclude, see if that's enough
     filter: filterExpression(data),
@@ -109,6 +112,7 @@ function setFeatureData(map, dataCols, source, feature) {
   map.setFeatureState(
     {
       source,
+      sourceLayer: "precincts",
       id: feature.id,
     },
     {
@@ -156,6 +160,7 @@ const Map = (props) => {
         map.removeLayer("precincts")
         map.removeFeatureState({
           source: mapSource(),
+          sourceLayer: "precincts",
         })
         data.forEach((feature) => {
           setFeatureData(map, dataCols, mapSource(), feature)

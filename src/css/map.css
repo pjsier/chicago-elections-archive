@@ -18,6 +18,10 @@ main.map {
   bottom: 2.5rem;
 }
 
+.maplibregl-popup-close-button {
+  padding: 0 4px;
+}
+
 #legend {
   position: absolute;
   bottom: 24px;

@@ -7,7 +7,7 @@ IGNORE_RESULTS := output/results/7/334.csv output/results/7/335.csv output/resul
 RESULTS := $(filter-out $(IGNORE_RESULTS),$(foreach id,$(ELECTION_IDS),$(foreach result,$(shell cat input/results-metadata.json | jq -r '."$(id)".races|keys[]'),output/results/$(id)/$(result).csv)))
 
 .PHONY: all
-all: input/results-metadata.json output/results-metadata.json $(RESULTS) $(foreach year,$(PRECINCT_YEARS),output/precincts-$(year).geojson)
+all: input/results-metadata.json output/results-metadata.json $(RESULTS) $(foreach year,$(PRECINCT_YEARS),output/precincts-$(year).geojson tiles/precincts-$(year)/)
 
 .PRECIOUS: input/%.html output/results/%.csv
 
@@ -23,6 +23,40 @@ deploy:
 		--no-mime-magic \
 		--guess-mime-type \
 		--add-header 'Cache-Control: "public, max-age=0, must-revalidate"'
+
+.PHONY: deploy-tiles
+deploy-tiles:
+	s3cmd sync ./tiles/ s3://$(S3_BUCKET)/tiles/ \
+		--region=$(S3_REGION) \
+		--host=$(S3_REGION).linodeobjects.com \
+		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
+		--progress \
+		--no-preserve \
+		--acl-public \
+		--no-mime-magic \
+		--guess-mime-type \
+		--add-header 'Content-Encoding: gzip' \
+		--add-header 'Cache-Control: "public, max-age=86400"'
+
+tiles/%/: output/%.mbtiles
+	mkdir $@
+	tile-join --no-tile-size-limit --force -e $@ $<
+
+.PRECIOUS:
+output/%.mbtiles: output/%.geojson
+	tippecanoe \
+		--simplification=10 \
+		--simplify-only-low-zooms \
+		--minimum-zoom=5 \
+		--maximum-zoom=12 \
+		--no-tile-stats \
+		--detect-shared-borders \
+		--grid-low-zooms \
+		--coalesce-smallest-as-needed \
+		--attribute-type=id:string \
+		--use-attribute-for-id=id \
+		--force \
+		-L precincts:$< -o $@
 
 output/precincts-%.geojson: input/wards.geojson
 	wget -qO - https://raw.githubusercontent.com/datamade/chicago-municipal-elections/master/precincts/$*_precincts.geojson | \
