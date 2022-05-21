@@ -93,7 +93,6 @@ const createPrecinctLayerDefinition = (data, year) => ({
     source: `precincts-${getPrecinctYear(+year)}`,
     "source-layer": "precincts",
     type: "fill",
-    // TODO: By default fill-color should exclude, see if that's enough
     filter: filterExpression(data),
     paint: {
       "fill-outline-color": [

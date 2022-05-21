@@ -23,17 +23,6 @@ export const debounce = (func, wait, immediate) => {
 }
 /* eslint-enable */
 
-// TODO: reimplement these pieces
-// input.addEventListener("blur", () => window.setTimeout(closeGeocoder, 100))
-// input.addEventListener("focus", openGeocoder)
-// input.addEventListener("change", updateClearButtonVisibility)
-// clearButton.addEventListener("click", clearInput)
-// document.body.addEventListener("click", (e) => {
-//   if (!combobox.contains(e.target) && !resultList.contains(e.target)) {
-//     closeGeocoder()
-//   }
-// })
-
 const getAddress = ({
   entityType = null,
   address: { freeformAddress: address, countrySecondarySubdivision: county },
@@ -160,6 +149,9 @@ const Geocoder = (props) => {
           value={state.search}
           onInput={(e) => setState({ search: e.target.value })}
           onKeyDown={onKeyDown}
+          onBlur={() =>
+            window.setTimeout(() => setState({ expanded: false }), 100)
+          }
         />
         <button
           type="button"
