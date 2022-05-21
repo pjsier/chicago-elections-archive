@@ -1,4 +1,4 @@
-import { createMemo, createResource, onCleanup, onMount } from "solid-js"
+import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
 import { csvParse } from "d3-dsv"
 import { useMapStore } from "../providers/map"
 import { descending, fromEntries } from "../utils"
@@ -101,15 +101,19 @@ const createPrecinctLayerDefinition = (data, year) => ({
         "rgba(0,0,0,0.7)",
         "rgba(0,0,0,0)",
       ],
-      // TODO: update to handle missing state better
       "fill-color": [
-        "interpolate",
-        ["linear"],
-        ["feature-state", "colorValue"],
-        0,
+        "case",
+        ["==", ["feature-state", "colorValue"], null],
         "#ffffff",
-        100,
-        ["feature-state", "color"],
+        [
+          "interpolate",
+          ["linear"],
+          ["feature-state", "colorValue"],
+          0,
+          "#ffffff",
+          100,
+          ["feature-state", "color"],
+        ],
       ],
     },
   },
@@ -178,39 +182,38 @@ const Map = (props) => {
     setMapStore({ map })
   })
 
-  // Based on solidjs/solid/issues/670#issuecomment-930345275
-  createResource(
-    () => [props.election, props.race],
-    // eslint-disable-next-line solid/reactivity
-    async ([election, race]) => {
-      const data = await fetchCsvData(election, race)
-      const def = createPrecinctLayerDefinition(data, props.year)
+  // Based on solidjs/solid/issues/670#issuecomment-930346644
+  // eslint-disable-next-line solid/reactivity
+  createEffect(async () => {
+    let canceled = false
+    onCleanup(() => (canceled = true))
+    const data = await fetchCsvData(props.election, props.race)
+    if (canceled) return
+    const def = createPrecinctLayerDefinition(data, props.year)
+    const dataCols = getDataCols(data[0] || [])
+    if (canceled) return
+    setMapStore({ ...def.legendData })
 
-      const dataCols = getDataCols(data[0] || [])
+    const updateLayer = () => {
+      if (!map) return
 
-      setMapStore({ ...def.legendData })
-
-      const updateLayer = () => {
-        if (!map) return
-
-        map.removeLayer("precincts")
-        map.removeFeatureState({
-          source: mapSource(),
-          sourceLayer: "precincts",
-        })
-        data.forEach((feature) => {
-          setFeatureData(map, dataCols, mapSource(), feature)
-        })
-        map.addLayer(def.layerDefinition, "place_other")
-      }
-
-      if (map.isStyleLoaded()) {
-        updateLayer()
-      } else {
-        map.once("styledata", updateLayer)
-      }
+      map.removeLayer("precincts")
+      map.removeFeatureState({
+        source: mapSource(),
+        sourceLayer: "precincts",
+      })
+      data.forEach((feature) => {
+        setFeatureData(map, dataCols, mapSource(), feature)
+      })
+      map.addLayer(def.layerDefinition, "place_other")
     }
-  )
+
+    if (map.isStyleLoaded()) {
+      updateLayer()
+    } else {
+      map.once("styledata", updateLayer)
+    }
+  })
 
   onCleanup(() => {
     map.remove()
