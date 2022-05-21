@@ -53,7 +53,7 @@ const Popup = (props) => {
       setPopup({
         click: false,
         hover: true,
-        feature: getFeatureData(features) || {},
+        feature: getFeatureData(features),
       })
     }
 
@@ -107,14 +107,15 @@ const Popup = (props) => {
     if (props.active && !popup.click) popupObj.addTo(props.map)
   })
 
+  // TODO: currently a no-op
   createEffect(() => {
     if (props.lngLat) popupObj.setLngLat(props.lngLat)
   })
 
   createEffect(() => {
-    if (!props.selectedPoint) return
+    if (!popup.selectedPoint) return
 
-    const { type, lat, lon } = props.selectedPoint
+    const { type, lat, lon } = popup.selectedPoint
     const isPoint = ["Point Address", "Address Range"].includes(type)
     const zoom = isPoint ? 11.5 : 10
 
@@ -134,9 +135,8 @@ const Popup = (props) => {
 
         if (features.length > 0) {
           props.map.getCanvas().style.cursor = "pointer"
-          console.log(getFeatureData(features))
-
-          // TODO: almost done, but not showing up
+          popupObj.addTo(props.map)
+          popupObj.setLngLat({ lng: lon, lat })
           setPopup({
             click: true,
             hover: false,
@@ -145,8 +145,6 @@ const Popup = (props) => {
         }
       })
     }
-    console.log("ad")
-    // setPopup({ selectedPoint: null })
   })
 
   createEffect(() =>

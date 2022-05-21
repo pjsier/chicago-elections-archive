@@ -92,7 +92,6 @@ const MapPage = (props) => {
           source={`precincts-${getPrecinctYear(+year())}`}
           active={popup.click || popup.hover}
           lngLat={popup.lngLat}
-          selectedPoint={popup.selectedPoint}
         >
           <PopupContent
             displayOverrides={props.displayOverrides}

@@ -71,16 +71,13 @@ const getResults = ({ query, azureMapsKey }) =>
     )
     .catch(() => [])
 
-// TODO: fix setState syntax with spread across the board
-// TODO: one prop should be onSelect so that it's managed at a higher level
-// TODO: need to handle blue, document click, otherwise done
 const Geocoder = (props) => {
   let selected = false
 
   const [state, setState] = createStore({
     search: "",
     activeIndex: -1,
-    expanded: false, // TODO: figure out this part
+    expanded: false,
     results: [],
   })
 
