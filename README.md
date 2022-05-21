@@ -6,7 +6,6 @@ Loading data from the [Chicago Board of Election Commissioners](https://chicagoe
 
 ## TODO
 
-- Geocoder
 - About page
 - Download links
   - Just link to sources

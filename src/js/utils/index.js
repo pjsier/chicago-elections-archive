@@ -96,7 +96,6 @@ export function updateQueryParams(params) {
       objectFromSearchParams(new URLSearchParams(window.location.search))
     ).filter((vals) => !Object.keys(params).includes(vals[0]))
   )
-  // TODO: If boolean filters may need to be more careful here
   const cleanParams = fromEntries(
     Object.entries(params).filter(([key, value]) =>
       key === `page` ? value > 1 : !!value
@@ -111,6 +110,6 @@ export function updateQueryParams(params) {
   window.history.replaceState(
     {},
     window.document.title,
-    `${window.location.protocol}//${window.location.host}${window.location.pathname}${suffix}`
+    `${window.location.protocol}//${window.location.host}${window.location.pathname}${suffix}${window.location.hash}`
   )
 }

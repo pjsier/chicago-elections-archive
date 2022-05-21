@@ -285,7 +285,7 @@ main.map {
 .maplibregl-popup-close-button {
   padding: 0 4px;
 }
-/* TODO: */
+
 .maplibregl-popup {
   max-width: 220px;
   width: 220px;
