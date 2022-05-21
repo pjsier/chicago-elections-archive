@@ -1,16 +1,18 @@
 # Chicago Elections Archive
 
-Update this
+Access precinct-level results from historical Chicago elections.
 
-Loading data from the [Chicago Board of Election Commissioners](https://chicagoelections.gov) for all Chicago elections with results posted. Used for an Observable notebook to view results.
+## Setup
 
-## TODO
+```shell
+poetry install
+npm install
+make all
+```
 
-- About page
-- Download links
-  - Just link to sources
-- Style generally
-  - Chicago colors (blue #b3ddf2, red #ff0000)
+## Updating Data
+
+To update data, regenerate `input/results-metadata.json` and `output/results-metadata.json`. Then re-run `make all`, forcing execution if necessary.
 
 ## Data Notes
 
