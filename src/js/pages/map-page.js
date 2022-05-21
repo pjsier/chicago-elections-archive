@@ -4,6 +4,7 @@ import Map from "../components/map"
 import Legend from "../components/legend"
 import Popup from "../components/popup"
 import PopupContent from "../components/popup-content"
+import Geocoder from "../components/geocoder"
 import { useMapStore } from "../providers/map"
 import { usePopup } from "../providers/popup"
 import { updateQueryParams } from "../utils"
@@ -15,7 +16,7 @@ const MapPage = (props) => {
     race: props.initialRace || `0`,
   })
   const [mapStore] = useMapStore()
-  const [popup] = usePopup()
+  const [popup, setPopup] = usePopup()
 
   createEffect(() => {
     updateQueryParams({
@@ -48,6 +49,12 @@ const MapPage = (props) => {
         }}
       />
       <div id="legend">
+        <div id="geocoder-container">
+          <Geocoder
+            azureMapsKey={props.azureMapsKey}
+            onSelect={(selectedPoint) => setPopup({ selectedPoint })}
+          />
+        </div>
         <div class="content">
           <h2>{props.elections[state.election].races[state.race]}</h2>
           <form method="GET" action="">
@@ -84,6 +91,7 @@ const MapPage = (props) => {
           source={`precincts-${getPrecinctYear(+year())}`}
           active={popup.click || popup.hover}
           lngLat={popup.lngLat}
+          selectedPoint={popup.selectedPoint}
         >
           <PopupContent
             displayOverrides={props.displayOverrides}

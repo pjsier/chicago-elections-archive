@@ -1,3 +1,7 @@
+import { For, createResource } from "solid-js"
+import { createStore } from "solid-js/store"
+import SearchIcon from "./search-icon"
+
 const DEBOUNCE_TIME = 350
 
 /* eslint-disable */
@@ -19,6 +23,17 @@ export const debounce = (func, wait, immediate) => {
 }
 /* eslint-enable */
 
+// TODO: reimplement these pieces
+// input.addEventListener("blur", () => window.setTimeout(closeGeocoder, 100))
+// input.addEventListener("focus", openGeocoder)
+// input.addEventListener("change", updateClearButtonVisibility)
+// clearButton.addEventListener("click", clearInput)
+// document.body.addEventListener("click", (e) => {
+//   if (!combobox.contains(e.target) && !resultList.contains(e.target)) {
+//     closeGeocoder()
+//   }
+// })
+
 const getAddress = ({
   entityType = null,
   address: { freeformAddress: address, countrySecondarySubdivision: county },
@@ -27,12 +42,12 @@ const getAddress = ({
     ? `${county} County, IL`
     : address
 
-const getResults = (query, azureMapsKey) =>
+const getResults = ({ query, azureMapsKey }) =>
   fetch(
     `https://atlas.microsoft.com/search/fuzzy/json?${new URLSearchParams({
       "api-version": 1.0,
-      topLeft: "42.5082,-91.5131",
-      btmRight: "36.9701,-87.0199",
+      topLeft: "42.023022,-87.940101",
+      btmRight: "41.643919,-87.523984",
       countrySet: "US",
       idxSet: ["Addr", "PAD", "Geo"].join(","),
       limit: 5,
@@ -56,116 +71,131 @@ const getResults = (query, azureMapsKey) =>
     )
     .catch(() => [])
 
-export function setupGeocoder(onSelect) {
-  const azureMapsKey = document.head.querySelector(
-    `meta[name="azure-maps-key"]`
-  ).content
-  const combobox = document.getElementById("geocoder")
-  const input = document.getElementById("geocoder-search")
-  const resultList = document.getElementById("geocoder-results")
-  const clearButton = document.getElementById("geocoder-clear")
-  let results = []
-  let activeIndex = -1
+// TODO: fix setState syntax with spread across the board
+// TODO: one prop should be onSelect so that it's managed at a higher level
+// TODO: need to handle blue, document click, otherwise done
+const Geocoder = (props) => {
+  let selected = false
 
-  const openGeocoder = () => {
-    resultList.classList.toggle("hidden", false)
-    combobox.setAttribute("aria-expanded", "true")
-  }
+  const [state, setState] = createStore({
+    search: "",
+    activeIndex: -1,
+    expanded: false, // TODO: figure out this part
+    results: [],
+  })
 
-  const closeGeocoder = () => {
-    setActiveIndex(-1)
-    resultList.classList.toggle("hidden", true)
-    combobox.setAttribute("aria-expanded", "false")
-  }
-
-  const clearInput = () => {
-    input.value = ``
-    results = []
-    resultList.innerHTML = ``
-    input.classList.toggle("has-value", false)
-  }
-
-  const updateClearButtonVisibility = () => {
-    if (input.classList.contains("has-value") && input.value.trim() === ``) {
-      input.classList.toggle("has-value", false)
-    } else if (
-      !input.classList.contains("has-value") &&
-      input.value.trim() !== ``
-    ) {
-      input.classList.toggle("has-value", true)
+  const updateResults = async ([query, azureMapsKey]) => {
+    if (!(query || "").trim()) return
+    // Prevent double input from setting value on select
+    if (selected) {
+      selected = false
+      return
     }
-  }
-
-  const setActiveIndex = (idx) => {
-    const resultVals = resultList.querySelectorAll(`[role="option"]`)
-    if (activeIndex > -1 && resultVals.length >= activeIndex - 1) {
-      resultVals[activeIndex].removeAttribute("aria-selected")
-    }
-    if (idx !== -1 && resultVals.length >= idx - 1) {
-      resultVals[idx].setAttribute("aria-selected", "true")
-    }
-    activeIndex = idx
-  }
-
-  const selectResult = (index) => {
-    input.value = results[index].address
-    closeGeocoder()
-    onSelect(results[index])
-  }
-
-  const updateResults = (text) => {
-    getResults(text, azureMapsKey).then((queryResults) => {
-      results = queryResults
-      resultList.innerHTML = results
-        .map(
-          ({ address }, idx) =>
-            `<li id="result-${idx}" role="option" class="result">${address}</li>`
-        )
-        .join(``)
-      resultList
-        .querySelectorAll(`li[role="option"]`)
-        .forEach((r, i) => r.addEventListener("click", () => selectResult(i)))
+    const results = await getResults({ query, azureMapsKey })
+    // unsets active index
+    setState({
+      activeIndex: -1,
+      expanded: true,
+      results,
     })
   }
 
   const debouncedUpdateResults = debounce(updateResults, DEBOUNCE_TIME)
 
-  input.addEventListener("input", (e) => {
-    if (e.target.value.trim().length > 1) debouncedUpdateResults(e.target.value)
-    updateClearButtonVisibility()
-  })
+  const onSelect = (result) => {
+    selected = true
+    setState({
+      search: result.address,
+      expanded: false,
+      results: [],
+    })
+    props.onSelect(result)
+  }
 
-  input.addEventListener("keydown", (e) => {
+  createResource(
+    () => [state.search, props.azureMapsKey],
+    // eslint-disable-next-line solid/reactivity
+    debouncedUpdateResults
+  )
+
+  const onKeyDown = (e) => {
     if (["ArrowDown", "ArrowRight"].includes(e.code)) {
-      if (e.code === "ArrowDown" || activeIndex > -1) e.preventDefault()
-      if (activeIndex < results.length - 1) {
-        setActiveIndex(activeIndex + 1)
+      if (e.code === "ArrowDown" || state.activeIndex > -1) e.preventDefault()
+      if (state.activeIndex < state.results.length - 1) {
+        setState({ activeIndex: state.activeIndex + 1 })
       }
     } else if (["ArrowUp", "ArrowLeft"].includes(e.code)) {
-      if (e.code === "ArrowUp" || activeIndex > -1) e.preventDefault()
-      if (activeIndex > -1) {
-        setActiveIndex(activeIndex - 1)
+      if (e.code === "ArrowUp" || state.activeIndex > -1) e.preventDefault()
+      if (state.activeIndex > -1) {
+        setState({ activeIndex: state.activeIndex - 1 })
       }
     } else if (e.code === "Enter") {
       e.preventDefault()
-      if (activeIndex > -1) {
-        selectResult(activeIndex)
+      if (state.activeIndex > -1) {
+        onSelect(state.results[state.activeIndex])
       }
     } else if (e.code === "Space") {
-      if (activeIndex > -1) {
+      if (state.activeIndex > -1) {
         e.preventDefault()
-        selectResult(activeIndex)
+        onSelect(state.results[state.activeIndex])
       }
     }
-  })
+  }
 
-  input.addEventListener("blur", () => window.setTimeout(closeGeocoder, 100))
-  input.addEventListener("focus", openGeocoder)
-  input.addEventListener("change", updateClearButtonVisibility)
-  clearButton.addEventListener("click", clearInput)
-  document.body.addEventListener("click", (e) => {
-    if (!combobox.contains(e.target) && !resultList.contains(e.target)) {
-      closeGeocoder()
-    }
-  })
+  return (
+    <>
+      <div
+        id="geocoder"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={state.expanded}
+      >
+        <SearchIcon />
+        <input
+          type="text"
+          id="geocoder-search"
+          class=""
+          name="search"
+          aria-label="Search for..."
+          placeholder="Search for..."
+          aria-autocomplete="list"
+          aria-controls="geocoder-results"
+          value={state.search}
+          onInput={(e) => setState({ search: e.target.value })}
+          onKeyDown={onKeyDown}
+        />
+        <button
+          type="button"
+          class={`delete ${state.search.trim() ? `` : `hidden`}`}
+          id="geocoder-clear"
+          aria-label="Clear search input"
+          onClick={() => setState({ search: "", results: [], activeIndex: -1 })}
+        ></button>
+      </div>
+      <ul
+        id="geocoder-results"
+        role="listbox"
+        class={state.expanded ? `` : `hidden`}
+      >
+        <For each={state.results}>
+          {(result, idx) => (
+            <li
+              id={`result-${idx()}`}
+              role="option"
+              class="result"
+              onClick={() => onSelect(result)}
+              // eslint-disable-next-line solid/reactivity
+              {...(state.activeIndex === idx()
+                ? { "aria-selected": true }
+                : {})}
+            >
+              {result.address}
+            </li>
+          )}
+        </For>
+      </ul>
+    </>
+  )
 }
+
+export default Geocoder

@@ -14,9 +14,14 @@ function parseMapMetadata() {
   const electionOptions = electionOrder
     .filter((idx) => elections[idx])
     .map((idx) => ({ label: elections[idx].label, value: idx }))
+
+  const azureMapsKey = document.head.querySelector(
+    `meta[name="azure-maps-key"]`
+  ).content
   return {
     elections,
     electionOptions,
+    azureMapsKey,
     ...metadata,
   }
 }

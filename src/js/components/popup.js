@@ -1,6 +1,7 @@
 import { onMount, onCleanup, createEffect } from "solid-js"
 import { usePopup } from "../providers/popup"
 
+// TODO: not sure if the balance of providers and props is right here
 const Popup = (props) => {
   const [popup, setPopup] = usePopup()
   let hoverId = null
@@ -50,7 +51,6 @@ const Popup = (props) => {
       popupObj.setLngLat(e.lngLat)
       updateHoverState(features)
       setPopup({
-        ...popup,
         click: false,
         hover: true,
         feature: getFeatureData(features) || {},
@@ -62,13 +62,16 @@ const Popup = (props) => {
       props.map.getCanvas().style.cursor = ""
       popupObj.remove()
       updateHoverState([])
-      setPopup({ ...popup, click: false, hover: false, feature: null })
+      setPopup({ click: false, hover: false, feature: null })
     }
 
     const onMapClick = (e) => {
       if (popup.click) {
-        // TODO: better handling of click outside
-        setPopup({ ...popup, click: false, hover: false, feature: null })
+        // TODO: better handling of click outside, not just in boundaries
+        props.map.getCanvas().style.cursor = ""
+        popupObj.remove()
+        updateHoverState([])
+        setPopup({ click: false, hover: false, feature: null })
         return
       }
 
@@ -79,7 +82,6 @@ const Popup = (props) => {
       if (features.length > 0) {
         props.map.getCanvas().style.cursor = "pointer"
         setPopup({
-          ...popup,
           click: true,
           hover: false,
           feature: getFeatureData(features),
@@ -95,7 +97,7 @@ const Popup = (props) => {
     props.map.on("click", props.layer, onMapClick)
 
     popupObj.on("close", () => {
-      setPopup({ ...popup, click: false, hover: false, feature: null })
+      setPopup({ click: false, hover: false, feature: null })
     })
   })
 
@@ -107,6 +109,44 @@ const Popup = (props) => {
 
   createEffect(() => {
     if (props.lngLat) popupObj.setLngLat(props.lngLat)
+  })
+
+  createEffect(() => {
+    if (!props.selectedPoint) return
+
+    const { type, lat, lon } = props.selectedPoint
+    const isPoint = ["Point Address", "Address Range"].includes(type)
+    const zoom = isPoint ? 11.5 : 10
+
+    props.map.flyTo({
+      center: [lon, lat],
+      zoom,
+    })
+    props.map.resize()
+
+    if (isPoint) {
+      props.map.once("moveend", () => {
+        const features = props.map.queryRenderedFeatures(
+          props.map.project([lon, lat]),
+          { layers: [props.layer] }
+        )
+        updateHoverState(features)
+
+        if (features.length > 0) {
+          props.map.getCanvas().style.cursor = "pointer"
+          console.log(getFeatureData(features))
+
+          // TODO: almost done, but not showing up
+          setPopup({
+            click: true,
+            hover: false,
+            feature: getFeatureData(features),
+          })
+        }
+      })
+    }
+    console.log("ad")
+    // setPopup({ selectedPoint: null })
   })
 
   createEffect(() =>

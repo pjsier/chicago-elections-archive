@@ -11,6 +11,7 @@ function PopupProvider(props) {
     click: false,
     lngLat: null,
     feature: null,
+    selectedPoint: null,
   })
 
   return (

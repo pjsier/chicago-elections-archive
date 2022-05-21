@@ -16,3 +16,7 @@ Missing data...
 - GIS files [https://github.com/datamade/chicago-municipal-elections](https://github.com/datamade/chicago-municipal-elections)
 - All other data can be accessed Chicago Board of Election Commissioners
 - 1983 election data can be accessed through the Chicago Elections Project: []()
+
+## FAQs
+
+- How are there some locations where turnout is >100%?

@@ -14,7 +14,7 @@ const Legend = (props) => (
         <div class="legend-row">
           <div>
             <span class="color" style={{ "background-color": color }}></span>{" "}
-            <span>{props.displayOverrides[name] || name}</span>
+            <span class="label">{props.displayOverrides[name] || name}</span>
           </div>
           <div class="numbers">
             <div>{votes.toLocaleString()}</div>

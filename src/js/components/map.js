@@ -137,7 +137,7 @@ const Map = (props) => {
   let map
   let mapRef
 
-  const [mapStore, setMapStore] = useMapStore()
+  const [, setMapStore] = useMapStore()
 
   const mapSource = createMemo(() => `precincts-${getPrecinctYear(props.year)}`)
 
@@ -157,7 +157,7 @@ const Map = (props) => {
       )
     })
 
-    setMapStore({ ...mapStore, map })
+    setMapStore({ map })
   })
 
   // Based on solidjs/solid/issues/670#issuecomment-930345275
@@ -170,7 +170,7 @@ const Map = (props) => {
 
       const dataCols = getDataCols(data[0] || [])
 
-      setMapStore({ ...mapStore, ...def.legendData })
+      setMapStore({ ...def.legendData })
 
       const updateLayer = () => {
         if (!map) return
