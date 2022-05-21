@@ -59,26 +59,30 @@ const MapPage = (props) => {
         <div class="content">
           <h1>Chicago Elections Archive</h1>
           <form method="GET" action="">
-            <select
-              aria-label="Election"
-              value={state.election}
-              onChange={(e) =>
-                setState({ ...state, election: e.target.value, race: "0" })
-              }
-            >
-              <For each={props.electionOptions}>
-                {({ label, value }) => <option value={value}>{label}</option>}
-              </For>
-            </select>
-            <select
-              aria-label="Race"
-              value={state.race}
-              onChange={(e) => setState({ ...state, race: e.target.value })}
-            >
-              <For each={raceOptions()}>
-                {({ label, value }) => <option value={value}>{label}</option>}
-              </For>
-            </select>
+            <div class="select">
+              <select
+                aria-label="Election"
+                value={state.election}
+                onChange={(e) =>
+                  setState({ ...state, election: e.target.value, race: "0" })
+                }
+              >
+                <For each={props.electionOptions}>
+                  {({ label, value }) => <option value={value}>{label}</option>}
+                </For>
+              </select>
+            </div>
+            <div class="select">
+              <select
+                aria-label="Race"
+                value={state.race}
+                onChange={(e) => setState({ ...state, race: e.target.value })}
+              >
+                <For each={raceOptions()}>
+                  {({ label, value }) => <option value={value}>{label}</option>}
+                </For>
+              </select>
+            </div>
           </form>
           <Legend
             candidates={mapStore.candidates || []}

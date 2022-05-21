@@ -1,7 +1,7 @@
 main.map {
   @apply w-full relative;
 
-  min-height: calc(100vh - 48px);
+  min-height: calc(100vh - 52px);
 }
 
 #map-container,
@@ -30,13 +30,45 @@ main.map {
 }
 
 #legend select {
-  @apply w-full max-w-full h-8 mb-1;
+  @apply relative w-full max-w-full h-8 py-0 pl-2 pr-6;
+
+  background-color: #f4f4f4;
+  appearance: none;
+  border: none;
 }
 
-#legend select:first-child {
+#legend select:focus {
+  box-shadow: 0 0 1px 1px #0a60c2;
+}
+
+#legend .select {
+  @apply w-full max-w-full relative flex-grow mb-1;
+
+  border: solid 1px #d8d8d8;
+}
+
+/* Borrowed from bulma */
+#legend .select::after {
+  @apply block pointer-events-none absolute z-30;
+
+  content: "";
+  border: 3px solid #000000;
+  border-right: 0;
+  border-top: 0;
+  border-radius: 2px;
+  height: 0.625em;
+  margin-top: -0.4375em;
+  top: 50%;
+  right: 0.5em;
+  transform: rotate(-45deg);
+  transform-origin: center;
+  width: 0.625em;
+}
+
+#legend .select:first-child {
   margin-right: 2px;
 }
-#legend select:last-child {
+#legend .select:last-child {
   margin-left: 2px;
 }
 
@@ -272,8 +304,8 @@ main.map {
   #legend form {
     @apply block;
   }
-  #legend select:first-child,
-  #legend select:last-child {
+  #legend .select:first-child,
+  #legend .select:last-child {
     @apply mx-0;
   }
 }
