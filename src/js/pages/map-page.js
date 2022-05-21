@@ -46,6 +46,7 @@ const MapPage = (props) => {
           zoom: 9.25,
           hash: true,
           dragRotate: false,
+          attributionControl: false,
         }}
       />
       <div id="legend">

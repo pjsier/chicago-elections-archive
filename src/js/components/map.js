@@ -4,6 +4,14 @@ import { useMapStore } from "../providers/map"
 import { descending, fromEntries } from "../utils"
 import { COLOR_SCHEME, getDataCols, getPrecinctYear } from "../utils/map"
 
+const MOBILE_CUTOFF = 800
+
+const compactAttribControl = () => {
+  const control = document.querySelector("details.maplibregl-ctrl-attrib")
+  control.removeAttribute("open")
+  control.classList.remove("mapboxgl-compact-show", "maplibregl-compact-show")
+}
+
 function fetchCsvData(election, race) {
   return fetch(
     `https://chicago-elections-archive.us-east-1.linodeobjects.com/results/${election}/${race}.csv`
@@ -147,6 +155,15 @@ const Map = (props) => {
       ...props.mapOptions,
     })
     map.touchZoomRotate.disableRotation()
+    const isMobile = window.innerWidth < MOBILE_CUTOFF
+    map.addControl(
+      new window.maplibregl.AttributionControl({
+        compact: isMobile,
+      }),
+      isMobile ? "top-left" : "bottom-right"
+    )
+    // Workaround for a bug in maplibre-gl where the attrib is default open
+    if (isMobile) compactAttribControl()
 
     map.once("styledata", () => {
       map.addControl(
