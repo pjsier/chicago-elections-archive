@@ -25,12 +25,23 @@ main.map {
   bottom: 0;
 }
 
+#legend form {
+  @apply flex flex-row items-center;
+}
+
 #legend select {
-  @apply w-full max-w-full;
+  @apply w-full max-w-full h-8 mb-1;
+}
+
+#legend select:first-child {
+  margin-right: 2px;
+}
+#legend select:last-child {
+  margin-left: 2px;
 }
 
 #legend .content {
-  max-height: 140px;
+  max-height: 240px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   padding: 8px 12px;
@@ -48,10 +59,10 @@ main.map {
   border: solid 1px #d5d5d5;
 }
 
-#legend h1 {
-  font-size: 18px;
-  margin-bottom: 0;
-  display: none;
+#legend .content h1 {
+  @apply text-lg pt-2 pb-3 my-0;
+
+  line-height: 1;
 }
 
 .legend-item {
@@ -67,13 +78,8 @@ main.map {
 }
 
 .color-ramp {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 4px;
-  height: 20px;
-  padding: 2px;
+  @apply flex flex-row items-center justify-between mb-3 h-6 p-1;
+
   line-height: 1.5;
 }
 
@@ -110,31 +116,26 @@ main.map {
 }
 
 #geocoder-results {
-  position: absolute;
+  @apply absolute left-0 right-0 w-full bg-white;
   top: 100%;
-  left: 0;
-  right: 0;
-  width: 100%;
   z-index: 2;
-  background-color: #fff;
   box-shadow: 0 3px 2px -2px rgba(0, 0, 0, 0.25);
 }
 
 #geocoder-results .result {
+  @apply bg-white cursor-pointer max-w-full overflow-hidden;
+
   padding: 6px 12px;
-  background-color: #fff;
-  cursor: pointer;
-  max-width: 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
   border: solid 1px #d5d5d5;
   border-top-width: 0;
 }
 #geocoder-results .result:hover,
 #geocoder-results .result:active {
+  @apply relative;
+
   box-shadow: 0 0 1px 1px #0a60c2;
-  position: relative;
   z-index: 1;
 }
 #geocoder-results .result[aria-selected] {
@@ -147,8 +148,7 @@ main.map {
 
 #geocoder,
 #geocoder-search {
-  width: 100%;
-  height: 100%;
+  @apply w-full h-full;
 }
 
 #geocoder {
@@ -156,12 +156,11 @@ main.map {
 }
 
 #geocoder-search {
-  display: inline-flex;
+  @apply inline-flex items-center justify-start;
+
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
-  align-items: center;
-  justify-content: flex-start;
   border-radius: 0;
   border: solid 1px #d5d5d5;
   padding: 12px 8px;
@@ -232,10 +231,10 @@ main.map {
 }
 
 #geocoder-clear {
-  position: absolute;
+  @apply absolute inline-block;
+
   right: 12px;
   top: 10px;
-  display: inline-block;
 }
 
 #geocoder-clear.hidden {
@@ -266,14 +265,17 @@ main.map {
     background-color: rgba(255, 255, 255, 0.8);
   }
 
-  #legend h1 {
-    margin-bottom: 12px;
-    display: block;
+  #legend .content h1 {
+    @apply text-xl block;
   }
 
-  /* .scale {
-    margin-top: 8px;
-  } */
+  #legend form {
+    @apply block;
+  }
+  #legend select:first-child,
+  #legend select:last-child {
+    @apply mx-0;
+  }
 }
 
 .maplibregl-map {

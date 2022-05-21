@@ -163,8 +163,10 @@ const Map = (props) => {
       isMobile ? "top-left" : "bottom-right"
     )
     // Workaround for a bug in maplibre-gl where the attrib is default open
-    if (isMobile) compactAttribControl()
-
+    if (isMobile) {
+      compactAttribControl()
+      setTimeout(compactAttribControl, 250)
+    }
     map.once("styledata", () => {
       map.addControl(
         new window.maplibregl.NavigationControl({ showCompass: false })

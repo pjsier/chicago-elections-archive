@@ -57,9 +57,10 @@ const MapPage = (props) => {
           />
         </div>
         <div class="content">
-          <h2>{props.elections[state.election].races[state.race]}</h2>
+          <h1>Chicago Elections Archive</h1>
           <form method="GET" action="">
             <select
+              aria-label="Election"
               value={state.election}
               onChange={(e) =>
                 setState({ ...state, election: e.target.value, race: "0" })
@@ -70,6 +71,7 @@ const MapPage = (props) => {
               </For>
             </select>
             <select
+              aria-label="Race"
               value={state.race}
               onChange={(e) => setState({ ...state, race: e.target.value })}
             >
