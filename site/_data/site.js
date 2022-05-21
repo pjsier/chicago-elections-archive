@@ -10,7 +10,7 @@ const baseurl = production ? "" : ""
 module.exports = {
   name: "Chicago Elections Archive",
   title: "Chicago Elections Archive",
-  description: "Maps and data for Chicago elections",
+  description: "Access precinct-level results of historical Chicago elections",
   type: "website",
   baseurl,
   url: `${host}${baseurl}`,

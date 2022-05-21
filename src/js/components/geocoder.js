@@ -140,10 +140,9 @@ const Geocoder = (props) => {
         <input
           type="text"
           id="geocoder-search"
-          class=""
           name="search"
-          aria-label="Search for..."
-          placeholder="Search for..."
+          aria-label="Search for an address"
+          placeholder="Search for an address"
           aria-autocomplete="list"
           aria-controls="geocoder-results"
           value={state.search}
