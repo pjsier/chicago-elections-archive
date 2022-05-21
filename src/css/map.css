@@ -64,7 +64,7 @@ main.map {
 }
 
 #legend .content {
-  max-height: 240px;
+  max-height: 140px;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
   padding: 8px 12px;
