@@ -7,6 +7,8 @@ const host = production ? process.env.SITE_HOST : "http://0.0.0.0:8080"
 // For modifying the <base> tag
 const baseurl = production ? "" : ""
 
+console.log(process.env.PLAUSIBLE, !!process.env.PLAUSIBLE)
+
 module.exports = {
   name: "Chicago Elections Archive",
   title: "Chicago Elections Archive",
