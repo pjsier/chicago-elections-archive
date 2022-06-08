@@ -15,7 +15,7 @@ There are some inconsistencies in the data, including precincts where the turnou
 
 Several elections were missing too many precinct matches to be usable, so those are not made available here.
 
-Notice something else? Feel free to send an email to info@chicagoelectionsarchive.org
+Notice something else? Feel free to send an email to [info@chicagoelectionsarchive.org](mailto:info@chicagoelectionsarchive.org)
 
 ## Data Access
 
@@ -27,4 +27,4 @@ All precinct boundaries can be accessed through DataMade's open source project: 
 
 ## Contact
 
-Other questions or concerns? Feel free to reach out at info@chicagoelectionsarchive.org
+Other questions or concerns? Feel free to reach out at [info@chicagoelectionsarchive.org](mailto:info@chicagoelectionsarchive.org)
