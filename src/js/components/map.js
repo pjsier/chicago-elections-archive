@@ -148,7 +148,7 @@ const Map = (props) => {
   let map
   let mapRef
 
-  const [, setMapStore] = useMapStore()
+  const [mapStore, setMapStore] = useMapStore()
 
   const mapSource = createMemo(() => `precincts-${getPrecinctYear(props.year)}`)
 
@@ -177,6 +177,7 @@ const Map = (props) => {
       map.addControl(
         new window.maplibregl.FullscreenControl({ container: mapRef })
       )
+      map.resize()
     })
 
     setMapStore({ map })
@@ -197,21 +198,21 @@ const Map = (props) => {
     const updateLayer = () => {
       if (!map) return
 
-      map.removeLayer("precincts")
-      map.removeFeatureState({
+      mapStore.map.removeLayer("precincts")
+      mapStore.map.removeFeatureState({
         source: mapSource(),
         sourceLayer: "precincts",
       })
       data.forEach((feature) => {
         setFeatureData(map, dataCols, mapSource(), feature)
       })
-      map.addLayer(def.layerDefinition, "place_other")
+      mapStore.map.addLayer(def.layerDefinition, "place_other")
     }
 
-    if (map.isStyleLoaded()) {
+    if (mapStore.map.isStyleLoaded()) {
       updateLayer()
     } else {
-      map.once("styledata", updateLayer)
+      mapStore.map.once("styledata", updateLayer)
     }
   })
 
