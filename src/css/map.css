@@ -390,13 +390,13 @@ main.map {
   margin-bottom: 8px;
 }
 
-.mapboxgl-ctrl-attrib.mapboxgl-compact > summary,
-.maplibregl-ctrl-attrib.maplibregl-compact > summary {
+.maplibregl-ctrl-attrib summary.maplibregl-ctrl-attrib-button {
   @apply appearance-none;
 
   list-style: none;
 }
-.mapboxgl-ctrl-attrib.mapboxgl-compact > summary::-webkit-details-marker,
-.maplibregl-ctrl-attrib.maplibregl-compact > summary::-webkit-details-marker {
+
+.maplibregl-ctrl-attrib
+  summary.maplibregl-ctrl-attrib-button::-webkit-details-marker {
   @apply hidden;
 }
