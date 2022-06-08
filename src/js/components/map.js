@@ -12,10 +12,8 @@ const compactAttribControl = () => {
   control.classList.remove("mapboxgl-compact-show", "maplibregl-compact-show")
 }
 
-function fetchCsvData(election, race) {
-  return fetch(
-    `https://chicago-elections-archive.us-east-1.linodeobjects.com/results/${election}/${race}.csv`
-  )
+function fetchCsvData(dataDomain, election, race) {
+  return fetch(`https://${dataDomain}/results/${election}/${race}.csv`)
     .then((data) => data.text())
     .then((data) =>
       csvParse(data).map((row) =>
@@ -188,7 +186,11 @@ const Map = (props) => {
   createEffect(async () => {
     let canceled = false
     onCleanup(() => (canceled = true))
-    const data = await fetchCsvData(props.election, props.race)
+    const data = await fetchCsvData(
+      props.dataDomain,
+      props.election,
+      props.race
+    )
     if (canceled) return
     const def = createPrecinctLayerDefinition(data, props.year)
     const dataCols = getDataCols(data[0] || [])

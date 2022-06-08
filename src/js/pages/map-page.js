@@ -35,6 +35,7 @@ const MapPage = (props) => {
   return (
     <>
       <Map
+        dataDomain={props.dataDomain}
         year={year()}
         election={state.election}
         race={state.race}

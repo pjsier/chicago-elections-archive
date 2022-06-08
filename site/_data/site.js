@@ -17,6 +17,9 @@ module.exports = {
   baseurl,
   url: `${host}${baseurl}`,
   domain: host.replace("https://", ""),
+  dataDomain:
+    process.env.DATA_DOMAIN ||
+    "chicago-elections-archive.us-east-1.linodeobjects.com",
   production,
   // robots: production,
   robots: false,

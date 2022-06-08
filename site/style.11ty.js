@@ -13,7 +13,7 @@ exports.render = ({ site }) => {
         maxzoom: 12,
         bounds: [-87.940101, 41.643919, -87.523984, 42.023022],
         tiles: [
-          `https://chicago-elections-archive.us-east-1.linodeobjects.com/tiles/precincts-${year}/{z}/{x}/{y}.pbf`,
+          `https://${site.dataDomain}/tiles/precincts-${year}/{z}/{x}/{y}.pbf`,
         ],
         attribution:
           year == 1983

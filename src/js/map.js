@@ -18,10 +18,14 @@ function parseMapMetadata() {
   const azureMapsKey = document.head.querySelector(
     `meta[name="azure-maps-key"]`
   ).content
+  const dataDomain = document.head.querySelector(
+    `meta[name="data-domain"]`
+  ).content
   return {
     elections,
     electionOptions,
     azureMapsKey,
+    dataDomain,
     ...metadata,
   }
 }
