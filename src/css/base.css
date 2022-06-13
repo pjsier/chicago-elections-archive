@@ -9,6 +9,7 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   text-size-adjust: 100%;
+  min-height: -webkit-fill-available;
 }
 
 body {

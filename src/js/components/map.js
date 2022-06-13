@@ -113,6 +113,17 @@ const createPrecinctLayerDefinition = (data, year) => ({
           ["feature-state", "color"],
         ],
       ],
+      "fill-opacity": [
+        "interpolate",
+        ["linear"],
+        ["zoom"],
+        0,
+        1.0,
+        10,
+        1.0,
+        14,
+        0.8,
+      ],
     },
   },
   legendData: aggregateElection(data),
@@ -166,7 +177,10 @@ const Map = (props) => {
     // Workaround for a bug in maplibre-gl where the attrib is default open
     if (isMobile) {
       compactAttribControl()
-      setTimeout(compactAttribControl, 250)
+      const timeouts = [250, 500, 1000]
+      timeouts.forEach((timeout) => {
+        window.setTimeout(compactAttribControl, timeout)
+      })
     }
     map.once("styledata", () => {
       map.addControl(

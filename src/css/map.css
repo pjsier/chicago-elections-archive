@@ -2,6 +2,7 @@ main.map {
   @apply w-full relative;
 
   min-height: calc(100vh - 52px);
+  min-height: calc(-webkit-fill-available - 52px);
 }
 
 #map-container,
@@ -283,8 +284,7 @@ main.map {
 
   #legend .content {
     width: 360px;
-    max-height: inherit;
-    overflow-y: visible;
+    max-height: 600px;
     background: none;
     background-color: rgba(255, 255, 255, 0.8);
   }
@@ -359,12 +359,22 @@ main.map {
   line-height: 1.25;
 }
 
+.legend-row:not(:last-child) {
+  @apply mb-1 pb-1;
+
+  border-color: rgba(0, 0, 0, 0.3);
+  border-bottom-width: 1px;
+}
+
 .legend-row .label {
   line-height: 1;
 }
 
 .legend-row .numbers {
   @apply flex items-center justify-end flex-grow pl-2;
+
+  width: 45%;
+  min-width: 45%;
 }
 
 .legend-row .percent {
@@ -377,6 +387,10 @@ main.map {
 
 .legend-row .color {
   @apply h-3 w-3 inline-block mr-2;
+}
+
+.legend-row-details {
+  @apply flex flex-row items-center;
 }
 
 .maplibregl-popup-content h2 {

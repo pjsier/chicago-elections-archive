@@ -18,7 +18,7 @@ const PopupContent = (props) => {
       <For each={candidateData()}>
         {({ label, value }) => (
           <div class="legend-row">
-            <div>
+            <div class="legend-row-details">
               <span
                 class="color"
                 style={{ "background-color": props.candidateColors[label] }}
