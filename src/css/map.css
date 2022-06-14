@@ -5,6 +5,11 @@ main.map {
   min-height: calc(-webkit-fill-available - 52px);
 }
 
+/* TODO: Look into height for this */
+.embed main.map {
+  min-height: 600px;
+}
+
 #map-container,
 #map {
   @apply absolute top-0 left-0 bottom-0 right-0;

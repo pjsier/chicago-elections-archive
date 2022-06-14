@@ -28,10 +28,15 @@ export default [
             src: "node_modules/maplibre-gl/dist/maplibre-gl.css",
             dest: "dist/static",
           },
+          {
+            src: "node_modules/pym.js/dist/pym.v1.min.js",
+            dest: "dist/static",
+          },
         ],
       }),
       externalGlobals({
         maplibregl: "window.maplibregl",
+        pym: "window.pym",
       }),
       ...(process.env.NODE_ENV === "production" ? [terser()] : []),
     ],

@@ -1,5 +1,6 @@
 export function setupNavToggle() {
   const navToggle = document.getElementById("nav-toggle")
+  if (!navToggle) return
 
   navToggle.addEventListener("click", () => {
     const expanded = navToggle.getAttribute("aria-expanded")
