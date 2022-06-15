@@ -2,7 +2,6 @@ main.map {
   @apply w-full relative;
 
   min-height: calc(100vh - 52px);
-  min-height: calc(-webkit-fill-available - 52px);
 }
 
 /* TODO: Look into height for this */

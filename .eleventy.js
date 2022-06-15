@@ -77,6 +77,7 @@ module.exports = function (eleventyConfig) {
   )
 
   eleventyConfig.addPassthroughCopy({
+    "src/img": "img",
     "site/img": "img",
     output: "data",
   })
