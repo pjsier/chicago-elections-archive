@@ -17,7 +17,7 @@ body {
   @apply h-full flex flex-col;
 
   min-height: 100vh;
-  min-height: fill-available;
+  min-height: stretch;
   line-height: 1.5;
 }
 
