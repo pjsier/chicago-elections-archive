@@ -9,13 +9,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   text-size-adjust: 100%;
-  min-height: 100vh;
-  min-height: -webkit-fill-available;
 }
 
 body {
   @apply flex flex-col;
 
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   line-height: 1.5;
 }
 
