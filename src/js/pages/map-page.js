@@ -8,7 +8,7 @@ import Geocoder from "../components/geocoder"
 import { useMapStore } from "../providers/map"
 import { usePopup } from "../providers/popup"
 import { updateQueryParams } from "../utils"
-import { getPrecinctYear } from "../utils/map"
+import { getPrecinctYear } from "../utils/data"
 
 const MapPage = (props) => {
   const [state, setState] = createStore({

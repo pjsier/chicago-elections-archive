@@ -1,8 +1,8 @@
 import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
-import { csvParse } from "d3-dsv"
 import { useMapStore } from "../providers/map"
 import { descending, fromEntries } from "../utils"
-import { COLOR_SCHEME, getDataCols, getPrecinctYear } from "../utils/map"
+import { COLOR_SCHEME, getDataCols } from "../utils/map"
+import { getPrecinctYear, fetchCsvData } from "../utils/data"
 
 const MOBILE_CUTOFF = 800
 
@@ -10,29 +10,6 @@ const compactAttribControl = () => {
   const control = document.querySelector("details.maplibregl-ctrl-attrib")
   control.removeAttribute("open")
   control.classList.remove("mapboxgl-compact-show", "maplibregl-compact-show")
-}
-
-function fetchCsvData(dataDomain, election, race) {
-  return fetch(`https://${dataDomain}/results/${election}/${race}.csv`)
-    .then((data) => data.text())
-    .then((data) =>
-      csvParse(data).map((row) =>
-        Object.entries(row)
-          .map(([key, value]) => {
-            const keyName = key.split(" &")[0]
-            let cleanKey =
-              key.includes("Percent") && key.includes("&")
-                ? `${keyName} Percent`
-                : keyName
-            // Handling discrepancy where turnout doesn't have "total" column
-            if (row.turnout && cleanKey === "ballots") {
-              cleanKey = "total"
-            }
-            return { [cleanKey]: key === `id` ? value : +value }
-          })
-          .reduce((acc, cur) => ({ ...acc, ...cur }), {})
-      )
-    )
 }
 
 const filterExpression = (data) => [

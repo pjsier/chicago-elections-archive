@@ -5,6 +5,8 @@ body {
 }
 
 html {
+  @apply h-full;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -12,10 +14,10 @@ html {
 }
 
 body {
-  @apply flex flex-col;
+  @apply h-full flex flex-col;
 
   min-height: 100vh;
-  min-height: -webkit-fill-available;
+  min-height: fill-available;
   line-height: 1.5;
 }
 
@@ -29,8 +31,7 @@ h6 {
 }
 
 a {
-  @apply text-blue-600;
-
+  color: #0a60c2;
   text-decoration: none;
 }
 

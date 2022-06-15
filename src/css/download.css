@@ -1,0 +1,19 @@
+#download-container legend,
+#download-container label {
+  @apply font-semibold;
+}
+
+#download-container label.radio {
+  @apply font-normal;
+}
+
+#download-container .radio span {
+  @apply ml-2;
+}
+
+.download-button {
+  @apply inline-block mt-4 p-2 rounded font-bold text-lg;
+
+  background-color: #f4f4f4;
+  border: solid 1px #d8d8d8;
+}

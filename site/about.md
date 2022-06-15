@@ -1,6 +1,7 @@
 ---
 layout: base
 permalink: about/
+title: About | Chicago Elections Archive
 ---
 
 # About
@@ -18,6 +19,8 @@ Several elections were missing too many precinct matches to be usable, so those 
 Notice something else? Feel free to send an email to [info@chicagoelectionsarchive.org](mailto:info@chicagoelectionsarchive.org)
 
 ## Data Access
+
+To make accessing data easier, you can use the [custom download tool](/download/) to generate custom exports of spreadsheets or map files for any election you're interested in.
 
 Elections results for elections going back to 2000 are available from the [Chicago Board of Election Commissioners website](https://chicagoelections.gov/en/election-results.html).
 

@@ -26,40 +26,8 @@ main.map {
   @apply flex flex-row items-center;
 }
 
-#legend select {
-  @apply relative w-full max-w-full h-8 py-0 pl-2 pr-6;
-
-  background-color: #f4f4f4;
-  appearance: none;
-  border: none;
-}
-
-#legend select:focus {
-  box-shadow: 0 0 1px 1px #0a60c2;
-}
-
 #legend .select {
-  @apply w-full max-w-full relative flex-grow mb-1;
-
-  border: solid 1px #d8d8d8;
-}
-
-/* Borrowed from bulma */
-#legend .select::after {
-  @apply block pointer-events-none absolute z-30;
-
-  content: "";
-  border: 3px solid #000000;
-  border-right: 0;
-  border-top: 0;
-  border-radius: 2px;
-  height: 0.625em;
-  margin-top: -0.4375em;
-  top: 50%;
-  right: 0.5em;
-  transform: rotate(-45deg);
-  transform-origin: center;
-  width: 0.625em;
+  @apply mb-1;
 }
 
 #legend .select:first-child {
