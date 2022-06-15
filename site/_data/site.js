@@ -10,7 +10,7 @@ const baseurl = production ? "" : ""
 module.exports = {
   name: "Chicago Elections Archive",
   title: "Chicago Elections Archive",
-  description: "Access precinct-level results of historical Chicago elections",
+  description: "Explore precinct-level results of historical Chicago elections",
   type: "website",
   baseurl,
   url: `${host}${baseurl}`,
@@ -19,10 +19,9 @@ module.exports = {
     process.env.DATA_DOMAIN ||
     "chicago-elections-archive.us-east-1.linodeobjects.com",
   production,
-  // robots: production,
-  robots: false,
+  robots: production,
   plausibleAnalytics: !!process.env.PLAUSIBLE,
-  locale: "en-us",
+  locale: "en-US",
   azureMapsKey: process.env.AZURE_MAPS_KEY,
   precinctYears: [
     1983, 2000, 2003, 2004, 2007, 2008, 2010, 2011, 2012, 2015, 2019,
