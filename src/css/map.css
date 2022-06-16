@@ -1,17 +1,29 @@
 main.map {
-  @apply w-full relative;
+  @apply w-full relative h-full;
 
-  min-height: calc(100vh - 52px);
+  min-height: calc(100vh - 48px);
+  min-height: fill-available;
 }
 
-/* TODO: Look into height for this */
+main.map + footer {
+  @apply hidden;
+}
+
 .embed main.map {
   min-height: 600px;
 }
 
-#map-container,
 #map {
   @apply absolute top-0 left-0 bottom-0 right-0;
+}
+
+@media screen and (min-width: 900px) {
+  main.map {
+    min-height: calc(100vh - 48px);
+  }
+  main.map + footer {
+    display: inherit;
+  }
 }
 
 #legend {

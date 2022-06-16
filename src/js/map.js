@@ -30,7 +30,7 @@ function parseMapMetadata() {
   }
 }
 
-const mapContainer = document.getElementById("map-container")
+const mapContainer = document.querySelector("main.map")
 
 const params = new URLSearchParams(window.location.search)
 
