@@ -1,3 +1,7 @@
+.is-embedded #main-nav {
+  @apply hidden;
+}
+
 .nav-title-link {
   @apply flex flex-row items-center;
 }

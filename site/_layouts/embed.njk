@@ -10,7 +10,10 @@
     {% include "assets.njk" %}
     {% include "analytics.njk" %}
   </head>
-  <body>
+  <body class="is-embedded">
+    {% if not hideNav %}
+      {% include "nav.njk" %}
+    {% endif %}
     <main class="map">
     </main>
   </body>
