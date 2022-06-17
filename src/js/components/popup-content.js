@@ -22,7 +22,7 @@ const PopupContent = (props) => {
               <span
                 class="color"
                 style={{ "background-color": props.candidateColors[label] }}
-              ></span>
+              />
               <span>{props.displayOverrides[label] || label}</span>
             </div>
             <div class="numbers">

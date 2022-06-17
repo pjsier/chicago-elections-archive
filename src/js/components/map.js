@@ -215,7 +215,7 @@ const Map = (props) => {
     map.remove()
   })
 
-  return <div id="map" ref={mapRef}></div>
+  return <div id="map" ref={mapRef} />
 }
 
 export default Map

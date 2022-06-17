@@ -13,7 +13,7 @@ const Legend = (props) => (
       {({ name, color, votes }) => (
         <div class="legend-row">
           <div class="legend-row-details">
-            <span class="color" style={{ "background-color": color }}></span>{" "}
+            <span class="color" style={{ "background-color": color }} />{" "}
             <span class="label">{props.displayOverrides[name] || name}</span>
           </div>
           <div class="numbers">

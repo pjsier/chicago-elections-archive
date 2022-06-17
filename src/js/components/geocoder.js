@@ -158,7 +158,7 @@ const Geocoder = (props) => {
           id="geocoder-clear"
           aria-label="Clear search input"
           onClick={() => setState({ search: "", results: [], activeIndex: -1 })}
-        ></button>
+        />
       </div>
       <ul
         id="geocoder-results"
@@ -166,6 +166,7 @@ const Geocoder = (props) => {
         class={state.expanded ? `` : `hidden`}
       >
         <For each={state.results}>
+          {/* eslint-disable-next-line solid/reactivity */}
           {(result, idx) => (
             <li
               id={`result-${idx()}`}
