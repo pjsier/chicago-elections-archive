@@ -21,7 +21,7 @@
 .content h4,
 .content h5,
 .content h6 {
-  @apply font-bold;
+  @apply font-semibold;
 }
 
 .content h1 {

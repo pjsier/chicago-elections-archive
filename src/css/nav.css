@@ -27,7 +27,7 @@
 }
 
 #nav-menu a[aria-current="page"] {
-  @apply font-bold;
+  @apply font-semibold;
 }
 
 @screen lg {
