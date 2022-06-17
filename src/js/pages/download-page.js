@@ -11,8 +11,8 @@ import {
 
 const DownloadPage = (props) => {
   const [state, setState] = createStore({
-    election: props.initialElection || `251`,
-    race: props.initialRace || `0`,
+    election: props.initialElection,
+    race: props.initialRace,
     format: "csv",
     url: ``,
   })

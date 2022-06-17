@@ -34,8 +34,8 @@ if (downloadContainer) {
     () => (
       <DownloadPage
         {...mapMetadata}
-        initialElection={params.get("election")}
-        initialRace={params.get("race")}
+        initialElection={params.get("election") || "251"}
+        initialRace={params.get("race") || "0"}
       />
     ),
     downloadContainer
