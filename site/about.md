@@ -8,8 +8,6 @@ title: About | Chicago Elections Archive
 
 This site is an open source, volunteer project to make it easier to access the historical results of Chicago elections.
 
-Source code is available on GitHub: [pjsier/chicago-elections-archive](https://github.com/pjsier/chicago-elections-archive)
-
 ## Data issues
 
 There are some inconsistencies in the data, including precincts where the turnout is reported as greater than 100%, as well as some precincts where data is missing. In general, if there are only a few precincts like this the election is still included here.
@@ -42,6 +40,10 @@ Then, take that URL and copy it into your CMS or site's code in quotes after `da
 <div data-pym-src="https://chicagoelectionsarchive.org/...">Loading...</div>
 <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
 ```
+
+## Open source
+
+This project is open source under the MIT license and the source code is available on GitHub: [pjsier/chicago-elections-archive](https://github.com/pjsier/chicago-elections-archive)
 
 ## Contact
 
