@@ -80,9 +80,23 @@ const MapPage = (props) => {
                 <select
                   aria-label="Election"
                   value={state.election}
-                  onChange={(e) =>
-                    setState({ ...state, election: e.target.value, race: "0" })
-                  }
+                  onChange={(e) => {
+                    const election = e.target.value
+                    const selectedRaceLabel = raceOptions().find(
+                      ({ value }) => value === state.race
+                    )?.label
+                    const raceNameMap = Object.entries(
+                      props.elections[election].races
+                    ).reduce(
+                      (acc, [value, label]) => ({ ...acc, [label]: value }),
+                      {}
+                    )
+                    setState({
+                      ...state,
+                      election,
+                      race: raceNameMap[selectedRaceLabel] || "0",
+                    })
+                  }}
                 >
                   <For each={props.electionOptions}>
                     {({ label, value }) => (
