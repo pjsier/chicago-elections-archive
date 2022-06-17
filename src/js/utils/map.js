@@ -17,6 +17,10 @@ const COLOR_OVERRIDES = {
   Trump: "#d62728",
   Stein: "#2ca02c",
   Johnson: "#ff7f0e",
+  "Tammy Duckworth": "#1f77b4",
+  "Mark Steven Kirk": "#d62728",
+  "Pat Quinn": "#1f77b4",
+  "Bill Brady": "#d62728",
 }
 
 export const getColor = (candidate, index) =>
