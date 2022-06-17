@@ -13,7 +13,7 @@ all: input/results-metadata.json output/results-metadata.json $(RESULTS) $(forea
 
 .PHONY: deploy
 deploy:
-	s3cmd sync ./output/ s3://$(S3_BUCKET)/ \
+	s3cmd sync ./deploy-output/* s3://$(S3_BUCKET)/ \
 		--region=$(S3_REGION) \
 		--host=$(S3_REGION).linodeobjects.com \
 		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
@@ -22,7 +22,15 @@ deploy:
 		--acl-public \
 		--no-mime-magic \
 		--guess-mime-type \
+		--add-header 'Content-Encoding: gzip' \
 		--add-header 'Cache-Control: "public, max-age=0, must-revalidate"'
+
+# GZIP-compress output before it's synced with s3cmd
+.PHONY: build-output
+build-output:
+	mkdir -p deploy-output
+	cp -r output/* deploy-output
+	find deploy-output -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
 
 .PHONY: deploy-tiles
 deploy-tiles:
@@ -39,7 +47,7 @@ deploy-tiles:
 		--add-header 'Cache-Control: "public, max-age=86400"'
 
 tiles/%/: output/%.mbtiles
-	mkdir $@
+	mkdir -p $@
 	tile-join --no-tile-size-limit --force -e $@ $<
 
 .PRECIOUS:

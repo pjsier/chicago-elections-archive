@@ -5,6 +5,7 @@ input/*
 output/*
 !output/.keep
 !output/results-metadata.json
+deploy-output
 dist/*
 !dist/.keep
 !input/metadata.json
