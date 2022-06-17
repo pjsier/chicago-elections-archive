@@ -34,12 +34,12 @@ Want to use this on your site? You can embed a responsive iframe with [`pym.js`]
 
 All you need to do is set up the view that you want on the map page, copy the full URL (including all of the parts after `?` and `#`), and add `embed/` after `chicagoelectionsarchive.org/`.
 
-As an example, `https://chicagoelectionsarchive.org/?election=251&race=0#9.25/41.8514/-87.6651` would be become `https://chicagoelectionsarchive.org/embed/?election=251&race=0#9.25/41.8514/-87.6651`.
+As an example, https://chicagoelectionsarchive.org/?election=251 would be become https://chicagoelectionsarchive.org/embed/?election=251.
 
 Then, take that URL and copy it into your CMS or site's code in quotes after `data-pym-src` like this:
 
 ```html
-<div data-pym-src="https://chicagoelectionsarchive.org/embed/?election=251&race=0#9.25/41.8514/-87.6651">Loading...</div>
+<div data-pym-src="https://chicagoelectionsarchive.org/...">Loading...</div>
 <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
 ```
 
