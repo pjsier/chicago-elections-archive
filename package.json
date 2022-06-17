@@ -51,7 +51,7 @@
     "postcss": "^8.4.12",
     "postcss-cli": "^9.1.0",
     "postcss-import": "^14.1.0",
-    "prettier": "^2.6.1",
+    "prettier": "^2.7.1",
     "prettier-eslint": "^13.0.0",
     "rollup": "^2.73.0",
     "rollup-plugin-copy": "^3.4.0",
