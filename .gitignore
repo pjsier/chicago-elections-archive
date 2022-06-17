@@ -8,7 +8,6 @@ output/*
 deploy-output
 dist/*
 !dist/.keep
-!input/metadata.json
 !input/results-metadata.json
 .DS_Store
 .env*
