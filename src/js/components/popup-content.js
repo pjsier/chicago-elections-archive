@@ -31,7 +31,9 @@ const PopupContent = (props) => {
                   label === "turnout" ? "total" : label
                 ].toLocaleString()}
               </div>
-              <div class="percent">{value.toFixed(1)}%</div>
+              <div class="percent">
+                {value.toFixed(1).replace("100.0", "100")}%
+              </div>
             </div>
           </div>
         )}

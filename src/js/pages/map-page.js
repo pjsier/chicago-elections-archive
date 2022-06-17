@@ -98,6 +98,14 @@ const MapPage = (props) => {
             totalVotes={mapStore.electionResults.total}
             displayOverrides={props.displayOverrides}
           />
+          <a
+            class="embed-attribution"
+            href="https://chicagoelectionsarchive.org"
+            target="_blank"
+            rel="noopener"
+          >
+            See more at Chicago Elections Archive
+          </a>
         </div>
       </div>
       <Show when={mapStore.map}>

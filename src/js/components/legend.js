@@ -19,7 +19,10 @@ const Legend = (props) => (
           <div class="numbers">
             <div>{votes.toLocaleString()}</div>
             <div class="percent">
-              {((votes / props.totalVotes) * 100).toFixed(1)}%
+              {((votes / props.totalVotes) * 100)
+                .toFixed(1)
+                .replace("100.0", "100")}
+              %
             </div>
           </div>
         </div>
