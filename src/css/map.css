@@ -9,7 +9,7 @@ main.map + footer {
   @apply hidden;
 }
 
-.embed main.map {
+.is-embedded main.map {
   min-height: 600px;
 }
 

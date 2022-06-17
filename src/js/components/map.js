@@ -6,6 +6,8 @@ import { getPrecinctYear, fetchCsvData } from "../utils/data"
 
 const MOBILE_CUTOFF = 800
 
+// TODO: Color override
+
 const compactAttribControl = () => {
   const control = document.querySelector("details.maplibregl-ctrl-attrib")
   control.removeAttribute("open")

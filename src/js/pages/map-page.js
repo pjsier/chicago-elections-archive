@@ -58,21 +58,29 @@ const MapPage = (props) => {
           />
         </div>
         <div class="content">
-          <h1>Chicago Elections Archive</h1>
+          <h1>
+            {props.embedElection
+              ? props.elections[state.election].label
+              : "Chicago Elections Archive"}
+          </h1>
           <form method="GET" action="">
-            <div class="select">
-              <select
-                aria-label="Election"
-                value={state.election}
-                onChange={(e) =>
-                  setState({ ...state, election: e.target.value, race: "0" })
-                }
-              >
-                <For each={props.electionOptions}>
-                  {({ label, value }) => <option value={value}>{label}</option>}
-                </For>
-              </select>
-            </div>
+            <Show when={!props.embedElection}>
+              <div class="select">
+                <select
+                  aria-label="Election"
+                  value={state.election}
+                  onChange={(e) =>
+                    setState({ ...state, election: e.target.value, race: "0" })
+                  }
+                >
+                  <For each={props.electionOptions}>
+                    {({ label, value }) => (
+                      <option value={value}>{label}</option>
+                    )}
+                  </For>
+                </select>
+              </div>
+            </Show>
             <div class="select">
               <select
                 aria-label="Race"

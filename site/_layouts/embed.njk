@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="{{ site.locale }}">
+  <head>
+    {% include "metadata.njk" %}
+    <meta name="embed" content="true" />
+    {% if embedElection %}
+      <meta name="embed-election" content="{{ embedElection }}" />
+    {% endif %}
+    <script src="static/pym.v1.min.js" defer></script>
+    {% include "assets.njk" %}
+    {% include "analytics.njk" %}
+  </head>
+  <body>
+    <main class="map">
+    </main>
+  </body>
+</html>

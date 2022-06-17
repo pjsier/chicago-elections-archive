@@ -21,11 +21,15 @@ function parseMapMetadata() {
   const dataDomain = document.head.querySelector(
     `meta[name="data-domain"]`
   ).content
+  const embedElection = document.head.querySelector(
+    `meta[name="embed-election"]`
+  )?.content
   return {
     elections,
     electionOptions,
     azureMapsKey,
     dataDomain,
+    embedElection,
     ...metadata,
   }
 }
