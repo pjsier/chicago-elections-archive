@@ -12,8 +12,8 @@ import { getPrecinctYear } from "../utils/data"
 
 const MapPage = (props) => {
   const [state, setState] = createStore({
-    election: props.initialElection || `251`,
-    race: props.initialRace || `0`,
+    election: props.initialElection,
+    race: props.initialRace,
   })
   const [mapStore] = useMapStore()
   const [popup, setPopup] = usePopup()

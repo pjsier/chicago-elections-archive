@@ -125,7 +125,6 @@ function setFeatureData(map, dataCols, source, feature) {
   )
 }
 
-// TODO: A lot of refactoring here
 const Map = (props) => {
   let map
   let mapRef
@@ -180,14 +179,13 @@ const Map = (props) => {
       props.race
     )
     if (canceled) return
+
     const def = createPrecinctLayerDefinition(data, props.year)
     const dataCols = getDataCols(data[0] || [])
-    if (canceled) return
+
     setMapStore({ ...def.legendData })
 
     const updateLayer = () => {
-      if (!map) return
-
       mapStore.map.removeLayer("precincts")
       mapStore.map.removeFeatureState({
         source: mapSource(),
@@ -199,10 +197,12 @@ const Map = (props) => {
       mapStore.map.addLayer(def.layerDefinition, "place_other")
     }
 
+    // TODO: Set popup store when layer changes?
+
     if (mapStore.map.isStyleLoaded()) {
       updateLayer()
     } else {
-      mapStore.map.once("styledata", updateLayer)
+      mapStore.map.once("render", updateLayer)
     }
   })
 
