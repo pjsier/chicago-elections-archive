@@ -105,6 +105,7 @@ const Popup = (props) => {
 
   createEffect(() => {
     if (props.active && !popup.click) popupObj.addTo(props.map)
+    if (!props.active) popupObj.remove()
   })
 
   // TODO: currently a no-op

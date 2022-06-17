@@ -1,9 +1,11 @@
 import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
 import { useMapStore } from "../providers/map"
+import { usePopup } from "../providers/popup"
 import { descending, fromEntries } from "../utils"
 import { getDataCols, getColor } from "../utils/map"
 import { getPrecinctYear, fetchCsvData } from "../utils/data"
 
+const EMBED_MOBILE_CUTOFF = 500
 const MOBILE_CUTOFF = 800
 
 const compactAttribControl = () => {
@@ -130,6 +132,7 @@ const Map = (props) => {
   let mapRef
 
   const [mapStore, setMapStore] = useMapStore()
+  const [, setPopup] = usePopup()
 
   const mapSource = createMemo(() => `precincts-${getPrecinctYear(props.year)}`)
 
@@ -139,8 +142,10 @@ const Map = (props) => {
       ...props.mapOptions,
     })
     map.touchZoomRotate.disableRotation()
-    // TODO: Add check that it isn't embedded
-    const isMobile = window.innerWidth < MOBILE_CUTOFF
+    const isEmbedded =
+      document.documentElement.classList.contains("is-embedded")
+    const isMobile =
+      window.innerWidth < (isEmbedded ? EMBED_MOBILE_CUTOFF : MOBILE_CUTOFF)
     map.addControl(
       new window.maplibregl.AttributionControl({
         compact: isMobile,
@@ -184,6 +189,8 @@ const Map = (props) => {
     const dataCols = getDataCols(data[0] || [])
 
     setMapStore({ ...def.legendData })
+    // Close popup on layer change
+    setPopup({ click: false, hover: false })
 
     const updateLayer = () => {
       mapStore.map.removeLayer("precincts")
@@ -196,8 +203,6 @@ const Map = (props) => {
       })
       mapStore.map.addLayer(def.layerDefinition, "place_other")
     }
-
-    // TODO: Set popup store when layer changes?
 
     if (mapStore.map.isStyleLoaded()) {
       updateLayer()
