@@ -8,7 +8,7 @@
 .content p:not(:last-child),
 .content ul:not(:last-child),
 .content blockquote:not(:last-child) {
-  @apply mb-6;
+  @apply mb-4;
 }
 
 .content li + li {
@@ -25,15 +25,15 @@
 }
 
 .content h1 {
-  @apply text-2xl mt-5 mb-2;
+  @apply text-2xl mt-6 mb-4;
 }
 
 .content h2 {
-  @apply text-xl mt-4 mb-2;
+  @apply text-xl mt-5 mb-3;
 }
 
 .content h3 {
-  @apply text-lg mt-3 mb-1;
+  @apply text-lg mt-4 mb-2;
 }
 
 .content h1:first-child,
