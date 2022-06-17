@@ -121,7 +121,7 @@ const DownloadPage = (props) => {
       </form>
       <a
         href={state.url}
-        download={`data.${state.format}`}
+        download={`election-data-${state.election}-${state.race}.${state.format}`}
         class="download-button"
       >
         Download file
