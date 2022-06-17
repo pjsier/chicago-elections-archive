@@ -254,6 +254,38 @@ main.map + footer {
   padding-right: 36px;
 }
 
+@media screen and (min-width: 500px) {
+  .is-embedded #geocoder-container {
+    width: 360px;
+    margin-bottom: 8px;
+  }
+
+  .is-embedded #legend {
+    bottom: 24px;
+    right: 8px;
+    left: auto;
+  }
+
+  .is-embedded #legend .content {
+    width: 360px;
+    max-height: 600px;
+    background: none;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+
+  .is-embedded #legend .content h1 {
+    @apply text-xl block;
+  }
+
+  .is-embedded #legend form {
+    @apply block;
+  }
+  .is-embedded #legend .select:first-child,
+  .is-embedded #legend .select:last-child {
+    @apply mx-0;
+  }
+}
+
 @media screen and (min-width: 800px) {
   #geocoder-container {
     width: 360px;

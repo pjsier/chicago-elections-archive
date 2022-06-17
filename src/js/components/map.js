@@ -140,6 +140,7 @@ const Map = (props) => {
       ...props.mapOptions,
     })
     map.touchZoomRotate.disableRotation()
+    // TODO: Add check that it isn't embedded
     const isMobile = window.innerWidth < MOBILE_CUTOFF
     map.addControl(
       new window.maplibregl.AttributionControl({
