@@ -1,12 +1,10 @@
 import { createEffect, createMemo, onCleanup, onMount } from "solid-js"
 import { useMapStore } from "../providers/map"
 import { descending, fromEntries } from "../utils"
-import { COLOR_SCHEME, getDataCols } from "../utils/map"
+import { getDataCols, getColor } from "../utils/map"
 import { getPrecinctYear, fetchCsvData } from "../utils/data"
 
 const MOBILE_CUTOFF = 800
-
-// TODO: Color override
 
 const compactAttribControl = () => {
   const control = document.querySelector("details.maplibregl-ctrl-attrib")
@@ -42,7 +40,7 @@ const aggregateElection = (data) => {
     .filter((name) => !["ballots", "registered"].includes(name))
     .map((name, idx) => ({
       name,
-      color: COLOR_SCHEME[idx % COLOR_SCHEME.length],
+      color: getColor(name, idx),
       votes: electionResults[name === "turnout" ? "total" : name],
     }))
     .sort((a, b) => descending(a.votes, b.votes))
@@ -50,10 +48,7 @@ const aggregateElection = (data) => {
   // TODO: simplify here, maybe pull out of candidates?
   const candidateColors = candidateNames
     .filter((name) => !["ballots", "registered"].includes(name))
-    .reduce(
-      (a, v, idx) => ({ ...a, [v]: COLOR_SCHEME[idx % COLOR_SCHEME.length] }),
-      {}
-    )
+    .reduce((a, v, idx) => ({ ...a, [v]: getColor(v, idx) }), {})
 
   // Workaround for turnout display
   if (electionResults.turnout) {
@@ -112,9 +107,8 @@ function setFeatureData(map, dataCols, source, feature) {
   const featureData = fromEntries(
     Object.entries(feature).filter(([col]) => dataCols.includes(col))
   )
-  const featureDataValues = Object.entries(featureData).map(
-    ([, value]) => value
-  )
+  const featureDataEntries = [...Object.entries(featureData)]
+  const featureDataValues = featureDataEntries.map(([, value]) => value)
   const colorValue = Math.max(...featureDataValues)
   const colorIndex = featureDataValues.indexOf(colorValue)
   map.setFeatureState(
@@ -124,7 +118,7 @@ function setFeatureData(map, dataCols, source, feature) {
       id: feature.id,
     },
     {
-      color: COLOR_SCHEME[colorIndex % COLOR_SCHEME.length],
+      color: getColor(featureDataEntries[colorIndex][0], colorIndex),
       colorValue: colorValue,
       ...feature,
     }

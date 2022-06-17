@@ -11,6 +11,18 @@ export const COLOR_SCHEME = [
   "#17becf",
 ]
 
+// TODO: Maybe add election and/or race key into this to be safe? Could be many "Johnson"s
+const COLOR_OVERRIDES = {
+  Clinton: "#1f77b4",
+  Trump: "#d62728",
+  Stein: "#2ca02c",
+  Johnson: "#ff7f0e",
+}
+
+export const getColor = (candidate, index) =>
+  COLOR_OVERRIDES[candidate.replace(" Percent", "")] ||
+  COLOR_SCHEME[index % COLOR_SCHEME.length]
+
 export const getDataCols = (row) =>
   Object.keys(row || {}).filter(
     (row) => row.includes("Percent") || row === "turnout"
