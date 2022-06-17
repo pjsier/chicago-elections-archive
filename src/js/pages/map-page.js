@@ -10,6 +10,9 @@ import { usePopup } from "../providers/popup"
 import { updateQueryParams } from "../utils"
 import { getPrecinctYear } from "../utils/data"
 
+const EMBED_MOBILE_CUTOFF = 500
+const MOBILE_CUTOFF = 800
+
 const MapPage = (props) => {
   const [state, setState] = createStore({
     election: props.initialElection,
@@ -32,6 +35,14 @@ const MapPage = (props) => {
     )
   )
 
+  const isEmbedded = document.documentElement.classList.contains("is-embedded")
+  const isMobile =
+    window.innerWidth < (isEmbedded ? EMBED_MOBILE_CUTOFF : MOBILE_CUTOFF)
+
+  const mapViewOptions = isMobile
+    ? { zoom: 9, center: [-87.7131, 41.7941] }
+    : { zoom: 9.8, center: [-87.6465, 41.8364] }
+
   return (
     <>
       <Map
@@ -39,15 +50,15 @@ const MapPage = (props) => {
         year={year()}
         election={state.election}
         race={state.race}
+        isMobile={isMobile}
         mapOptions={{
           style: "style.json",
-          center: [-87.6651, 41.8514],
           minZoom: 8,
           maxZoom: 15,
-          zoom: 9.25,
           hash: true,
           dragRotate: false,
           attributionControl: false,
+          ...mapViewOptions,
         }}
       />
       <div id="legend">

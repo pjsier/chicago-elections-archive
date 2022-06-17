@@ -5,9 +5,6 @@ import { descending, fromEntries } from "../utils"
 import { getDataCols, getColor } from "../utils/map"
 import { getPrecinctYear, fetchCsvData } from "../utils/data"
 
-const EMBED_MOBILE_CUTOFF = 500
-const MOBILE_CUTOFF = 800
-
 const compactAttribControl = () => {
   const control = document.querySelector("details.maplibregl-ctrl-attrib")
   control.removeAttribute("open")
@@ -142,18 +139,15 @@ const Map = (props) => {
       ...props.mapOptions,
     })
     map.touchZoomRotate.disableRotation()
-    const isEmbedded =
-      document.documentElement.classList.contains("is-embedded")
-    const isMobile =
-      window.innerWidth < (isEmbedded ? EMBED_MOBILE_CUTOFF : MOBILE_CUTOFF)
+
     map.addControl(
       new window.maplibregl.AttributionControl({
-        compact: isMobile,
+        compact: props.isMobile,
       }),
-      isMobile ? "top-left" : "bottom-right"
+      props.isMobile ? "top-left" : "bottom-right"
     )
     // Workaround for a bug in maplibre-gl where the attrib is default open
-    if (isMobile) {
+    if (props.isMobile) {
       compactAttribControl()
       const timeouts = [250, 500, 1000]
       timeouts.forEach((timeout) => {
