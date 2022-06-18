@@ -95,7 +95,24 @@ const DownloadPage = (props) => {
             id="election"
             name="election"
             value={state.election}
-            onChange={(e) => setState({ election: e.target.value, race: "0" })}
+            onChange={(e) => {
+              const election = e.target.value
+              const selectedRaceLabel = raceOptions().find(
+                ({ value }) => value === state.race
+              )?.label
+              const raceNameMap = Object.entries(
+                props.elections[election].races
+              ).reduce(
+                (acc, [value, label]) => ({ ...acc, [label]: value }),
+                {}
+              )
+
+              // Replicating pattern from MapPage
+              setState({ election, race: "0" })
+              if (raceNameMap[selectedRaceLabel]) {
+                setState({ race: raceNameMap[selectedRaceLabel] })
+              }
+            }}
           >
             <For each={props.electionOptions}>
               {({ label, value }) => <option value={value}>{label}</option>}
