@@ -95,9 +95,7 @@ const DownloadPage = (props) => {
             id="election"
             name="election"
             value={state.election}
-            onChange={(e) =>
-              setState({ ...state, election: e.target.value, race: "0" })
-            }
+            onChange={(e) => setState({ election: e.target.value, race: "0" })}
           >
             <For each={props.electionOptions}>
               {({ label, value }) => <option value={value}>{label}</option>}
@@ -111,7 +109,7 @@ const DownloadPage = (props) => {
             name="race"
             aria-label="Race"
             value={state.race}
-            onChange={(e) => setState({ ...state, race: e.target.value })}
+            onChange={(e) => setState({ race: e.target.value })}
           >
             <For each={raceOptions()}>
               {({ label, value }) => <option value={value}>{label}</option>}

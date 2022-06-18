@@ -92,10 +92,18 @@ const MapPage = (props) => {
                       {}
                     )
                     setState({
-                      ...state,
                       election,
-                      race: raceNameMap[selectedRaceLabel] || "0",
+                      race: "0",
                     })
+                    // This is a workaround for the fact that sometimes the
+                    // race IDs are the same between two elections, which
+                    // doesn't force a state update and causes issues with
+                    // <select>. We're force-resetting the race above and
+                    // then changing it here to make sure it's applied, and
+                    // it's fast enough to not cause a UI flicker
+                    if (raceNameMap[selectedRaceLabel]) {
+                      setState({ race: raceNameMap[selectedRaceLabel] })
+                    }
                   }}
                 >
                   <For each={props.electionOptions}>
@@ -110,7 +118,7 @@ const MapPage = (props) => {
               <select
                 aria-label="Race"
                 value={state.race}
-                onChange={(e) => setState({ ...state, race: e.target.value })}
+                onChange={(e) => setState({ race: e.target.value })}
               >
                 <For each={raceOptions()}>
                   {({ label, value }) => <option value={value}>{label}</option>}
