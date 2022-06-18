@@ -21,6 +21,7 @@ const COLOR_OVERRIDES = {
   "Mark Steven Kirk": "#d62728",
   "Pat Quinn": "#1f77b4",
   "Bill Brady": "#d62728",
+  "Alexander ''Alexi'' Giannoulias": "#1f77b4",
 }
 
 export const getColor = (candidate, index) =>
