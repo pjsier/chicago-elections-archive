@@ -52,7 +52,7 @@ const MapPage = (props) => {
         race={state.race}
         isMobile={isMobile}
         mapOptions={{
-          style: "style.json",
+          style: "/style.json",
           minZoom: 8,
           maxZoom: 15,
           hash: true,
