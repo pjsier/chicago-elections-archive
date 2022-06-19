@@ -356,6 +356,10 @@ main.map + footer {
   pointer-events: all;
 }
 
+.maplibregl-popup-close-button {
+  padding: 0.1rem 0.25rem;
+}
+
 .legend-row {
   @apply flex flex-row items-center justify-between;
 
