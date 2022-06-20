@@ -9,8 +9,10 @@ main.map + footer {
   @apply hidden;
 }
 
+.embedded html,
+.embedded body,
 .embedded main.map {
-  min-height: 600px;
+  min-height: 650px;
 }
 
 #map {
@@ -255,7 +257,7 @@ main.map + footer {
 
   .embedded #legend .content {
     width: 360px;
-    max-height: 600px;
+    max-height: 250px;
     background: none;
     background-color: rgba(255, 255, 255, 0.8);
   }
