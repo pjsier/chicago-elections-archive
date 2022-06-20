@@ -35,7 +35,7 @@ const MapPage = (props) => {
     )
   )
 
-  const isEmbedded = document.documentElement.classList.contains("is-embedded")
+  const isEmbedded = document.documentElement.classList.contains("embedded")
   const isMobile =
     window.innerWidth < (isEmbedded ? EMBED_MOBILE_CUTOFF : MOBILE_CUTOFF)
 

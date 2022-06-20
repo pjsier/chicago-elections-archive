@@ -9,7 +9,7 @@ main.map + footer {
   @apply hidden;
 }
 
-.is-embedded main.map {
+.embedded main.map {
   min-height: 600px;
 }
 
@@ -242,33 +242,33 @@ main.map + footer {
 }
 
 @media screen and (min-width: 500px) {
-  .is-embedded #geocoder-container {
+  .embedded #geocoder-container {
     width: 360px;
     margin-bottom: 8px;
   }
 
-  .is-embedded #legend {
+  .embedded #legend {
     bottom: 24px;
     right: 8px;
     left: auto;
   }
 
-  .is-embedded #legend .content {
+  .embedded #legend .content {
     width: 360px;
     max-height: 600px;
     background: none;
     background-color: rgba(255, 255, 255, 0.8);
   }
 
-  .is-embedded #legend .content h1 {
+  .embedded #legend .content h1 {
     @apply text-xl block;
   }
 
-  .is-embedded #legend form {
+  .embedded #legend form {
     @apply block;
   }
-  .is-embedded #legend .select:first-child,
-  .is-embedded #legend .select:last-child {
+  .embedded #legend .select:first-child,
+  .embedded #legend .select:last-child {
     @apply mx-0;
   }
 }
@@ -427,6 +427,6 @@ main.map + footer {
   @apply hidden pt-2 text-sm;
 }
 
-.is-embedded .embed-attribution {
+.embedded .embed-attribution {
   @apply block;
 }

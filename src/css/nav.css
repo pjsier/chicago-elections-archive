@@ -1,4 +1,4 @@
-.is-embedded #main-nav {
+.embedded #main-nav {
   @apply hidden;
 }
 
