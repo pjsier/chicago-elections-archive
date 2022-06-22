@@ -100,22 +100,17 @@ output/results/%/0.csv: input/%/0.html
 	xsv select --no-headers 1-3,6,7,9 -| \
 	xsv slice --no-headers -s 1 - >> $@
 
-output/precincts-2012.geojson: input/PRECINCTS_2012.shp input/wards.geojson
+output/precincts-2012.geojson: input/raw-precincts-2012.geojson input/wards.geojson
 	mapshaper -i $< snap \
 	-proj crs=wgs84 \
 	-clip $(filter-out $<,$^) \
 	-simplify 10% \
-	-each 'WARD = WARD.toString()' \
-	-each 'PRECINCT = PRECINCT.toString()' \
-	-each 'id = WARD.padStart(2, "0") + PRECINCT.padStart(3, "0")' \
-	-filter-fields id,WARD,PRECINCT \
+	-each 'WARD = (+id.slice(0, 2)).toString()' \
+	-each 'PRECINCT = (+id.slice(2)).toString()' \
 	-o $@
 
-input/PRECINCTS_2012.shp: input/precincts-2012.zip
-	unzip -DD -d input $<
-
-input/precincts-2012.zip:
-	wget -O $@ "https://data.cityofchicago.org/api/geospatial/uvpq-qeeq?method=export&format=Original"
+input/raw-precincts-2012.geojson:
+	wget -O $@ https://chicago-elections-archive.us-east-1.linodeobjects.com/raw-precincts-2012.geojson
 
 output/precincts-1983.geojson: input/wards.geojson
 	wget -qO - https://raw.githubusercontent.com/datamade/chicago-municipal-elections/master/precincts/1983_precincts.geojson | \
