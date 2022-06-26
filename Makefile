@@ -1,7 +1,7 @@
 S3_BUCKET = chicago-elections-archive
 S3_REGION = us-east-1
 
-PRECINCT_YEARS := 1983 2000 2003 2004 2007 2008 2010 2011 2012 2015 2019
+PRECINCT_YEARS := 1983 2000 2003 2004 2007 2008 2010 2011 2012 2015 2019 2022
 ELECTION_IDS := $(shell cat input/results-metadata.json | jq -r 'keys[]')
 IGNORE_RESULTS := output/results/7/334.csv output/results/7/335.csv output/results/80/250.csv output/results/80/255.csv output/results/80/253.csv output/results/80/261.csv output/results/80/266.csv 
 RESULTS := $(filter-out $(IGNORE_RESULTS),$(foreach id,$(ELECTION_IDS),$(foreach result,$(shell cat input/results-metadata.json | jq -r '."$(id)".races|keys[]'),output/results/$(id)/$(result).csv)))
@@ -100,6 +100,17 @@ output/results/%/0.csv: input/%/0.html
 	xsv select --no-headers 1-3,6,7,9 -| \
 	xsv slice --no-headers -s 1 - >> $@
 
+# Originally pulled with
+# esri2geojson https://gisapps.cityofchicago.org/arcgis/rest/services/ExternalApps/operational/MapServer/116 -
+output/precincts-2022.geojson: input/raw-precincts-2022.geojson input/wards.geojson
+	mapshaper -i $< snap \
+	-proj crs=wgs84 \
+	-clip $(filter-out $<,$^) \
+	-simplify 10% \
+	-each 'id = WARD_PRECINCT' \
+	-filter-fields id \
+	-o $@
+
 output/precincts-2012.geojson: input/raw-precincts-2012.geojson input/wards.geojson
 	mapshaper -i $< snap \
 	-proj crs=wgs84 \
@@ -109,8 +120,8 @@ output/precincts-2012.geojson: input/raw-precincts-2012.geojson input/wards.geoj
 	-each 'PRECINCT = (+id.slice(2)).toString()' \
 	-o $@
 
-input/raw-precincts-2012.geojson:
-	wget -O $@ https://chicago-elections-archive.us-east-1.linodeobjects.com/raw-precincts-2012.geojson
+input/raw-precincts-%.geojson:
+	wget -O $@ https://chicago-elections-archive.us-east-1.linodeobjects.com/raw-precincts-$*.geojson
 
 output/precincts-1983.geojson: input/wards.geojson
 	wget -qO - https://raw.githubusercontent.com/datamade/chicago-municipal-elections/master/precincts/1983_precincts.geojson | \
