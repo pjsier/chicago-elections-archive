@@ -1,10 +1,15 @@
 import json
+import re
 import sys
 
 import requests
 from bs4 import BeautifulSoup
 
 ELECTIONS = {
+    "252": "2022 Primary - Democratic - 6/28/2022",
+    "253": "2022 Primary - Republican - 6/28/2022",
+    "254": "2022 Primary - Libertarian - 6/28/2022",
+    "255": "2022 Primary - Non-Partisan - 6/28/2022",
     "251": "2020 General Election - 11/3/2020",
     "250": "2020 Primary - Non-Partisan - 3/17/2020",
     "240": "2020 Primary - Republican - 3/17/2020",
@@ -75,21 +80,30 @@ MANUAL_ELECTIONS = {
     "19830": {
         "year": 1983,
         "date": "2/22/1983",
-        "label": "1983 Primary - Democratic - 2/22/1983",
+        "label": "1983 Primary - Democratic",
         "races": {"0": "Mayor"},
     },
     "19831": {
         "year": 1983,
         "date": "4/12/1983",
-        "label": "1983 General Election - 4/12/1983",
+        "label": "1983 General Election",
         "races": {"0": "Mayor"},
     },
 }
 
 
+def election_name(name):
+    date_str = name.split(" ")[-1]
+    return name.replace(f" - {date_str}", "")
+
+
+def race_name(label):
+    return re.sub(r"- (REP|DEM|LIB)$", "", label)
+
+
 def get_races(soup):
     return {
-        o.get("value").strip() or "0": o.get_text().split("\n")[0].strip()
+        o.get("value").strip() or "0": race_name(o.get_text().split("\n")[0].strip())
         for o in soup.select("#race option")
     }
 
@@ -99,7 +113,7 @@ if __name__ == "__main__":
         k: {
             "year": int(v.split(" ")[0]),
             "date": v.split(" ")[-1],
-            "label": v,
+            "label": election_name(v),
             "races": {},
         }
         for k, v in ELECTIONS.items()

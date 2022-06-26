@@ -1,8 +1,309 @@
 {
+  "252": {
+    "year": 2022,
+    "date": "6/28/2022",
+    "label": "2022 Primary - Democratic",
+    "races": {
+      "0": "Registered Voters/Ballots/Turnout",
+      "11": "Senator, U.S. ",
+      "12": "Governor & Lieutenant Governor, Illinois ",
+      "13": "Attorney General, State of Illinois ",
+      "14": "Secretary of State, State of Illinois ",
+      "15": "Comptroller, State of Illinois ",
+      "16": "Treasurer, State of Illinois ",
+      "17": "U.S. Representative, 1st District ",
+      "18": "U.S. Representative, 2nd District ",
+      "19": "U.S. Representative, 3rd District ",
+      "20": "U.S. Representative, 4th District ",
+      "21": "U.S. Representative, 5th District ",
+      "22": "U.S. Representative, 6th District ",
+      "23": "U.S. Representative, 7th District ",
+      "24": "U.S. Representative, 8th District ",
+      "25": "U.S. Representative, 9th District ",
+      "26": "Committeewoman, Dem State Central, 1st ",
+      "27": "Committeeman, Dem State Central, 1st ",
+      "28": "Committeewoman, Dem State Central, 2nd ",
+      "29": "Committeeman, Dem State Central, 2nd ",
+      "30": "Committeewoman, Dem State Central, 3rd ",
+      "31": "Committeeman, Dem State Central, 3rd ",
+      "32": "Committeewoman, Dem State Central, 4th ",
+      "33": "Committeeman, Dem State Central, 4th ",
+      "34": "Committeewoman, Dem State Central, 5th ",
+      "35": "Committeeman, Dem State Central, 5th ",
+      "36": "Committeewoman, Dem State Central, 6th ",
+      "37": "Committeeman, Dem State Central, 6th ",
+      "38": "Committeewoman, Dem State Central, 7th ",
+      "39": "Committeeman, Dem State Central, 7th ",
+      "40": "Committeewoman, Dem State Central, 8th ",
+      "41": "Committeeman, Dem State Central, 8th ",
+      "42": "Committeewoman, Dem State Central, 9th ",
+      "43": "Committeeman, Dem State Central, 9th ",
+      "44": "State Senator, 1st District ",
+      "45": "State Senator, 2nd District ",
+      "46": "State Senator, 3rd District ",
+      "47": "State Senator, 4th District ",
+      "48": "State Senator, 5th District ",
+      "49": "State Senator, 6th District ",
+      "50": "State Senator, 7th District ",
+      "51": "State Senator, 8th District ",
+      "52": "State Senator, 9th District ",
+      "53": "State Senator, 10th District ",
+      "54": "State Senator, 11th District ",
+      "55": "State Senator, 12th District ",
+      "56": "State Senator, 13th District ",
+      "57": "State Senator, 14th District ",
+      "58": "State Senator, 15th District ",
+      "59": "State Senator, 16th District ",
+      "60": "State Senator, 17th District ",
+      "61": "State Senator, 18th District ",
+      "62": "State Senator, 20th District ",
+      "63": "State Senator, 28th District ",
+      "64": "State Senator, 39th District ",
+      "65": "State Representative, 1st District ",
+      "67": "State Representative, 3rd District ",
+      "68": "State Representative, 4th District ",
+      "69": "State Representative, 5th District ",
+      "70": "State Representative, 6th District ",
+      "71": "State Representative, 8th District ",
+      "72": "State Representative, 9th District ",
+      "73": "State Representative, 10th District ",
+      "74": "State Representative, 11th District ",
+      "75": "State Representative, 12th District ",
+      "76": "State Representative, 13th District ",
+      "77": "State Representative, 14th District ",
+      "78": "State Representative, 15th District ",
+      "79": "State Representative, 16th District ",
+      "80": "State Representative, 18th District ",
+      "81": "State Representative, 19th District ",
+      "82": "State Representative, 20th District ",
+      "83": "State Representative, 21st District ",
+      "84": "State Representative, 22nd District ",
+      "85": "State Representative, 23rd District ",
+      "86": "State Representative, 24th District ",
+      "87": "State Representative, 25th District ",
+      "88": "State Representative, 26th District ",
+      "89": "State Representative, 27th District ",
+      "90": "State Representative, 28th District ",
+      "91": "State Representative, 29th District ",
+      "92": "State Representative, 31st District ",
+      "93": "State Representative, 32nd District ",
+      "94": "State Representative, 33rd District ",
+      "95": "State Representative, 34th District ",
+      "96": "State Representative, 35th District ",
+      "97": "State Representative, 36th District ",
+      "98": "State Representative, 39th District ",
+      "99": "State Representative, 40th District ",
+      "100": "State Representative, 55th District ",
+      "102": "State Representative, 78th District ",
+      "103": "Commissioner, Water Reclamation Dist ",
+      "104": "Commissioner, Water Reclamation Dist 2yr ",
+      "105": "Board President, Cook County ",
+      "106": "Clerk, Cook County ",
+      "107": "Sheriff, Cook County ",
+      "108": "Treasurer, Cook County ",
+      "109": "Assessor, Cook County ",
+      "110": "Commissioner, County Board 1st District ",
+      "111": "Commissioner, County Board 2nd District ",
+      "112": "Commissioner, County Board 3rd District ",
+      "113": "Commissioner, County Board 4th District ",
+      "114": "Commissioner, County Board 5th District ",
+      "115": "Commissioner, County Board 7th District ",
+      "116": "Commissioner, County Board 8th District ",
+      "117": "Commissioner, County Board 9th District ",
+      "118": "Commissioner, County Board 10th District ",
+      "119": "Commissioner, County Board 11th District ",
+      "120": "Commissioner, County Board 12th District ",
+      "121": "Commissioner, County Board 13th District ",
+      "123": "Commissioner, County Board 16th District ",
+      "125": "Board of Review, 1st District ",
+      "126": "Board of Review, 2nd District ",
+      "127": "Board of Review, 3rd District ",
+      "128": "Appellate Court Judge (Vacancy of Hall) ",
+      "129": "Appellate Court Judge (Vacancy of Harris) ",
+      "130": "Judge, Cook County Circuit (Vacancy of Brennan) ",
+      "131": "Judge, Cook County Circuit (Vacancy of Callahan, Jr.) ",
+      "132": "Judge, Cook County Circuit (Vacancy of Gordon Cannon) ",
+      "133": "Judge, Cook County Circuit (Vacancy of Hyman) ",
+      "134": "Judge, Cook County Circuit (Vacancy of Ingram) ",
+      "135": "Judge, Cook County Circuit (Vacancy of Leeming) ",
+      "136": "Judge, Cook County Circuit (Vacancy of Lynch) ",
+      "137": "Judge, Cook County Circuit (Vacancy of McGury) ",
+      "138": "Judge, Cook County Circuit (Vacancy of O\u00e2\u0080\u0099Brien) ",
+      "139": "Judge, Cook County Circuit (Vacancy of Sullivan) ",
+      "140": "Judge, 1st Subcircuit (Vacancy of Johnson) ",
+      "141": "Judge, 5th Subcircuit (Vacancy of Portman-Brown) ",
+      "142": "Judge, 5th Subcircuit (Vacancy of Shelley) ",
+      "143": "Judge, 6th Subcircuit (Vacancy of Araujo) ",
+      "144": "Judge, 6th Subcircuit (Vacancy of Vega) ",
+      "145": "Judge, 7th Subcircuit (Vacancy of Martin) ",
+      "146": "Judge, 8th Subcircuit (Vacancy of Gordon) ",
+      "147": "Judge, 8th Subcircuit (Vacancy of Lipscomb) ",
+      "148": "Judge, 9th Subcircuit (Vacancy of Cleveland) ",
+      "149": "Judge, 9th Subcircuit (Vacancy of Jacobius) ",
+      "150": "Judge, 11th Subcircuit (Vacancy of McGuire) ",
+      "151": "Judge, 14th Subcircuit (Vacancy of Brown) ",
+      "152": "Judge, 14th Subcircuit (Vacancy of Jagielski) "
+    }
+  },
+  "253": {
+    "year": 2022,
+    "date": "6/28/2022",
+    "label": "2022 Primary - Republican",
+    "races": {
+      "0": "Registered Voters/Ballots/Turnout",
+      "153": "Senator, U.S. ",
+      "154": "Governor & Lieutenant Governor, Illinois ",
+      "155": "Attorney General, State of Illinois ",
+      "156": "Secretary of State, State of Illinois ",
+      "157": "Comptroller, State of Illinois ",
+      "158": "Treasurer, State of Illinois ",
+      "159": "U.S. Representative, 1st District ",
+      "160": "U.S. Representative, 2nd District ",
+      "161": "U.S. Representative, 3rd District ",
+      "162": "U.S. Representative, 4th District ",
+      "163": "U.S. Representative, 5th District ",
+      "164": "U.S. Representative, 6th District ",
+      "165": "U.S. Representative, 7th District ",
+      "166": "U.S. Representative, 8th District ",
+      "167": "U.S. Representative, 9th District ",
+      "168": "State Senator, 1st District ",
+      "169": "State Senator, 2nd District ",
+      "170": "State Senator, 3rd District ",
+      "171": "State Senator, 4th District ",
+      "172": "State Senator, 5th District ",
+      "173": "State Senator, 6th District ",
+      "174": "State Senator, 7th District ",
+      "175": "State Senator, 8th District ",
+      "176": "State Senator, 9th District ",
+      "177": "State Senator, 10th District ",
+      "178": "State Senator, 11th District ",
+      "179": "State Senator, 12th District ",
+      "180": "State Senator, 13th District ",
+      "181": "State Senator, 14th District ",
+      "182": "State Senator, 15th District ",
+      "183": "State Senator, 16th District ",
+      "184": "State Senator, 17th District ",
+      "185": "State Senator, 18th District ",
+      "186": "State Senator, 20th District ",
+      "187": "State Senator, 28th District ",
+      "188": "State Senator, 39th District ",
+      "189": "State Representative, 1st District ",
+      "191": "State Representative, 3rd District ",
+      "192": "State Representative, 4th District ",
+      "193": "State Representative, 5th District ",
+      "194": "State Representative, 6th District ",
+      "195": "State Representative, 8th District ",
+      "196": "State Representative, 9th District ",
+      "197": "State Representative, 10th District ",
+      "198": "State Representative, 11th District ",
+      "199": "State Representative, 12th District ",
+      "200": "State Representative, 13th District ",
+      "201": "State Representative, 14th District ",
+      "202": "State Representative, 15th District ",
+      "203": "State Representative, 16th District ",
+      "204": "State Representative, 18th District ",
+      "205": "State Representative, 19th District ",
+      "206": "State Representative, 20th District ",
+      "207": "State Representative, 21st District ",
+      "208": "State Representative, 22nd District ",
+      "209": "State Representative, 23rd District ",
+      "210": "State Representative, 24th District ",
+      "211": "State Representative, 25th District ",
+      "212": "State Representative, 26th District ",
+      "213": "State Representative, 27th District ",
+      "214": "State Representative, 28th District ",
+      "215": "State Representative, 29th District ",
+      "216": "State Representative, 31st District ",
+      "217": "State Representative, 32nd District ",
+      "218": "State Representative, 33rd District ",
+      "219": "State Representative, 34th District ",
+      "220": "State Representative, 35th District ",
+      "221": "State Representative, 36th District ",
+      "222": "State Representative, 39th District ",
+      "223": "State Representative, 40th District ",
+      "224": "State Representative, 55th District ",
+      "226": "State Representative, 78th District ",
+      "227": "Commissioner, Water Reclamation Dist ",
+      "228": "Commissioner, Water Reclamation Dist 2yr ",
+      "229": "Board President, Cook County ",
+      "230": "Clerk, Cook County ",
+      "231": "Sheriff, Cook County ",
+      "232": "Treasurer, Cook County ",
+      "233": "Assessor, Cook County ",
+      "234": "Commissioner, County Board 1st District ",
+      "235": "Commissioner, County Board 2nd District ",
+      "236": "Commissioner, County Board 3rd District ",
+      "237": "Commissioner, County Board 4th District ",
+      "238": "Commissioner, County Board 5th District ",
+      "239": "Commissioner, County Board 7th District ",
+      "240": "Commissioner, County Board 8th District ",
+      "241": "Commissioner, County Board 9th District ",
+      "242": "Commissioner, County Board 10th District ",
+      "243": "Commissioner, County Board 11th District ",
+      "244": "Commissioner, County Board 12th District ",
+      "245": "Commissioner, County Board 13th District ",
+      "247": "Commissioner, County Board 16th District ",
+      "249": "Board of Review, 1st District ",
+      "250": "Board of Review, 2nd District ",
+      "251": "Board of Review, 3rd District ",
+      "252": "Appellate Court Judge (Vacancy of Hall) ",
+      "253": "Appellate Court Judge (Vacancy of Harris) ",
+      "254": "Judge, Cook County Circuit (Vacancy of Brennan) ",
+      "255": "Judge, Cook County Circuit (Vacancy of Callahan, Jr.) ",
+      "256": "Judge, Cook County Circuit (Vacancy of Gordon Cannon) ",
+      "257": "Judge, Cook County Circuit (Vacancy of Hyman) ",
+      "258": "Judge, Cook County Circuit (Vacancy of Ingram) ",
+      "259": "Judge, Cook County Circuit (Vacancy of Leeming) ",
+      "260": "Judge, Cook County Circuit (Vacancy of Lynch) ",
+      "261": "Judge, Cook County Circuit (Vacancy of McGury) ",
+      "262": "Judge, Cook County Circuit (Vacancy of O\u00e2\u0080\u0099Brien) ",
+      "263": "Judge, Cook County Circuit (Vacancy of Sullivan) ",
+      "264": "Judge, 1st Subcircuit (Vacancy of Johnson) ",
+      "265": "Judge, 5th Subcircuit (Vacancy of Portman-Brown) ",
+      "266": "Judge, 5th Subcircuit (Vacancy of Shelley) ",
+      "267": "Judge, 6th Subcircuit (Vacancy of Araujo) ",
+      "268": "Judge, 6th Subcircuit (Vacancy of Vega) ",
+      "269": "Judge, 7th Subcircuit (Vacancy of Martin) ",
+      "270": "Judge, 8th Subcircuit (Vacancy of Gordon) ",
+      "271": "Judge, 8th Subcircuit (Vacancy of Lipscomb) ",
+      "272": "Judge, 9th Subcircuit (Vacancy of Cleveland) ",
+      "273": "Judge, 9th Subcircuit (Vacancy of Jacobius) ",
+      "274": "Judge, 11th Subcircuit (Vacancy of McGuire) ",
+      "275": "Judge, 14th Subcircuit (Vacancy of Brown) ",
+      "276": "Judge, 14th Subcircuit (Vacancy of Jagielski) "
+    }
+  },
+  "254": {
+    "year": 2022,
+    "date": "6/28/2022",
+    "label": "2022 Primary - Libertarian",
+    "races": {
+      "0": "Registered Voters/Ballots/Turnout",
+      "277": "Board President, Cook County ",
+      "278": "Clerk, Cook County ",
+      "279": "Sheriff, Cook County ",
+      "280": "Treasurer, Cook County ",
+      "281": "Assessor, Cook County ",
+      "282": "Commissioner, County Board 1st District ",
+      "283": "Commissioner, County Board 5th District ",
+      "284": "Commissioner, County Board 11th District "
+    }
+  },
+  "255": {
+    "year": 2022,
+    "date": "6/28/2022",
+    "label": "2022 Primary - Non-Partisan",
+    "races": {
+      "0": "Registered Voters/Ballots/Turnout",
+      "286": "Preserving Trees W05 P14",
+      "287": "Preserving Trees W05 P19",
+      "288": "Preserving Trees W05 P37"
+    }
+  },
   "251": {
     "year": 2020,
     "date": "11/3/2020",
-    "label": "2020 General Election - 11/3/2020",
+    "label": "2020 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Proposed Amendment to the Illinois Constitution",
@@ -172,7 +473,7 @@
   "250": {
     "year": 2020,
     "date": "3/17/2020",
-    "label": "2020 Primary - Non-Partisan - 3/17/2020",
+    "label": "2020 Primary - Non-Partisan",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "524": "Bronzeville Senior Center W3P02",
@@ -190,7 +491,7 @@
   "240": {
     "year": 2020,
     "date": "3/17/2020",
-    "label": "2020 Primary - Republican - 3/17/2020",
+    "label": "2020 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "285": "President, U.S.",
@@ -353,7 +654,7 @@
   "230": {
     "year": 2020,
     "date": "3/17/2020",
-    "label": "2020 Primary - Democratic - 3/17/2020",
+    "label": "2020 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "100": "President, U.S.",
@@ -509,7 +810,7 @@
   "220": {
     "year": 2019,
     "date": "4/2/2019",
-    "label": "2019 Municipal Runoffs - 4/2/2019",
+    "label": "2019 Municipal Runoffs",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Mayor",
@@ -534,7 +835,7 @@
   "210": {
     "year": 2019,
     "date": "2/26/2019",
-    "label": "2019 Municipal General - 2/26/2019",
+    "label": "2019 Municipal General",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "9": "Mayoral candidates 1-7",
@@ -636,7 +937,7 @@
   "200": {
     "year": 2018,
     "date": "11/6/2018",
-    "label": "2018 General Election - 11/6/2018",
+    "label": "2018 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Governor & Lieutenant Governor, Illinois",
@@ -865,7 +1166,7 @@
   "2": {
     "year": 2018,
     "date": "3/20/2018",
-    "label": "2018 Primary - Non-Partisan - 3/20/2018",
+    "label": "2018 Primary - Non-Partisan",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "254": "Legalize Marijuana",
@@ -907,7 +1208,7 @@
   "1": {
     "year": 2018,
     "date": "3/20/2018",
-    "label": "2018 Primary - Republican - 3/20/2018",
+    "label": "2018 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "139": "Governor & Lieutenant Governor, Illinois",
@@ -1030,7 +1331,7 @@
   "0": {
     "year": 2018,
     "date": "3/20/2018",
-    "label": "2018 Primary - Democratic - 3/20/2018",
+    "label": "2018 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Governor & Lieutenant Governor, Illinois",
@@ -1167,7 +1468,7 @@
   "3": {
     "year": 2017,
     "date": "2/28/2017",
-    "label": "2017 Municipal General - 2/28/2017",
+    "label": "2017 Municipal General",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Alderman 4th Ward"
@@ -1176,7 +1477,7 @@
   "4": {
     "year": 2016,
     "date": "11/8/2016",
-    "label": "2016 General Election - 11/8/2016",
+    "label": "2016 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Transportation Amendment",
@@ -1376,7 +1677,7 @@
   "8": {
     "year": 2016,
     "date": "3/15/2016",
-    "label": "2016 Primary - Non-Partisan - 3/15/2016",
+    "label": "2016 Primary - Non-Partisan",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "334": "W29-Voting Rights",
@@ -1386,7 +1687,7 @@
   "7": {
     "year": 2016,
     "date": "3/15/2016",
-    "label": "2016 Primary - Green - 3/15/2016",
+    "label": "2016 Primary - Green",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "323": "U.S. Representative, 5th District",
@@ -1407,7 +1708,7 @@
   "6": {
     "year": 2016,
     "date": "3/15/2016",
-    "label": "2016 Primary - Republican - 3/15/2016",
+    "label": "2016 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "163": "President, U.S.",
@@ -1575,7 +1876,7 @@
   "5": {
     "year": 2016,
     "date": "3/15/2016",
-    "label": "2016 Primary - Democratic - 3/15/2016",
+    "label": "2016 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "President, U.S.",
@@ -1736,7 +2037,7 @@
   "9": {
     "year": 2015,
     "date": "4/7/2015",
-    "label": "2015 Municipal Runoffs - 4/7/2015",
+    "label": "2015 Municipal Runoffs",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Mayor",
@@ -1763,7 +2064,7 @@
   "10": {
     "year": 2015,
     "date": "2/24/2015",
-    "label": "2015 Municipal General - 2/24/2015",
+    "label": "2015 Municipal General",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Mayor",
@@ -1866,7 +2167,7 @@
   "11": {
     "year": 2014,
     "date": "11/4/2014",
-    "label": "2014 General Election - 11/4/2014",
+    "label": "2014 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Crime Victim Rights",
@@ -2057,7 +2358,7 @@
   "12": {
     "year": 2014,
     "date": "3/18/2014",
-    "label": "2014 Primary - Democratic - 3/18/2014",
+    "label": "2014 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Senator, U.S.",
@@ -2177,7 +2478,7 @@
   "13": {
     "year": 2014,
     "date": "3/18/2014",
-    "label": "2014 Primary - Republican - 3/18/2014",
+    "label": "2014 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "122": "Senator, U.S.",
@@ -2283,7 +2584,7 @@
   "14": {
     "year": 2014,
     "date": "3/18/2014",
-    "label": "2014 Primary - Green - 3/18/2014",
+    "label": "2014 Primary - Green",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "220": "U.S. Representative, 5th District"
@@ -2292,7 +2593,7 @@
   "15": {
     "year": 2014,
     "date": "3/18/2014",
-    "label": "2014 Primary - Non-Partisan - 3/18/2014",
+    "label": "2014 Primary - Non-Partisan",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "221": "Taxi Fare Hike",
@@ -2409,7 +2710,7 @@
   "16": {
     "year": 2013,
     "date": "4/9/2013",
-    "label": "2013 Special Election - 2nd Congressional - 4/9/2013",
+    "label": "2013 Special Election - 2nd Congressional",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "U.S. Representative, 2nd District"
@@ -2418,7 +2719,7 @@
   "17": {
     "year": 2013,
     "date": "2/26/2013",
-    "label": "2013 Special Primary - 2nd Congressional - Democratic - 2/26/2013",
+    "label": "2013 Special Primary - 2nd Congressional - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "U.S. Representative, 2nd District"
@@ -2427,7 +2728,7 @@
   "18": {
     "year": 2013,
     "date": "2/26/2013",
-    "label": "2013 Special Priamry - 2nd Congressional - Republican - 2/26/2013",
+    "label": "2013 Special Priamry - 2nd Congressional - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "11": "U.S. Representative, 2nd District"
@@ -2436,7 +2737,7 @@
   "19": {
     "year": 2012,
     "date": "11/6/2012",
-    "label": "2012 General Election - 11/6/2012",
+    "label": "2012 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Proposed Amendment to the Illinois Constitution",
@@ -2797,7 +3098,7 @@
   "20": {
     "year": 2012,
     "date": "3/20/2012",
-    "label": "2012 Primary - Democratic - 3/20/2012",
+    "label": "2012 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "President, U.S.",
@@ -2969,7 +3270,7 @@
   "21": {
     "year": 2012,
     "date": "3/20/2012",
-    "label": "2012 Primary - Republican - 3/20/2012",
+    "label": "2012 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "11": "President, U.S.",
@@ -3056,7 +3357,7 @@
   "22": {
     "year": 2012,
     "date": "3/20/2012",
-    "label": "2012 Primary - Green - 3/20/2012",
+    "label": "2012 Primary - Green",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "268": "Ward Committeeman, Grn 10th",
@@ -3071,7 +3372,7 @@
   "23": {
     "year": 2012,
     "date": "3/20/2012",
-    "label": "2012 Primary - Non-Partisan - 3/20/2012",
+    "label": "2012 Primary - Non-Partisan",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "355": "Parking In Logan Sq Blvd",
@@ -3083,7 +3384,7 @@
   "24": {
     "year": 2011,
     "date": "4/5/2011",
-    "label": "2011 Municipal Runoffs - 4/5/2011",
+    "label": "2011 Municipal Runoffs",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Alderman 6th Ward",
@@ -3105,7 +3406,7 @@
   "25": {
     "year": 2011,
     "date": "2/22/2011",
-    "label": "2011 Municipal General - 2/22/2011",
+    "label": "2011 Municipal General",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Mayor",
@@ -3178,7 +3479,7 @@
   "26": {
     "year": 2010,
     "date": "11/2/2010",
-    "label": "2010 General Election - 11/2/2010",
+    "label": "2010 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Amendment to Illinois Constitution",
@@ -3359,7 +3660,7 @@
   "27": {
     "year": 2010,
     "date": "2/2/2010",
-    "label": "2010 Primary - Democratic - 2/2/2010",
+    "label": "2010 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "U.S. Senator",
@@ -3481,7 +3782,7 @@
   "29": {
     "year": 2010,
     "date": "2/2/2010",
-    "label": "2010 Primary - Republican - 2/2/2010",
+    "label": "2010 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "124": "U.S. Senator",
@@ -3589,7 +3890,7 @@
   "31": {
     "year": 2010,
     "date": "2/2/2010",
-    "label": "2010 Primary - Green - 2/2/2010",
+    "label": "2010 Primary - Green",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "224": "U.S. Senator",
@@ -3711,7 +4012,7 @@
   "33": {
     "year": 2009,
     "date": "4/7/2009",
-    "label": "2009 Special Election - 5th Congressional - 4/7/2009",
+    "label": "2009 Special Election - 5th Congressional",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Rep. In Congress, 5th",
@@ -3721,7 +4022,7 @@
   "34": {
     "year": 2009,
     "date": "3/3/2009",
-    "label": "2009 Special Primary - 5th Congressional - Democratic - 3/3/2009",
+    "label": "2009 Special Primary - 5th Congressional - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Rep. In Congress, 5th"
@@ -3730,7 +4031,7 @@
   "36": {
     "year": 2009,
     "date": "3/3/2009",
-    "label": "2009 Special Primary - 5th Congressional - Republican - 3/3/2009",
+    "label": "2009 Special Primary - 5th Congressional - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "11": "Rep. In Congress, 5th"
@@ -3739,7 +4040,7 @@
   "38": {
     "year": 2009,
     "date": "3/3/2009",
-    "label": "2009 Special Primary - 5th Congressional - Green - 3/3/2009",
+    "label": "2009 Special Primary - 5th Congressional - Green",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "12": "Rep. In Congress, 5th"
@@ -3748,7 +4049,7 @@
   "40": {
     "year": 2008,
     "date": "11/4/2008",
-    "label": "2008 General Election - 11/4/2008",
+    "label": "2008 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Proposed Call Convention",
@@ -3951,7 +4252,7 @@
   "45": {
     "year": 2008,
     "date": "2/4/2008",
-    "label": "2008 Primary - Democratic - 2/4/2008",
+    "label": "2008 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "President Of The United States",
@@ -4116,7 +4417,7 @@
   "50": {
     "year": 2008,
     "date": "2/4/2008",
-    "label": "2008 Primary - Republican - 2/4/2008",
+    "label": "2008 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "168": "President Of The United States",
@@ -4202,7 +4503,7 @@
   "55": {
     "year": 2008,
     "date": "2/4/2008",
-    "label": "2008 Primary - Green - 2/4/2008",
+    "label": "2008 Primary - Green",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "326": "President Of The United States",
@@ -4241,7 +4542,7 @@
   "60": {
     "year": 2007,
     "date": "4/17/2007",
-    "label": "2007 Municipal Runoffs - 4/17/2007",
+    "label": "2007 Municipal Runoffs",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Alderman 2nd Ward",
@@ -4261,7 +4562,7 @@
   "65": {
     "year": 2007,
     "date": "2/27/2007",
-    "label": "2007 Municipal General - 2/27/2007",
+    "label": "2007 Municipal General",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "MAYOR",
@@ -4326,7 +4627,7 @@
   "70": {
     "year": 2006,
     "date": "11/7/2006",
-    "label": "2006 General Election - 11/7/2006",
+    "label": "2006 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Governor & Lieutenant Governor",
@@ -4733,7 +5034,7 @@
   "75": {
     "year": 2006,
     "date": "3/21/2006",
-    "label": "2006 Primary - Democratic - 3/21/2006",
+    "label": "2006 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "10": "Governor",
@@ -4857,7 +5158,7 @@
   "80": {
     "year": 2006,
     "date": "3/21/2006",
-    "label": "2006 Primary - Republican - 3/21/2006",
+    "label": "2006 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "129": "Governor",
@@ -4899,7 +5200,7 @@
   "85": {
     "year": 2006,
     "date": "3/21/2006",
-    "label": "2006 Primary - Other - 3/21/2006",
+    "label": "2006 Primary - Other",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "6": "BALLOTS CAST - Libertarian",
@@ -4928,7 +5229,7 @@
   "90": {
     "year": 2004,
     "date": "11/2/2004",
-    "label": "2004 General Election - 11/2/2004",
+    "label": "2004 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "3": "President and Vice President of the United States",
@@ -5105,7 +5406,7 @@
   "95": {
     "year": 2004,
     "date": "3/16/2004",
-    "label": "2004 Primary - Democratic - 3/16/2004",
+    "label": "2004 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "11": "President Of The United States",
@@ -5252,7 +5553,7 @@
   "100": {
     "year": 2004,
     "date": "3/16/2004",
-    "label": "2004 Primary - Republican - 3/16/2004",
+    "label": "2004 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "190": "President Of The United States",
@@ -5399,7 +5700,7 @@
   "101": {
     "year": 2004,
     "date": "3/16/2004",
-    "label": "2004 Primary - Other - 3/16/2004",
+    "label": "2004 Primary - Other",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "6": "BALLOTS CAST - LIBERTARIAN",
@@ -5429,7 +5730,7 @@
   "105": {
     "year": 2003,
     "date": "4/1/2003",
-    "label": "2003 Municipal Runoffs - 4/1/2003",
+    "label": "2003 Municipal Runoffs",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "3": "ALDERMAN - 1ST WARD",
@@ -5441,7 +5742,7 @@
   "110": {
     "year": 2003,
     "date": "2/25/2003",
-    "label": "2003 Municipal General - 2/25/2003",
+    "label": "2003 Municipal General",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "3": "MAYOR",
@@ -5519,7 +5820,7 @@
   "115": {
     "year": 2002,
     "date": "11/5/2002",
-    "label": "2002 General Election - 11/5/2002",
+    "label": "2002 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "3": "UNITED STATES SENATOR",
@@ -5717,7 +6018,7 @@
   "116": {
     "year": 2002,
     "date": "3/19/2002",
-    "label": "2002 Primary - Democratic - 3/19/2002",
+    "label": "2002 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "7": "UNITED STATES SENATOR",
@@ -5856,7 +6157,7 @@
   "117": {
     "year": 2002,
     "date": "3/19/2002",
-    "label": "2002 Primary - Republican - 3/19/2002",
+    "label": "2002 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "138": "UNITED STATES SENATOR",
@@ -5911,7 +6212,7 @@
   "118": {
     "year": 2002,
     "date": "3/19/2002",
-    "label": "2002 Primary - Other - 3/19/2002",
+    "label": "2002 Primary - Other",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "5": "BALLOTS CAST - LIBERTARIAN",
@@ -5927,7 +6228,7 @@
   "120": {
     "year": 2000,
     "date": "11/7/2000",
-    "label": "2000 General Election - 11/7/2000",
+    "label": "2000 General Election",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "11": "PRESIDENT AND VICE PRESIDENT OF THE UNITED STATES",
@@ -6107,7 +6408,7 @@
   "124": {
     "year": 2000,
     "date": "3/21/2000",
-    "label": "2000 Primary - Democratic - 3/21/2000",
+    "label": "2000 Primary - Democratic",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "3": "BALLOTS CAST - TOTAL",
@@ -6257,7 +6558,7 @@
   "125": {
     "year": 2000,
     "date": "3/21/2000",
-    "label": "2000 Primary - Republican - 3/21/2000",
+    "label": "2000 Primary - Republican",
     "races": {
       "0": "Registered Voters/Ballots/Turnout",
       "3": "BALLOTS CAST - TOTAL",
@@ -6355,13 +6656,13 @@
   "19830": {
     "year": 1983,
     "date": "2/22/1983",
-    "label": "1983 Primary - Democratic - 2/22/1983",
+    "label": "1983 Primary - Democratic",
     "races": { "0": "Mayor" }
   },
   "19831": {
     "year": 1983,
     "date": "4/12/1983",
-    "label": "1983 General Election - 4/12/1983",
+    "label": "1983 General Election",
     "races": { "0": "Mayor" }
   }
 }

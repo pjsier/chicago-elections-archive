@@ -29,6 +29,10 @@ module.exports = {
   electionMetadata: {
     elections: electionMetadata,
     electionOrder: [
+      // "252", 2022 primary
+      // "253",
+      // "254",
+      // "255",
       "251",
       "250",
       "240",
