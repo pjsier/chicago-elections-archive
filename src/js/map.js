@@ -3,6 +3,7 @@ import { render } from "solid-js/web"
 import MapProvider from "./providers/map"
 import PopupProvider from "./providers/popup"
 import MapPage from "./pages/map-page"
+import { DEFAULT_ELECTION } from "./utils/map"
 
 function parseMapMetadata() {
   const mapMetadataEl = document.getElementById("map-metadata")
@@ -46,7 +47,11 @@ if (mapContainer) {
         <PopupProvider>
           <MapPage
             {...mapMetadata}
-            initialElection={params.get("election") || "251"}
+            initialElection={
+              mapMetadata.embedElection ||
+              params.get("election") ||
+              DEFAULT_ELECTION
+            }
             initialRace={params.get("race") || "0"}
           />
         </PopupProvider>

@@ -1,4 +1,5 @@
 import { render } from "solid-js/web"
+import { DEFAULT_ELECTION } from "./utils/map"
 
 import DownloadPage from "./pages/download-page"
 
@@ -34,7 +35,7 @@ if (downloadContainer) {
     () => (
       <DownloadPage
         {...mapMetadata}
-        initialElection={params.get("election") || "251"}
+        initialElection={params.get("election") || DEFAULT_ELECTION}
         initialRace={params.get("race") || "0"}
       />
     ),

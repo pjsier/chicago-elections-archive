@@ -131,6 +131,11 @@ const MapPage = (props) => {
             totalVotes={mapStore.electionResults.total}
             displayOverrides={props.displayOverrides}
           />
+          <Show when={["252", "253", "254", "255"].includes(state.election)}>
+            <p class="unofficial-notice">
+              Incomplete unofficial results as of June 29, 8:27am
+            </p>
+          </Show>
           <a
             class="embed-attribution"
             href="https://chicagoelectionsarchive.org"

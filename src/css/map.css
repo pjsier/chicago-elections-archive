@@ -425,6 +425,11 @@ main.map + footer {
   @apply hidden;
 }
 
+.content p.unofficial-notice,
+.content p.unofficial-notice:last-child {
+  @apply text-xs mb-0 italic mt-1;
+}
+
 .embed-attribution {
   @apply hidden pt-2 text-sm;
 }

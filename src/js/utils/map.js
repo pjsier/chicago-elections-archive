@@ -1,3 +1,5 @@
+export const DEFAULT_ELECTION = "252"
+
 export const COLOR_SCHEME = [
   "#1f77b4",
   "#d62728",
