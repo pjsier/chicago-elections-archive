@@ -1,4 +1,5 @@
 import csv
+import re
 import sys
 
 from bs4 import BeautifulSoup
@@ -44,6 +45,11 @@ def get_row_values(row, ward, candidates):
 if __name__ == "__main__":
     with open(sys.argv[1], "rb") as f:
         soup = BeautifulSoup(f.read(), features="lxml")
+
+    body_text = re.sub(r"\s+", " ", soup.find("body").getText()).lower()
+    if "an error occurred" in body_text:
+        raise ValueError("Incomplete results due to error")
+
     candidates = get_candidates(soup)
     columns = (
         ["id", "ward", "precinct", "registered", "ballots", "total"]
