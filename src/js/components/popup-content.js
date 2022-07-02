@@ -1,4 +1,4 @@
-import { For, createMemo } from "solid-js"
+import { For, Show, createMemo } from "solid-js"
 import { descending } from "../utils"
 import { getDataCols } from "../utils/map"
 
@@ -13,7 +13,9 @@ const PopupContent = (props) => {
   )
   return (
     <>
-      <h2>Ward {props?.feature?.ward}</h2>
+      <Show when={props?.feature?.ward}>
+        <h2>Ward {props?.feature?.ward}</h2>
+      </Show>
       <h3>Precinct {props?.feature?.precinct}</h3>
       <For each={candidateData()}>
         {({ label, value }) => (

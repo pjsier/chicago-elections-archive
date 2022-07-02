@@ -133,7 +133,7 @@ const MapPage = (props) => {
           />
           <Show when={["252", "253", "254", "255"].includes(state.election)}>
             <p class="unofficial-notice">
-              Incomplete unofficial results as of Jun 30, 5:23pm
+              Incomplete unofficial results as of Jul 1, 4:44pm
             </p>
           </Show>
           <a
