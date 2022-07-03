@@ -11,7 +11,7 @@ exports.render = ({ site }) => {
       [`precincts-${year}`]: {
         type: "vector",
         maxzoom: 12,
-        bounds: [-87.940101, 41.643919, -87.523984, 42.023022],
+        bounds: [-88.626521, 41.363644, -87.505916, 42.241965],
         tiles: [
           `https://${site.dataDomain}/tiles/precincts-${year}/{z}/{x}/{y}.pbf`,
         ],

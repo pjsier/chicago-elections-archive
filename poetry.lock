@@ -180,6 +180,18 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "esridump"
+version = "1.11.0"
+description = "Dump geodata from ESRI endpoints to GeoJSON"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = "*"
+six = "*"
+
+[[package]]
 name = "et-xmlfile"
 version = "1.1.0"
 description = "An implementation of lxml.xmlfile for the standard library"
@@ -494,7 +506,7 @@ test = ["pytest", "pytest-cov"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "349484625531daa15705976d571e13cd6640454d1a79f6263918938ff48d5cdc"
+content-hash = "8c81802723892250a5ab355ae13c732c92c460f06d8e14e212aef9c49c653bd7"
 
 [metadata.files]
 agate = [
@@ -569,6 +581,10 @@ csvkit = [
 dbfread = [
     {file = "dbfread-2.0.7-py2.py3-none-any.whl", hash = "sha256:f604def58c59694fa0160d7be5d0b8d594467278d2bb6a47d46daf7162c84cec"},
     {file = "dbfread-2.0.7.tar.gz", hash = "sha256:07c8a9af06ffad3f6f03e8fe91ad7d2733e31a26d2b72c4dd4cfbae07ee3b73d"},
+]
+esridump = [
+    {file = "esridump-1.11.0-py3-none-any.whl", hash = "sha256:a3952b3660dc58be766e5aef9bda678092149b553a137171ae909a226a40b0ea"},
+    {file = "esridump-1.11.0.tar.gz", hash = "sha256:5afed49406ef3dd72ff5266bd2fb4ce3e8e3b87187660155f01eee31731a4cf4"},
 ]
 et-xmlfile = [
     {file = "et_xmlfile-1.1.0-py3-none-any.whl", hash = "sha256:a2ba85d1d6a74ef63837eed693bcb89c3f752169b0e3e7ae5b16ca5e1b3deada"},

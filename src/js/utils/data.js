@@ -49,5 +49,8 @@ export function mergeCsvAndGeojson(csvData, geojsonData) {
       ...(csvDataMap[feat.properties.id] || {}),
     }
   })
+  geojsonData.features = geojsonData.features.filter(
+    (feat) => !!feat.properties.precinct
+  )
   return geojsonData
 }

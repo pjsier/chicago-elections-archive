@@ -13,7 +13,7 @@ all: input/results-metadata.json output/results-metadata.json $(RESULTS) $(forea
 
 .PHONY: deploy
 deploy:
-	s3cmd sync ./deploy-output/* s3://$(S3_BUCKET)/ \
+	s3cmd sync ./deploy-output/results/252 s3://$(S3_BUCKET)/results/ \
 		--region=$(S3_REGION) \
 		--host=$(S3_REGION).linodeobjects.com \
 		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
@@ -28,13 +28,23 @@ deploy:
 # GZIP-compress output before it's synced with s3cmd
 .PHONY: build-output
 build-output:
-	mkdir -p deploy-output
-	cp -r output/* deploy-output
-	find deploy-output -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
+	mkdir -p deploy-output/results/252
+	# mkdir -p deploy-output/results/253
+	# mkdir -p deploy-output/results/254
+	# mkdir -p deploy-output/results/255
+	cp -r output/results/252 deploy-output/results
+	# cp -r output/results/253 deploy-output/results
+	# cp -r output/results/254 deploy-output/results
+	# cp -r output/results/255 deploy-output/results
+	find deploy-output/results/252 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
+	# find deploy-output/results/253 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
+	# find deploy-output/results/254 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
+	# find deploy-output/results/255 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
+
 
 .PHONY: deploy-tiles
 deploy-tiles:
-	s3cmd sync ./tiles/ s3://$(S3_BUCKET)/tiles/ \
+	s3cmd sync ./tiles/precincts-2022/ s3://$(S3_BUCKET)/tiles/precincts-2022/ \
 		--region=$(S3_REGION) \
 		--host=$(S3_REGION).linodeobjects.com \
 		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
@@ -66,6 +76,24 @@ output/%.mbtiles: output/%.geojson
 		--force \
 		-L precincts:$< -o $@
 
+# Originally pulled with
+# esri2geojson https://gisapps.cityofchicago.org/arcgis/rest/services/ExternalApps/operational/MapServer/116 -
+output/precincts-2022.geojson: input/precincts-2022.geojson input/cook-precincts.geojson
+	mapshaper -i $^ combine-files snap \
+	-simplify 10% \
+	-filter-fields id \
+	-merge-layers force \
+	-o $@
+
+output/precincts-2012.geojson: input/raw-precincts-2012.geojson input/wards.geojson
+	mapshaper -i $< snap \
+	-proj crs=wgs84 \
+	-clip $(filter-out $<,$^) \
+	-simplify 10% \
+	-each 'WARD = (+id.slice(0, 2)).toString()' \
+	-each 'PRECINCT = (+id.slice(2)).toString()' \
+	-o $@
+
 output/precincts-%.geojson: input/wards.geojson
 	wget -qO - https://raw.githubusercontent.com/datamade/chicago-municipal-elections/master/precincts/$*_precincts.geojson | \
 	mapshaper -i - snap \
@@ -77,9 +105,26 @@ output/precincts-%.geojson: input/wards.geojson
 	-filter-fields id,WARD,PRECINCT \
 	-o $@
 
-output/results/%.csv: input/%.html
+# Hacky workaround for getting Cook results for some races
+output/results/252/17.csv: input/252/17.html input/cook-252/17.csv
 	mkdir -p $(dir $@)
 	poetry run python scripts/scrape_table.py $< > $@
+	xsv slice --no-headers -s 1 $(filter-out $<,$^) >> $@
+
+output/results/252/19.csv: input/252/19.html input/cook-252/19.csv
+	mkdir -p $(dir $@)
+	poetry run python scripts/scrape_table.py $< > $@
+	xsv slice --no-headers -s 1 $(filter-out $<,$^) >> $@
+
+output/results/252/23.csv: input/252/23.html input/cook-252/23.csv
+	mkdir -p $(dir $@)
+	poetry run python scripts/scrape_table.py $< > $@
+	xsv slice --no-headers -s 1 $(filter-out $<,$^) >> $@
+
+output/results/252/109.csv: input/252/109.html input/cook-252/109.csv
+	mkdir -p $(dir $@)
+	poetry run python scripts/scrape_table.py $< > $@
+	xsv slice --no-headers -s 1 $(filter-out $<,$^) >> $@
 
 output/results/210/9.csv: output/results/210/9-int.csv output/results/210/10-int.csv
 	xsv join id $< id $(filter-out $<,$^) > $@
@@ -100,24 +145,21 @@ output/results/%/0.csv: input/%/0.html
 	xsv select --no-headers 1-3,6,7,9 -| \
 	xsv slice --no-headers -s 1 - >> $@
 
-# Originally pulled with
-# esri2geojson https://gisapps.cityofchicago.org/arcgis/rest/services/ExternalApps/operational/MapServer/116 -
-output/precincts-2022.geojson: input/raw-precincts-2022.geojson input/wards.geojson
-	mapshaper -i $< snap \
-	-proj crs=wgs84 \
-	-clip $(filter-out $<,$^) \
-	-simplify 10% \
-	-each 'id = WARD_PRECINCT' \
+input/cook-precincts.geojson: input/raw-cook-precincts.geojson
+	mapshaper -i $< \
+	-each 'id = name' \
 	-filter-fields id \
 	-o $@
 
-output/precincts-2012.geojson: input/raw-precincts-2012.geojson input/wards.geojson
+input/raw-cook-precincts.geojson:
+	poetry run esri2geojson https://gis12.cookcountyil.gov/arcgis/rest/services/electionSrvcLite/MapServer/1 $@
+
+input/precincts-2022.geojson: input/raw-precincts-2022.geojson input/wards.geojson
 	mapshaper -i $< snap \
 	-proj crs=wgs84 \
 	-clip $(filter-out $<,$^) \
-	-simplify 10% \
-	-each 'WARD = (+id.slice(0, 2)).toString()' \
-	-each 'PRECINCT = (+id.slice(2)).toString()' \
+	-each 'id = WARD_PRECINCT' \
+	-filter-fields id \
 	-o $@
 
 input/raw-precincts-%.geojson:
@@ -141,6 +183,10 @@ output/results/19831/0.csv: input/1983/19831.csv
 output/results/19830/0.csv: input/1983/19830.csv
 	mkdir -p $(dir $@)
 	cat $< | poetry run python scripts/process_1983.py > $@
+
+input/cook-252/%.csv:
+	mkdir -p $(dir $@)
+	poetry run python scripts/scrape_cook_2022_primary.py $* > $@
 
 input/1983/19831.csv: input/1983/
 	poetry run in2csv input/1983/Mayoral_General/ElectionResults_Spreadsheet/1983_MayoralGeneral_ElectionResultsSpreadsheet.xlsx > $@
