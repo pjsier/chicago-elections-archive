@@ -4,7 +4,7 @@ import sys
 import requests
 from bs4 import BeautifulSoup
 
-RACE_MAP = {"17": "7", "19": "9", "23": "13", "109": "115"}
+RACE_MAP = {"17": "7", "19": "9", "23": "13", "109": "115", "14": "4"}
 
 CANDIDATE_MAP = {}
 

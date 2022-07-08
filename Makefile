@@ -13,7 +13,7 @@ all: input/results-metadata.json output/results-metadata.json $(RESULTS) $(forea
 
 .PHONY: deploy
 deploy:
-	s3cmd sync ./deploy-output/results/252 s3://$(S3_BUCKET)/results/ \
+	s3cmd sync ./deploy-output/* s3://$(S3_BUCKET)/ \
 		--region=$(S3_REGION) \
 		--host=$(S3_REGION).linodeobjects.com \
 		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
@@ -28,23 +28,13 @@ deploy:
 # GZIP-compress output before it's synced with s3cmd
 .PHONY: build-output
 build-output:
-	mkdir -p deploy-output/results/252
-	# mkdir -p deploy-output/results/253
-	# mkdir -p deploy-output/results/254
-	# mkdir -p deploy-output/results/255
-	cp -r output/results/252 deploy-output/results
-	# cp -r output/results/253 deploy-output/results
-	# cp -r output/results/254 deploy-output/results
-	# cp -r output/results/255 deploy-output/results
-	find deploy-output/results/252 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
-	# find deploy-output/results/253 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
-	# find deploy-output/results/254 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
-	# find deploy-output/results/255 -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
-
+	mkdir -p deploy-output
+	cp -r output/* deploy-output
+	find deploy-output -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
 
 .PHONY: deploy-tiles
 deploy-tiles:
-	s3cmd sync ./tiles/precincts-2022/ s3://$(S3_BUCKET)/tiles/precincts-2022/ \
+	s3cmd sync ./tiles/ s3://$(S3_BUCKET)/tiles/ \
 		--region=$(S3_REGION) \
 		--host=$(S3_REGION).linodeobjects.com \
 		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
@@ -122,6 +112,11 @@ output/results/252/23.csv: input/252/23.html input/cook-252/23.csv
 	xsv slice --no-headers -s 1 $(filter-out $<,$^) >> $@
 
 output/results/252/109.csv: input/252/109.html input/cook-252/109.csv
+	mkdir -p $(dir $@)
+	poetry run python scripts/scrape_table.py $< > $@
+	xsv slice --no-headers -s 1 $(filter-out $<,$^) >> $@
+
+output/results/252/14.csv: input/252/14.html input/cook-252/14.csv
 	mkdir -p $(dir $@)
 	poetry run python scripts/scrape_table.py $< > $@
 	xsv slice --no-headers -s 1 $(filter-out $<,$^) >> $@
