@@ -34,7 +34,7 @@
     "@rollup/plugin-node-resolve": "^13.3.0",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.4",
-    "babel-preset-solid": "^1.4.0",
+    "babel-preset-solid": "^1.5.3",
     "core-js": "^3.23.1",
     "cssnano": "^5.1.12",
     "dotenv": "^16.0.1",
