@@ -131,9 +131,9 @@ const MapPage = (props) => {
             totalVotes={mapStore.electionResults.total}
             displayOverrides={props.displayOverrides}
           />
-          <Show when={["252", "253", "254", "255"].includes(state.election)}>
+          <Show when={["156"].includes(state.election)}>
             <p class="unofficial-notice">
-              Incomplete unofficial results as of Jul 1, 4:44pm
+              Incomplete unofficial results as of Nov 9, 7:47am
             </p>
           </Show>
           <a
@@ -150,7 +150,7 @@ const MapPage = (props) => {
         <Popup
           map={mapStore.map}
           layer={"precincts"}
-          source={`precincts-${getPrecinctYear(+year())}`}
+          source={`precincts-${getPrecinctYear(state.election, +year())}`}
           active={popup.click || popup.hover}
           lngLat={popup.lngLat}
         >

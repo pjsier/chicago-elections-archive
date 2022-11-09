@@ -58,10 +58,10 @@ const aggregateElection = (data) => {
   return { candidates, candidateColors, electionResults }
 }
 
-const createPrecinctLayerDefinition = (data, year) => ({
+const createPrecinctLayerDefinition = (data, election, year) => ({
   layerDefinition: {
     id: "precincts",
-    source: `precincts-${getPrecinctYear(+year)}`,
+    source: `precincts-${getPrecinctYear(election, +year)}`,
     "source-layer": "precincts",
     type: "fill",
     filter: filterExpression(data),
@@ -131,7 +131,9 @@ const Map = (props) => {
   const [mapStore, setMapStore] = useMapStore()
   const [, setPopup] = usePopup()
 
-  const mapSource = createMemo(() => `precincts-${getPrecinctYear(props.year)}`)
+  const mapSource = createMemo(
+    () => `precincts-${getPrecinctYear(props.election, props.year)}`
+  )
 
   onMount(() => {
     map = new window.maplibregl.Map({
@@ -179,7 +181,7 @@ const Map = (props) => {
     )
     if (canceled) return
 
-    const def = createPrecinctLayerDefinition(data, props.year)
+    const def = createPrecinctLayerDefinition(data, props.election, props.year)
     const dataCols = getDataCols(data[0] || [])
 
     setMapStore({ ...def.legendData })

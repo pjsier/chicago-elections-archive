@@ -6,6 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 ELECTIONS = {
+    "156": "2022 General Election - 11/8/2022",
     "252": "2022 Primary - Democratic - 6/28/2022",
     "253": "2022 Primary - Republican - 6/28/2022",
     "254": "2022 Primary - Libertarian - 6/28/2022",

@@ -40,7 +40,7 @@ const DownloadPage = (props) => {
     const [csvData, geojsonData] = await Promise.all([
       fetchCsvData(props.dataDomain, state.election, state.race),
       state.format === "geojson"
-        ? fetchGeojsonData(props.dataDomain, year())
+        ? fetchGeojsonData(props.dataDomain, state.election, year())
         : () => Promise.resolve(),
     ])
     if (canceled) return

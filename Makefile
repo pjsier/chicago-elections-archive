@@ -1,7 +1,7 @@
 S3_BUCKET = chicago-elections-archive
 S3_REGION = us-east-1
 
-PRECINCT_YEARS := 1983 2000 2003 2004 2007 2008 2010 2011 2012 2015 2019 2022
+PRECINCT_YEARS := 1983 2000 2003 2004 2007 2008 2010 2011 2012 2015 2019 2021 2022
 ELECTION_IDS := $(shell cat input/results-metadata.json | jq -r 'keys[]')
 IGNORE_RESULTS := output/results/7/334.csv output/results/7/335.csv output/results/80/250.csv output/results/80/255.csv output/results/80/253.csv output/results/80/261.csv output/results/80/266.csv 
 RESULTS := $(filter-out $(IGNORE_RESULTS),$(foreach id,$(ELECTION_IDS),$(foreach result,$(shell cat input/results-metadata.json | jq -r '."$(id)".races|keys[]'),output/results/$(id)/$(result).csv)))
@@ -66,9 +66,16 @@ output/%.mbtiles: output/%.geojson
 		--force \
 		-L precincts:$< -o $@
 
+output/precincts-2022.geojson: input/raw-precincts-2022.geojson
+	mapshaper -i $< \
+	-simplify 10% \
+	-rename-fields id=FIRST_full \
+	-filter-fields id \
+	-o $@
+
 # Originally pulled with
 # esri2geojson https://gisapps.cityofchicago.org/arcgis/rest/services/ExternalApps/operational/MapServer/116 -
-output/precincts-2022.geojson: input/precincts-2022.geojson input/cook-precincts.geojson
+output/precincts-2021.geojson: input/precincts-2021.geojson input/cook-precincts.geojson
 	mapshaper -i $^ combine-files snap \
 	-simplify 10% \
 	-filter-fields id \
@@ -140,6 +147,10 @@ output/results/%/0.csv: input/%/0.html
 	xsv select --no-headers 1-3,6,7,9 -| \
 	xsv slice --no-headers -s 1 - >> $@
 
+output/results/%.csv: input/%.html
+	mkdir -p $(dir $@)
+	poetry run python scripts/scrape_table.py $< > $@
+
 input/cook-precincts.geojson: input/raw-cook-precincts.geojson
 	mapshaper -i $< \
 	-each 'id = name' \
@@ -149,7 +160,7 @@ input/cook-precincts.geojson: input/raw-cook-precincts.geojson
 input/raw-cook-precincts.geojson:
 	poetry run esri2geojson https://gis12.cookcountyil.gov/arcgis/rest/services/electionSrvcLite/MapServer/1 $@
 
-input/precincts-2022.geojson: input/raw-precincts-2022.geojson input/wards.geojson
+input/precincts-2021.geojson: input/raw-precincts-2021.geojson input/wards.geojson
 	mapshaper -i $< snap \
 	-proj crs=wgs84 \
 	-clip $(filter-out $<,$^) \
