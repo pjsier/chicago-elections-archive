@@ -6,7 +6,7 @@ title: About | Chicago Elections Archive
 
 # About
 
-This site is an open source, volunteer project to make it easier to access the historical results of Chicago elections.
+This site is an open source, volunteer project to make it easier to access the results of Chicago elections.
 
 ## Data issues
 
@@ -24,7 +24,7 @@ Elections results for elections going back to 2000 are available from the [Chica
 
 Election results for some earlier historic elections (some of which are not displayed here) are available from the [Chicago Elections Project](https://data.lib.vt.edu/articles/dataset/Chicago_Elections_Project/14099084).
 
-All precinct boundaries can be accessed through DataMade's open source project: [datamade/chicago-municipal-elections](https://github.com/datamade/chicago-municipal-elections)
+Most precinct boundaries can be accessed through DataMade's open source project: [datamade/chicago-municipal-elections](https://github.com/datamade/chicago-municipal-elections)
 
 ## Embed the map
 

@@ -1,6 +1,6 @@
 # Chicago Elections Archive
 
-Explore precinct-level results from historical Chicago elections.
+Explore precinct-level results from recent and historical Chicago elections.
 
 ## Setup
 
