@@ -21,9 +21,10 @@ select:focus {
 
 /* Borrowed from bulma */
 .select::after {
-  @apply block pointer-events-none absolute z-30;
+  @apply block pointer-events-none absolute;
 
   content: "";
+  z-index: 1;
   border: 3px solid #000000;
   border-right: 0;
   border-top: 0;

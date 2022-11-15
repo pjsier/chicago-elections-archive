@@ -130,12 +130,7 @@ const Geocoder = (props) => {
 
   return (
     <>
-      <div
-        id="geocoder"
-        role="combobox"
-        aria-haspopup="listbox"
-        aria-expanded={state.expanded}
-      >
+      <div id="geocoder">
         <SearchIcon />
         <input
           type="text"
@@ -143,8 +138,15 @@ const Geocoder = (props) => {
           name="search"
           aria-label="Search for an address"
           placeholder="Search for an address"
+          autocomplete="off"
+          role="combobox"
+          aria-haspopup="listbox"
+          aria-expanded={state.expanded}
           aria-autocomplete="list"
           aria-controls="geocoder-results"
+          aria-activedescendant={
+            state.activeIndex >= 0 ? `result-${state.activeIndex}` : ``
+          }
           value={state.search}
           onInput={(e) => setState({ search: e.target.value })}
           onKeyDown={onKeyDown}
@@ -166,17 +168,13 @@ const Geocoder = (props) => {
         class={state.expanded ? `` : `hidden`}
       >
         <For each={state.results}>
-          {/* eslint-disable-next-line solid/reactivity */}
           {(result, idx) => (
             <li
               id={`result-${idx()}`}
               role="option"
               class="result"
               onClick={() => onSelect(result)}
-              // eslint-disable-next-line solid/reactivity
-              {...(state.activeIndex === idx()
-                ? { "aria-selected": true }
-                : {})}
+              aria-selected={state.activeIndex === idx() || null}
             >
               {result.address}
             </li>
