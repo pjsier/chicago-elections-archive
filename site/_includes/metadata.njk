@@ -13,7 +13,7 @@
 <meta property="og:description" content="{{ description or page.description or site.description }}" />
 <meta property="og:type" content="{{ site.type }}" />
 <meta property="og:url" content="{{ site.url }}{{ page.url }}" />
-<meta property="og:image" content="https://chicago-elections-archive.us-east-1.linodeobjects.com/chi-elections-social.png" />
+<meta property="og:image" content="{{ site.url }}/img/chi-elections-social.png" />
 <meta property="og:image:alt" content="{{ title or page.title or site.title }}" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -24,7 +24,7 @@
 <meta name="twitter:creator" content="{{ site.twitterAuthor }}" />
 {% endif %}
 <meta name="twitter:description" content="{{ description or page.description or site.description }}" />
-<meta name="twitter:image:src" content="https://chicago-elections-archive.us-east-1.linodeobjects.com/chi-elections-social.png" />
+<meta name="twitter:image:src" content="{{ site.url }}/img/chi-elections-social.png" />
 <meta name="twitter:image:alt" content="{{ title or page.title or site.title }}" />
 
 <link rel="icon" type="image/png" sizes="16x16" href="{{ site.url }}{% resizeImage './src/img/icon.png', '16x16' %}" />
