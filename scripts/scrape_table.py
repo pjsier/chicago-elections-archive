@@ -42,11 +42,14 @@ def get_row_values(row, ward, candidates):
     }
 
 
-if __name__ == "__main__":
+def main():
     with open(sys.argv[1], "rb") as f:
         soup = BeautifulSoup(f.read(), features="lxml")
 
     body_text = re.sub(r"\s+", " ", soup.find("body").getText()).lower()
+    if "no total candidate found" in body_text:
+        return
+
     if "an error occurred" in body_text:
         raise ValueError("Incomplete results due to error")
 
@@ -60,3 +63,7 @@ if __name__ == "__main__":
     writer.writeheader()
     for table in soup.find_all("table")[1:]:
         writer.writerows(process_table(table, candidates))
+
+
+if __name__ == "__main__":
+    main()
