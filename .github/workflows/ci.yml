@@ -1,5 +1,8 @@
 name: CICD
 
+env:
+  SITE_HOST: https://chicagoelectionsarchive.org
+
 on:
   pull_request:
     types: [opened, synchronize]
