@@ -1,1 +1,1 @@
-<%= htmlWebpackPlugin.files.js.map((js) => `<script type="text/javascript" src="${js}" nomodule></script>`).join('') %>
+<%= htmlWebpackPlugin.files.js.map((js) => `<script type="text/javascript" src="${js}" defer nomodule></script>`).join('') %>

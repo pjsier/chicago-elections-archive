@@ -44,7 +44,6 @@ sections = [
   "FIRSTPARTY",
   "LOCALFOLDER",
 ]
-known_first_party = ["scrapy_wayback_middleware"]
 skip_glob = [
   "*/.venv/*",
   "*/.pytest_cache/*",
