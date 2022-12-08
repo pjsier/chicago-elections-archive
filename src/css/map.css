@@ -134,7 +134,7 @@ main.map + footer {
 }
 
 #geocoder-results .result {
-  @apply bg-white cursor-pointer max-w-full overflow-hidden px-2 py-3 whitespace-no-wrap;
+  @apply bg-white cursor-pointer max-w-full overflow-hidden px-2 py-3 whitespace-nowrap;
 
   text-overflow: ellipsis;
   border: solid 1px #d5d5d5;
@@ -236,7 +236,7 @@ main.map + footer {
 }
 
 #geocoder-clear.hidden {
-  @apply hidden;
+  display: none;
 }
 
 #geocoder-search {
