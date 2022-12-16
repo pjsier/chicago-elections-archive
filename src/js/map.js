@@ -25,12 +25,16 @@ function parseMapMetadata() {
   const embedElection = document.head.querySelector(
     `meta[name="embed-election"]`
   )?.content
+  const embedAttribution = !!document.head.querySelector(
+    `meta[name="embed-attribution"]`
+  )
   return {
     elections,
     electionOptions,
     azureMapsKey,
     dataDomain,
     embedElection,
+    embedAttribution,
     ...metadata,
   }
 }
