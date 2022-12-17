@@ -2,6 +2,8 @@
 
 Explore precinct-level results from recent and historical Chicago elections.
 
+![Screenshot of northeast Illinois presidential results](./src/img/chi-elections-social.png "Screenshot of 2019 Chicago mayoral general election results")
+
 ## Setup
 
 ```shell
