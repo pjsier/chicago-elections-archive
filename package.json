@@ -35,7 +35,7 @@
     "@rollup/plugin-terser": "^0.2.0",
     "autoprefixer": "^10.4.13",
     "babel-loader": "^9.1.0",
-    "babel-preset-solid": "^1.6.3",
+    "babel-preset-solid": "^1.6.7",
     "core-js": "^3.26.1",
     "cssnano": "^5.1.12",
     "dotenv": "^16.0.3",
