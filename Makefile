@@ -25,12 +25,32 @@ deploy:
 		--add-header 'Content-Encoding: gzip' \
 		--add-header 'Cache-Control: "public, max-age=0, must-revalidate"'
 
+.PHONY: deploy-results-%
+deploy-results-%:
+	s3cmd sync ./deploy-output/results/$*/* s3://$(S3_BUCKET)/results/$*/ \
+		--region=$(S3_REGION) \
+		--host=$(S3_REGION).linodeobjects.com \
+		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
+		--progress \
+		--no-preserve \
+		--acl-public \
+		--no-mime-magic \
+		--guess-mime-type \
+		--add-header 'Content-Encoding: gzip' \
+		--add-header 'Cache-Control: "public, max-age=0, must-revalidate"'
+
 # GZIP-compress output before it's synced with s3cmd
 .PHONY: build-output
 build-output:
 	mkdir -p deploy-output
 	cp -r output/* deploy-output
 	find deploy-output -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
+
+.PHONY: build-output-results-%
+build-output-results-%:
+	mkdir -p deploy-output/results/$*
+	cp -r output/results/$*/* deploy-output/results/$*
+	find deploy-output/results/$* -type f -exec gzip -9 {} \; -exec mv {}.gz {} \;
 
 .PHONY: deploy-tiles
 deploy-tiles:
