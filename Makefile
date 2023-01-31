@@ -1,7 +1,7 @@
 S3_BUCKET = chicago-elections-archive
 S3_REGION = us-east-1
 
-PRECINCT_YEARS := 1983 2000 2003 2004 2007 2008 2010 2011 2012 2015 2019 2021 2022
+PRECINCT_YEARS := 1983 2000 2003 2004 2007 2008 2010 2011 2012 2015 2019 2021 2022 2023
 ELECTION_IDS := $(shell cat input/results-metadata.json | jq -r 'keys[]')
 IGNORE_RESULTS := output/results/7/334.csv output/results/7/335.csv output/results/80/250.csv output/results/80/255.csv output/results/80/253.csv output/results/80/261.csv output/results/80/266.csv 
 RESULTS := $(filter-out $(IGNORE_RESULTS),$(foreach id,$(ELECTION_IDS),$(foreach result,$(shell cat input/results-metadata.json | jq -r '."$(id)".races|keys[]'),output/results/$(id)/$(result).csv)))
@@ -55,6 +55,20 @@ build-output-results-%:
 .PHONY: deploy-tiles
 deploy-tiles:
 	s3cmd sync ./tiles/ s3://$(S3_BUCKET)/tiles/ \
+		--region=$(S3_REGION) \
+		--host=$(S3_REGION).linodeobjects.com \
+		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
+		--progress \
+		--no-preserve \
+		--acl-public \
+		--no-mime-magic \
+		--guess-mime-type \
+		--add-header 'Content-Encoding: gzip' \
+		--add-header 'Cache-Control: "public, max-age=86400"'
+
+.PHONY: deploy-tiles-%
+deploy-tiles-%:
+	s3cmd sync ./tiles/precincts-$*/ s3://$(S3_BUCKET)/tiles/precincts-$*/ \
 		--region=$(S3_REGION) \
 		--host=$(S3_REGION).linodeobjects.com \
 		--host-bucket="%(bucket)s.$(S3_REGION).linodeobjects.com" \
