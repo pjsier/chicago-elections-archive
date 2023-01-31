@@ -86,6 +86,13 @@ output/%.mbtiles: output/%.geojson
 		--force \
 		-L precincts:$< -o $@
 
+output/precincts-2023.geojson: input/raw-precincts-2023.geojson
+	mapshaper -i $< \
+	-simplify 10% \
+	-rename-fields id=Ward_Prec \
+	-filter-fields id \
+	-o $@
+
 output/precincts-2022.geojson: input/raw-precincts-2022.geojson
 	mapshaper -i $< \
 	-simplify 10% \
