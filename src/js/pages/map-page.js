@@ -138,6 +138,19 @@ const MapPage = (props) => {
               Incomplete unofficial results as of X
             </p>
           </Show>
+          <Show when={props.embedElection && [].includes(state.election)}>
+            <p class="embed-attribution">
+              Created by Pat Sier for the{" "}
+              <a
+                href="https://southsideweekly.com/"
+                target="_blank"
+                rel="noopener"
+              >
+                {/* TODO: Change URL */}
+                South Side Weekly
+              </a>
+            </p>
+          </Show>
           <Show when={props.embedAttribution}>
             <a
               class="embed-attribution"

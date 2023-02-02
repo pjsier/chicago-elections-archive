@@ -434,6 +434,10 @@ main.map + footer {
   @apply hidden pt-2 text-sm;
 }
 
+p.embed-attribution {
+  @apply italic;
+}
+
 .embedded .embed-attribution {
   @apply block;
 }
