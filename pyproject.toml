@@ -10,7 +10,7 @@ python = "^3.9"
 beautifulsoup4 = "^4.11.1"
 requests = "^2.28.1"
 csvkit = "^1.0.7"
-esridump = "^1.11.0"
+esridump = "^1.13.0"
 
 [tool.poetry.dev-dependencies]
 black = "^22.10.0"
