@@ -39,7 +39,7 @@
     "core-js": "^3.26.1",
     "cssnano": "^5.1.12",
     "dotenv": "^16.0.3",
-    "eslint": "^8.18.0",
+    "eslint": "^8.34.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-solid": "^0.9.1",
     "esm": "^3.2.25",
