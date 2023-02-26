@@ -436,6 +436,8 @@ main.map + footer {
 
 p.embed-attribution {
   @apply italic;
+
+  line-height: 1.1;
 }
 
 .embedded .embed-attribution {

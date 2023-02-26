@@ -146,8 +146,15 @@ const MapPage = (props) => {
                 target="_blank"
                 rel="noopener"
               >
-                {/* TODO: Change URL */}
                 South Side Weekly
+              </a>
+              , more info{" "}
+              <a
+                href="https://chicagoelectionsarchive.org/about/"
+                target="_blank"
+                rel="noopener"
+              >
+                about the data
               </a>
             </p>
           </Show>
