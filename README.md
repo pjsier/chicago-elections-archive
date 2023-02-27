@@ -18,7 +18,7 @@ To update data, modify the `ELECTIONS` variable in `scripts/scrape_results_metad
 
 Once this is done, `make build-output` can be run to GZIP all files in a separate directory that can be deployed to cloud storage with `make deploy`.
 
-To update the displayed elections on the site, update `electionOrder` in `site/_data/site.js`.
+To update the displayed elections on the site, update `ELECTION_ORDER` in `site/_data/site.js`.
 
 ## Data Notes
 
