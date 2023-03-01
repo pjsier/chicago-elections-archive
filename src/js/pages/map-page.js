@@ -13,7 +13,7 @@ import { getPrecinctYear } from "../utils/data"
 const EMBED_MOBILE_CUTOFF = 500
 const MOBILE_CUTOFF = 800
 
-const UNOFFICIAL_RESULTS = []
+const UNOFFICIAL_RESULTS = ["241"]
 
 const MapPage = (props) => {
   const [state, setState] = createStore({
@@ -135,7 +135,7 @@ const MapPage = (props) => {
           />
           <Show when={UNOFFICIAL_RESULTS.includes(state.election)}>
             <p class="unofficial-notice">
-              Incomplete unofficial results as of X
+              Incomplete unofficial results as of Feb. 28, 11pm
             </p>
           </Show>
           <Show when={props.embedElection && [].includes(state.election)}>

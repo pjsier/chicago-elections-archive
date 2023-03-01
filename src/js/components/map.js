@@ -17,13 +17,27 @@ const filterExpression = (data) => [
   ["literal", data.map(({ id }) => id)],
 ]
 
-const aggregateElection = (data) => {
+const aggregateElection = (data, election, race) => {
   const dataCols = Object.keys(data[0] || {}).filter(
     (row) =>
       row.includes("Percent") ||
       ["turnout", "registered", "ballots"].includes(row)
   )
-  const candidateNames = dataCols.map((c) => c.replace(" Percent", ""))
+  // TODO: Fix this, hacky override to make display less weird for 2023 mayor
+  const candidateNames =
+    election === "241" && race === "11"
+      ? [
+          "PAUL VALLAS",
+          "BRANDON JOHNSON",
+          "LORI E. LIGHTFOOT",
+          'JESUS "CHUY" GARCIA',
+          "WILLIE L. WILSON",
+          "JA'MAL GREEN",
+          "KAM BUCKNER",
+          "SOPHIA KING",
+          "RODERICK T. SAWYER",
+        ]
+      : dataCols.map((c) => c.replace(" Percent", ""))
 
   const aggBase = {
     total: 0,
@@ -58,7 +72,7 @@ const aggregateElection = (data) => {
   return { candidates, candidateColors, electionResults }
 }
 
-const createPrecinctLayerDefinition = (data, election, year) => ({
+const createPrecinctLayerDefinition = (data, election, race, year) => ({
   layerDefinition: {
     id: "precincts",
     source: `precincts-${getPrecinctYear(election, +year)}`,
@@ -99,7 +113,7 @@ const createPrecinctLayerDefinition = (data, election, year) => ({
       ],
     },
   },
-  legendData: aggregateElection(data),
+  legendData: aggregateElection(data, election, race),
 })
 
 function setFeatureData(map, dataCols, source, feature) {
@@ -109,7 +123,10 @@ function setFeatureData(map, dataCols, source, feature) {
   const featureDataEntries = [...Object.entries(featureData)]
   const featureDataValues = featureDataEntries.map(([, value]) => value)
   const colorValue = Math.max(...featureDataValues)
-  const colorIndex = featureDataValues.indexOf(colorValue)
+  const colorIndex = dataCols.indexOf(
+    featureDataEntries[featureDataValues.indexOf(colorValue)][0]
+  )
+
   map.setFeatureState(
     {
       source,
@@ -181,8 +198,27 @@ const Map = (props) => {
     )
     if (canceled) return
 
-    const def = createPrecinctLayerDefinition(data, props.election, props.year)
-    const dataCols = getDataCols(data[0] || [])
+    const def = createPrecinctLayerDefinition(
+      data,
+      props.election,
+      props.race,
+      props.year
+    )
+    let dataCols = getDataCols(data[0] || [])
+    // TODO: Fix this, hacky override to make display less weird for 2023 mayor
+    if (props.election === "241" && props.race === "11") {
+      dataCols = [
+        "PAUL VALLAS",
+        "BRANDON JOHNSON",
+        "LORI E. LIGHTFOOT",
+        'JESUS "CHUY" GARCIA',
+        "WILLIE L. WILSON",
+        "JA'MAL GREEN",
+        "KAM BUCKNER",
+        "SOPHIA KING",
+        "RODERICK T. SAWYER",
+      ].map((c) => `${c} Percent`)
+    }
 
     setMapStore({ ...def.legendData })
     // Close popup on layer change

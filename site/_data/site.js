@@ -8,6 +8,7 @@ const host = production ? process.env.SITE_HOST : "http://0.0.0.0:8080"
 const baseurl = production ? "" : ""
 
 const ELECTION_ORDER = [
+  "241",
   "156",
   "252",
   "253",
@@ -104,7 +105,7 @@ module.exports = {
   azureMapsKey: process.env.AZURE_MAPS_KEY,
   precinctYears: [
     1983, 2000, 2003, 2004, 2007, 2008, 2010, 2011, 2012, 2015, 2019, 2021,
-    2022,
+    2022, 2023,
   ],
   electionMetadata: {
     elections,
