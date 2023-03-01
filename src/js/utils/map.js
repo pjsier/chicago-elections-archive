@@ -24,6 +24,9 @@ const COLOR_OVERRIDES = {
   "Pat Quinn": "#1f77b4",
   "Bill Brady": "#d62728",
   "Alexander ''Alexi'' Giannoulias": "#1f77b4",
+  "DESMON C. YANCY": "#ff7f0e",
+  "ROBERT PALMER": "#7f7f7f",
+  "RENITA Q. WARD": "#17becf",
 }
 
 export const getColor = (candidate, index) =>
