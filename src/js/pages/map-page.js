@@ -138,11 +138,11 @@ const MapPage = (props) => {
               Unofficial results as of Feb. 28, 11pm, 1277 of 1291 precincts
             </p>
           </Show>
-          <Show when={props.embedElection && [].includes(state.election)}>
+          <Show when={props.embedElection}>
             <p class="embed-attribution">
               Created by Pat Sier for the{" "}
               <a
-                href="https://southsideweekly.com/"
+                href="https://southsideweekly.com/2023-municipal-election-results/"
                 target="_blank"
                 rel="noopener"
               >
