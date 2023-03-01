@@ -435,7 +435,7 @@ main.map + footer {
 }
 
 p.embed-attribution {
-  @apply italic;
+  @apply italic text-xs;
 
   line-height: 1.1;
 }
