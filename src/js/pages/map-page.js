@@ -135,7 +135,7 @@ const MapPage = (props) => {
           />
           <Show when={UNOFFICIAL_RESULTS.includes(state.election)}>
             <p class="unofficial-notice">
-              Unofficial results as of Feb. 28, 11pm, 1277 of 1291 precincts
+              Unofficial results as of Mar. 1, 3:29pm
             </p>
           </Show>
           <Show when={props.embedElection}>
