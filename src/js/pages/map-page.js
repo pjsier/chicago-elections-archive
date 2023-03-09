@@ -135,7 +135,7 @@ const MapPage = (props) => {
           />
           <Show when={UNOFFICIAL_RESULTS.includes(state.election)}>
             <p class="unofficial-notice">
-              Unofficial results as of Mar. 6, 5:11pm
+              Unofficial results as of Mar. 8, 3:40pm
             </p>
           </Show>
           <Show when={props.embedElection}>
