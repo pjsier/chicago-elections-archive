@@ -13,7 +13,7 @@ import { getPrecinctYear } from "../utils/data"
 const EMBED_MOBILE_CUTOFF = 500
 const MOBILE_CUTOFF = 800
 
-const UNOFFICIAL_RESULTS = ["241"]
+const UNOFFICIAL_RESULTS = []
 
 const MapPage = (props) => {
   const [state, setState] = createStore({
