@@ -1,4 +1,27 @@
 {
+  "242": {
+    "year": 2023,
+    "date": "4/3/23",
+    "label": "2023 Municipal Runoff",
+    "races": {
+      "0": "Registered Voters/Ballots/Turnout",
+      "11": "Mayor",
+      "12": "Alderperson 4th Ward",
+      "13": "Alderperson 5th Ward",
+      "14": "Alderperson 6th Ward",
+      "15": "Alderperson 10th Ward",
+      "16": "Alderperson 11th Ward",
+      "17": "Alderperson 21st Ward",
+      "18": "Alderperson 24th Ward",
+      "19": "Alderperson 29th Ward",
+      "20": "Alderperson 30th Ward",
+      "21": "Alderperson 36th Ward",
+      "22": "Alderperson 43rd Ward",
+      "23": "Alderperson 45th Ward",
+      "24": "Alderperson 46th Ward",
+      "25": "Alderperson 48th Ward"
+    }
+  },
   "241": {
     "year": 2023,
     "date": "2/28/2023",
