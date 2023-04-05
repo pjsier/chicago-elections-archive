@@ -8,6 +8,7 @@ const host = production ? process.env.SITE_HOST : "http://0.0.0.0:8080"
 const baseurl = production ? "" : ""
 
 const ELECTION_ORDER = [
+  "242",
   "241",
   "156",
   "252",

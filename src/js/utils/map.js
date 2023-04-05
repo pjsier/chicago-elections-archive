@@ -1,4 +1,4 @@
-export const DEFAULT_ELECTION = "241"
+export const DEFAULT_ELECTION = "242"
 
 export const COLOR_SCHEME = [
   "#1f77b4",
